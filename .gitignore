@@ -75,3 +75,22 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
+
+!**/glob-import/dir/node_modules
+.DS_Store
+.idea
+.pnpm-store
+*.cpuprofile
+*.local
+*.log
+/.vscode/
+/docs/.vitepress/cache
+/packages/vite/LICENSE
+dist
+dist-ssr
+explorations
+node_modules
+playground-temp
+temp
+TODOs.md
+.eslintcache
