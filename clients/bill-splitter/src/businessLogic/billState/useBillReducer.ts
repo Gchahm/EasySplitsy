@@ -10,12 +10,18 @@ export const useBillReducer = () => {
     const [store, dispatch] = React.useReducer(reducer, initialState);
     const [selectedParticipantId, setSelectedParticipantId] = React.useState<string | undefined>()
 
-    const moveItemToParticipant = (itemId: string, participantId: string, quantity: number) => {
-        dispatch({type: ActionType.moveItemToParticipant, payload: {itemId, participantId, quantity}})
+    const moveItemToParticipant = (itemId: string, quantity: number = 1) => {
+        if (!selectedParticipantId) {
+            return;
+        }
+        dispatch({type: ActionType.moveItemToParticipant, payload: {itemId, participantId: selectedParticipantId, quantity}})
     }
 
-    const moveItemToBill = (itemId: string, participantId: string, quantity: number) => {
-        dispatch({type: ActionType.moveItemToBill, payload: {itemId, participantId, quantity}})
+    const moveItemToBill = (itemId: string, quantity: number = 1) => {
+        if (!selectedParticipantId) {
+            return;
+        }
+        dispatch({type: ActionType.moveItemToBill, payload: {itemId, participantId: selectedParticipantId, quantity}})
     }
 
     const setBill = (bill: IBillItem[]) => {
