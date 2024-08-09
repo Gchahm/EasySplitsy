@@ -47,6 +47,11 @@ module.exports = {
                 templateFile: 'component/propsInterface.hbs',
                 path: `${location}/I{{properCase name}}Props.ts`
             },
+            {
+                type: 'add',
+                templateFile: 'component/storybook.hbs',
+                path: `${location}/{{properCase name}}.storybook.ts`
+            },
         ];
     }  // array of actions
 }
