@@ -1,7 +1,9 @@
 import {createTheme} from "@mui/material";
+import {BaseTheme} from "./Base";
 
 export const darkTheme = createTheme(
     {
+        ...BaseTheme,
         components: {
             MuiTable: {
                 styleOverrides: {
