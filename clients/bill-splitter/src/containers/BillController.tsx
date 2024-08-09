@@ -1,7 +1,7 @@
 import {useBillReducer} from "../businessLogic/billState";
 import {IBillItem} from "../interfaces/IBillItem";
 import * as React from "react";
-import {Receipt} from "../components/Bill/Receipt";
+import {Receipt} from "../components/Receipt/Receipt";
 import {IParticipant} from "../interfaces/IParticipant";
 import {Participants} from "../components/Participants/Participants";
 

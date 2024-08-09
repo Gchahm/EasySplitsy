@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Stack} from "@mui/material";
 import {IParticipantsProps} from "./IParticipantsProps";
-import {Persona} from "../Persona/Persona";
+import {Persona} from "../Persona";
 import Container from "@mui/material/Container";
 
 const containerStyle: React.CSSProperties = {

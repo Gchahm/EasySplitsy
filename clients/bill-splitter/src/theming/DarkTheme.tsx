@@ -4,18 +4,23 @@ import {BaseTheme} from "./Base";
 export const darkTheme = createTheme(
     {
         ...BaseTheme,
+        palette: {
+            ...BaseTheme.palette,
+            mode: 'dark',
+            background: {
+                paper: '#242424',
+                default: '#1b1b1b',
+            },
+            divider: '#1b1b1b',
+        },
         components: {
             MuiTable: {
                 styleOverrides: {
                     root: {
-                        padding: '0',
-                        margin: '0',
+                        borderRadius: 12
                     }
                 }
             }
-        },
-        palette: {
-            mode: 'dark',
         },
     }
 );
