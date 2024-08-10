@@ -96,3 +96,6 @@ TODOs.md
 .eslintcache
 
 *.env
+
+**/__pycache__/
+
