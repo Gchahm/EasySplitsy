@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
-import { {{properCase name}} } from '.';
+import { BillTransformer } from '.';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-    title: '{{properCase dir}}/{{properCase name}}',
-    component: {{properCase name}},
+    title: 'Containers/BillTransformer',
+    component: BillTransformer,
     parameters: {
         layout: 'centered',
     },
@@ -13,7 +12,7 @@ const meta = {
     argTypes: {
     },
     args: { },
-} satisfies Meta< typeof {{properCase name}} >;
+} satisfies Meta< typeof BillTransformer >;
 
 export default meta;
 type Story = StoryObj< typeof meta >;
