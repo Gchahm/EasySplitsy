@@ -1,6 +1,6 @@
+import logging
 import os
 import requests
-
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
@@ -41,5 +41,10 @@ def read_receipt(base64_image):
 
     response = requests.post(f"https://models.inference.ai.azure.com/chat/completions", headers=headers, json=payload)
     js = response.json()
-    message_result = js["choices"][0]["message"]["content"] = js["choices"][0]["message"]["content"]
-    return message_result
+    try:
+        message_result = js["choices"][0]["message"]["content"] = js["choices"][0]["message"]["content"]
+        return message_result
+    except Exception as e:
+        logging.info("Error in read_receipt")
+        logging.info(js)
+        raise e
