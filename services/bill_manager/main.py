@@ -8,16 +8,11 @@ from modules.image_converter.openAIConverter import convert_image_to_text
 app = FastAPI()
 
 
-def encode_image(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read())
-
-
 @app.post("/api/bills/")
 async def create_upload_file(file: UploadFile):
-    base64_image = encode_image("bill.jpg")
-    response = convert_image_to_text(base64_image)
-    return response
+    base64_image = base64.b64encode(file.file.read()).decode('utf-8')
+    gpt_conversion = convert_image_to_text(base64_image)
+    return gpt_conversion
 
 
 class SPAStaticFiles(StaticFiles):
