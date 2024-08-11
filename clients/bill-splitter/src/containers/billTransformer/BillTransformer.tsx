@@ -4,7 +4,8 @@ import {IBillTransformerProps} from '.';
 import {FilePicker} from "../../components/filePicker";
 import {createUploadFileApiBillsPost} from "../../client";
 import {BillContext} from "../../businessLogic/billState";
-import {IItem} from "../../interfaces/IItem";
+import {CircularProgress} from "@mui/material";
+import {IBillItem} from "../../interfaces/IBillItem";
 
 
 export const BillTransformer: React.FC<IBillTransformerProps> = () => {
@@ -13,7 +14,7 @@ export const BillTransformer: React.FC<IBillTransformerProps> = () => {
     const handleFileChange = (file: File) => {
         setIsWaiting(true);
         createUploadFileApiBillsPost({body: {file}}).then((response) => {
-            const items: IItem[] = response.data?.items.map((item, id) => {
+            const items: IBillItem[] = response.data?.items.map((item, id) => {
                 return {
                     id: id.toString(),
                     ...item,
@@ -25,7 +26,10 @@ export const BillTransformer: React.FC<IBillTransformerProps> = () => {
 
     return (
         <>
-            {isWaiting && <div>Waiting for file to upload</div>}
+            {isWaiting && <div>
+                Waiting for file to upload
+                <CircularProgress/>
+            </div>}
             {!isWaiting && <FilePicker onFileChange={handleFileChange}/>}
         </>
     );

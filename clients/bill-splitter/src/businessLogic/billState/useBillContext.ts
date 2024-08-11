@@ -6,6 +6,7 @@ import {IItem} from "../../interfaces/IItem";
 import {IParticipant} from "../../interfaces/IParticipant";
 import {isDevMode} from "../utils";
 import {IBillContext} from "./IBillContext";
+import {IBillItem} from "../../interfaces/IBillItem";
 
 export const useBillContext = (): IBillContext => {
     const [store, dispatch] = React.useReducer(reducer, isDevMode ? devInitialState : initialState);
@@ -28,7 +29,7 @@ export const useBillContext = (): IBillContext => {
         dispatch({type: ActionType.moveItemToBill, payload: {itemId, participantId: selectedParticipantId, quantity}})
     }
 
-    const setBill = (bill: IItem[]) => {
+    const setBill = (bill: IBillItem[]) => {
         dispatch({type: ActionType.setBill, payload: {bill}})
     }
 

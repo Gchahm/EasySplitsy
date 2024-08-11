@@ -22,6 +22,8 @@ export const BillController: React.FC = () => {
         reducer.setSelectedParticipantId((id - 1).toString());
     }
 
+    const billTotal = items.reduce((acc, item) => acc + item.price * (bill[item.id] || 0), 0);
+
     return (
         <>
             <AddParticipantForm name={participantName}
@@ -33,6 +35,7 @@ export const BillController: React.FC = () => {
                           onParticipantChange={reducer.setSelectedParticipantId}
             />
             <Receipt items={items}
+                     billTotal={billTotal}
                      selectedParticipant={selectedParticipant}
                      billItems={bill}
                      onItemClick={reducer.moveItemToParticipant}

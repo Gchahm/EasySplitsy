@@ -12,8 +12,7 @@ export const PersonaRoot = styled('div', {
     "padding": '16px 42px 16px 16px',
     borderRadius: theme.shape.borderRadius,
     textAlign: 'center',
-    color: ownerState.isActive ? theme.palette.background.paper : theme.palette.text.primary,
-    backgroundColor: ownerState.isActive ? theme.palette.text.primary : theme.palette.background.paper,
+    backgroundColor: ownerState.isActive ? theme.palette.primary.dark : theme.palette.background.paper,
 }));
 
 export const PersonaTextContainer = styled('div', {

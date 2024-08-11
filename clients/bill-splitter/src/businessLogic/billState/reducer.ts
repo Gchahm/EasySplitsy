@@ -55,9 +55,15 @@ export function reducer(state: IBillStore, action: BillStoreAction): IBillStore 
         }
 
         case ActionType.setBill: {
-            const newBill: Bill = {};
-            action.payload.bill.forEach(item => newBill[item.id] = item);
-            return {...state, items: newBill, isBillLoaded: true};
+            const items: Bill = {};
+            const newBill: Record<string, number> = {};
+            action.payload.bill.forEach(item => {
+                items[item.id] = item
+                newBill[item.id] = item.quantity
+            });
+            return {
+                ...state, items: items, bill: newBill, isBillLoaded: true
+            };
         }
 
         case ActionType.addParticipants: {

@@ -22,7 +22,7 @@ export const FilePicker: React.FC<IFilePickerProps> = (props) => {
             tabIndex={-1}
             startIcon={<CloudUploadIcon/>}
         >
-            Upload files
+            Upload file
             <VisuallyHiddenInput onChange={handleChange} type="file"/>
         </Button>
     );

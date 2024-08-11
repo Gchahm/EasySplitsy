@@ -1,17 +1,22 @@
 import * as React from 'react';
 import {IReceiptProps} from "./IReceiptProps";
-import {Avatar, Chip, Table, TableBody, TableCell, TableHead} from "@mui/material";
+import {IconButton, Table, TableBody, TableCell, TableHead} from "@mui/material";
+import LeftIcon from '@mui/icons-material/ChevronLeft';
+import RightIcon from '@mui/icons-material/ChevronRight';
+import PersonIcon from '@mui/icons-material/Person';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import MultipleStopIcon from '@mui/icons-material/MultipleStop';
 import Container from "@mui/material/Container";
 import {StyledTableHeaderRow, StyledTableRow} from "../StyledMUI";
+import {Currency} from "../currency";
 
 const containerStyle: React.CSSProperties = {
     margin: 2,
+    padding: 0,
+    maxWidth: '90vw'
 }
 
 export const Receipt: React.FC<IReceiptProps> = (props) => {
-    const {selectedParticipant, billItems, items, onItemClick, onParticipantItemClick} = props;
+    const {selectedParticipant, billTotal, billItems, items, onItemClick, onParticipantItemClick} = props;
 
     const selectedParticipantItems = selectedParticipant?.items || {};
 
@@ -20,13 +25,19 @@ export const Receipt: React.FC<IReceiptProps> = (props) => {
             <Table aria-label="simple table">
                 <TableHead>
                     <StyledTableHeaderRow>
+                        <TableCell align="right" colSpan={5}>
+                            Remaining <Currency value={billTotal}/>
+                        </TableCell>
+                    </StyledTableHeaderRow>
+                    <StyledTableHeaderRow>
                         <TableCell>Name</TableCell>
+                        <TableCell>Price</TableCell>
                         <TableCell>
                             <ReceiptIcon/>
                         </TableCell>
                         <TableCell/>
                         <TableCell>
-                            <Avatar>{selectedParticipant?.name[0]}</Avatar>
+                            <PersonIcon/>
                         </TableCell>
                     </StyledTableHeaderRow>
                 </TableHead>
@@ -37,21 +48,26 @@ export const Receipt: React.FC<IReceiptProps> = (props) => {
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
                             <TableCell>
-                                {name} - {price}
+                                {name}
                             </TableCell>
                             <TableCell>
-                                <Chip label={billItems[id] ? billItems[id] : 0}
-                                      onClick={() => onItemClick(id)}/>
+                                <Currency value={price}/>
                             </TableCell>
-
                             <TableCell>
-                                <MultipleStopIcon/>
+                                {billItems[id] ? billItems[id] : 0}
                             </TableCell>
 
                             <TableCell>
-                                <Chip
-                                    label={selectedParticipantItems[id] ? selectedParticipantItems[id] : 0}
-                                    onClick={() => onParticipantItemClick(id)}/>
+                                <IconButton color="primary" onClick={() => onParticipantItemClick(id)}>
+                                    <LeftIcon/>
+                                </IconButton>
+                                <IconButton color="primary" onClick={() => onItemClick(id)}>
+                                    <RightIcon/>
+                                </IconButton>
+                            </TableCell>
+
+                            <TableCell>
+                                {selectedParticipantItems[id] ? selectedParticipantItems[id] : 0}
                             </TableCell>
                         </StyledTableRow>
                     ))}

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IAddParticipantFormProps } from '.';
-import {Button, TextField} from "@mui/material";
+import {Button, Stack, TextField} from "@mui/material";
 
 export const AddParticipantForm: React.FC< IAddParticipantFormProps > = (props) => {
 
@@ -13,9 +13,9 @@ export const AddParticipantForm: React.FC< IAddParticipantFormProps > = (props) 
     }
 
   return (
-    <>
-        <TextField value={name} onChange={handleParticipantChange}/>
-        <Button variant="contained" onClick={onAddParticipant}>All</Button>
-    </>
+    <Stack direction="row" alignContent="center" justifyContent="center" spacing={2}>
+        <TextField placeholder="participant name" value={name} onChange={handleParticipantChange}/>
+        <Button variant="contained" onClick={onAddParticipant}>add</Button>
+    </Stack>
   );
 };
