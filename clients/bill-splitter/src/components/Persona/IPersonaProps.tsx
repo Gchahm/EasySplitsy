@@ -1,5 +1,6 @@
-export interface IPersonaProps {
-    name: string;
-    isActive?: boolean;
-    onClick?: () => void;
+import { IParticipant } from "../../interfaces/IParticipant";
+
+export interface IPersonaProps extends IParticipant {
+  isActive?: boolean;
+  onClick?: () => void;
 }

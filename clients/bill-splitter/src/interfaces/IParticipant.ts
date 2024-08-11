@@ -1,8 +1,10 @@
-import {IBillItem} from "./IBillItem";
 
-export interface IParticipant {
+export interface IPerson {
     id: string;
     name: string;
-    items?: IBillItem[];
 }
-
+export interface IParticipant extends IPerson {
+  total: number;
+  color: string;
+  items: Record<string, number>;
+}

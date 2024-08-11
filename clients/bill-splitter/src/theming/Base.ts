@@ -1,8 +1,7 @@
-import {ThemeOptions} from "@mui/material";
-
+import { ThemeOptions } from "@mui/material";
 
 export const BaseTheme: ThemeOptions = {
-    shape: {
-        borderRadius: 12,
-    },
-}
+  shape: {
+    borderRadius: 12,
+  },
+};

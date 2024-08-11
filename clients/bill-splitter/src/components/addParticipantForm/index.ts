@@ -1,2 +1,2 @@
-export { AddParticipantForm } from './AddParticipantForm';
-export type { IAddParticipantFormProps } from './IAddParticipantFormProps';
+export { AddParticipantForm } from "./AddParticipantForm";
+export type { IAddParticipantFormProps } from "./IAddParticipantFormProps";

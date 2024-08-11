@@ -1,2 +1,1 @@
-export interface IBillTransformerProps {
-}
+export interface IBillTransformerProps {}

@@ -71,9 +71,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "file"
-        ],
+        "required": ["file"],
         "title": "Body_create_upload_file_api_bills__post"
       },
       "HTTPValidationError": {
@@ -100,9 +98,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items"
-        ],
+        "required": ["items"],
         "title": "Receipt"
       },
       "ReceiptItem": {
@@ -125,12 +121,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "name",
-          "price",
-          "quantity",
-          "total"
-        ],
+        "required": ["name", "price", "quantity", "total"],
         "title": "ReceiptItem"
       },
       "ValidationError": {
@@ -159,11 +150,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
+        "required": ["loc", "msg", "type"],
         "title": "ValidationError"
       }
     }

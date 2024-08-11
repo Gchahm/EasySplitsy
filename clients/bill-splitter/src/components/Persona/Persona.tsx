@@ -1,15 +1,19 @@
-import Avatar from "@mui/material/Avatar";
 import React from "react";
-import {IPersonaProps} from ".";
-import {PersonaRoot} from "./PersonaRoot";
+import { IPersonaProps } from ".";
+import { Chip } from "@mui/material";
+import { ParticipantAvatar } from "../StyledMUI/ParticipantAvatar";
 
-export const Persona = React.forwardRef<HTMLDivElement, IPersonaProps>(function Persona(props, ref) {
-    const {name, onClick} = props;
+export const Persona: React.FC<IPersonaProps> = (props) => {
+  const { isActive, onClick, ...participantProps } = props;
 
-    return (
-        <PersonaRoot ref={ref} ownerState={props} onClick={onClick}>
-            <Avatar alt={name}>{name[0]}</Avatar>
-            {name}
-        </PersonaRoot>
-    );
-});
+  return (
+    <Chip
+      avatar={<ParticipantAvatar {...participantProps} />}
+      label={participantProps.name}
+      onClick={onClick}
+      variant={isActive ? "filled" : "outlined"}
+      color={isActive ? "primary" : "default"}
+      onDelete={onClick}
+    />
+  );
+};

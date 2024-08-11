@@ -50,7 +50,7 @@ module.exports = {
             {
                 type: 'add',
                 templateFile: 'component/storybook.hbs',
-                path: `${location}/{{properCase name}}.storybook.ts`
+                path: `${location}/{{properCase name}}.stories.ts`
             },
         ];
     }  // array of actions
