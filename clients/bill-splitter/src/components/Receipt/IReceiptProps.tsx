@@ -1,11 +1,10 @@
-import {IBillItem} from "../../interfaces/IBillItem";
-import * as React from 'react';
-
+import {IItem} from "../../interfaces/IItem";
+import {IParticipant} from "../../interfaces/IParticipant";
 
 export interface IReceiptProps {
-
-    title: React.ReactNode;
-    items: IBillItem[];
-
+    items: IItem[];
+    billItems: Record<string, number>;
+    selectedParticipant?: IParticipant;
     onItemClick: (itemId: string) => void;
+    onParticipantItemClick: (itemId: string) => void;
 }

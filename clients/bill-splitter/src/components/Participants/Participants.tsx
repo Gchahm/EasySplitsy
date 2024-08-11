@@ -16,7 +16,9 @@ export const Participants: React.FC<IParticipantsProps> = (props) => {
         <Container sx={containerStyle}>
             <Stack direction="row" spacing={2}>
                 {participants.map((participant) => (
-                    <Persona name={participant.name} isActive={participant.id === selectedParticipant?.id}
+                    <Persona name={participant.name}
+                             subText={`Total: ${participant.total}`}
+                             isActive={participant.id === selectedParticipant?.id}
                              key={participant.id}
                              onClick={() => onParticipantChange(participant.id)}/>))}
             </Stack>

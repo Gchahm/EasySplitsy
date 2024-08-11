@@ -1,38 +1,39 @@
-import {IBillItem} from "../../interfaces/IBillItem";
+import {IItem} from "../../interfaces/IItem";
 import {IParticipant} from "../../interfaces/IParticipant";
 
-export type Bill = Record<string, IBillItem>;
+export type Bill = Record<string, IItem>;
 
 export interface IBillStore {
     isBillLoaded?: boolean;
-    bill: Bill;
+    items: Record<string, IItem>;
+    bill: Record<string, number>;
     participants: Record<string, IParticipant>;
-    participantsItems: Record<string, Bill>;
 }
 
 
 export const initialState: IBillStore = {
     bill: {},
-    participants: {},
-    participantsItems: {}
+    items: {},
+    participants: {}
 }
 
 export const devInitialState: IBillStore = {
     isBillLoaded: true,
-    bill: {
+    items: {
         "1": {
             id: "1",
             name: "Item 1",
             price: 10,
-            quantity: 1
         },
         "2": {
             id: "2",
             name: "Item 2",
             price: 20,
-            quantity: 2
         }
     },
+    bill: {
+        "1": 3,
+        "2": 2
+    },
     participants: {},
-    participantsItems: {}
 }

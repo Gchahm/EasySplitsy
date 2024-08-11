@@ -1,4 +1,4 @@
-import {IBillItem} from "../../interfaces/IBillItem";
+import {IItem} from "../../interfaces/IItem";
 import {IParticipant} from "../../interfaces/IParticipant";
 
 export enum ActionType {
@@ -21,7 +21,7 @@ interface IMoveItemPayload {
 }
 
 interface ISetBillPayload {
-    bill: IBillItem[];
+    bill: IItem[];
 }
 
 interface IAddParticipantsPayload {

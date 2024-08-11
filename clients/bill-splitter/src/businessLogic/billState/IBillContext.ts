@@ -1,14 +1,15 @@
-import {IBillItem} from "../../interfaces/IBillItem";
+import {IItem} from "../../interfaces/IItem";
 import {IParticipant} from "../../interfaces/IParticipant";
 
 export interface IBillContext {
     isBillLoaded?: boolean,
-    billItems: IBillItem[],
+    items: IItem[],
+    bill: Record<string, number>,
     participants: IParticipant[],
     selectedParticipant: IParticipant | undefined,
     moveItemToParticipant: (itemId: string, quantity?: number) => void,
     moveItemToBill: (itemId: string, quantity?: number) => void,
-    setBill: (bill: IBillItem[]) => void,
+    setBill: (bill: IItem[]) => void,
     addParticipants: (participants: IParticipant[]) => void,
     setSelectedParticipantId: (participantId: string) => void
 }

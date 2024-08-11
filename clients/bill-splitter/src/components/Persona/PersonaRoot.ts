@@ -2,7 +2,7 @@ import {styled} from "@mui/material";
 import {IPersonaProps} from "./IPersonaProps";
 
 export const PersonaRoot = styled('div', {
-    name: 'Persona',
+    name: 'MuiSPersona',
     slot: 'root',
 })<{ ownerState: IPersonaProps }>(({theme, ownerState}) => ({
     ...theme.typography.body1,
@@ -14,4 +14,27 @@ export const PersonaRoot = styled('div', {
     textAlign: 'center',
     color: ownerState.isActive ? theme.palette.background.paper : theme.palette.text.primary,
     backgroundColor: ownerState.isActive ? theme.palette.text.primary : theme.palette.background.paper,
+}));
+
+export const PersonaTextContainer = styled('div', {
+    name: 'MuiSPersonaTextContainer',
+    slot: 'textContainer',
+})({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+});
+
+export const PersonaName = styled('div', {
+    name: 'MuiSPersonaName',
+    slot: 'name',
+})(({ theme }) => ({
+    ...theme.typography.body1,
+}));
+
+export const PersonaSubText = styled('div', {
+    name: 'MuiSPersonaCaption',
+    slot: 'caption',
+})(({ theme }) => ({
+    ...theme.typography.caption,
 }));

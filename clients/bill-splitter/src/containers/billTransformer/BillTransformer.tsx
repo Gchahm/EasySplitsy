@@ -4,7 +4,7 @@ import {IBillTransformerProps} from '.';
 import {FilePicker} from "../../components/filePicker";
 import {createUploadFileApiBillsPost} from "../../client";
 import {BillContext} from "../../businessLogic/billState";
-import {IBillItem} from "../../interfaces/IBillItem";
+import {IItem} from "../../interfaces/IItem";
 
 
 export const BillTransformer: React.FC<IBillTransformerProps> = () => {
@@ -13,7 +13,7 @@ export const BillTransformer: React.FC<IBillTransformerProps> = () => {
     const handleFileChange = (file: File) => {
         setIsWaiting(true);
         createUploadFileApiBillsPost({body: {file}}).then((response) => {
-            const items: IBillItem[] = response.data?.items.map((item, id) => {
+            const items: IItem[] = response.data?.items.map((item, id) => {
                 return {
                     id: id.toString(),
                     ...item,

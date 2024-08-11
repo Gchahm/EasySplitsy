@@ -3,7 +3,7 @@ import {IBillContext} from "./IBillContext";
 
 export const BillContext = React.createContext<IBillContext>({
     isBillLoaded: false,
-    billItems: [],
+    items: [],
     participants: [],
     selectedParticipant: undefined,
     moveItemToParticipant: () => {

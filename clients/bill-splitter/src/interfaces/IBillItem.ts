@@ -1,7 +1,6 @@
+import {IItem} from "./IItem";
 
-export interface IBillItem {
-    id: string;
-    name: string;
+export interface IBillItem extends IItem {
     quantity: number;
-    price: number;
+
 }

@@ -2,11 +2,12 @@ import * as React from "react";
 import {reducer} from "./reducer";
 import {devInitialState, initialState} from "./store";
 import {ActionType} from "./actions";
-import {IBillItem} from "../../interfaces/IBillItem";
+import {IItem} from "../../interfaces/IItem";
 import {IParticipant} from "../../interfaces/IParticipant";
 import {isDevMode} from "../utils";
+import {IBillContext} from "./IBillContext";
 
-export const useBillContext = () => {
+export const useBillContext = (): IBillContext => {
     const [store, dispatch] = React.useReducer(reducer, isDevMode ? devInitialState : initialState);
     const [selectedParticipantId, setSelectedParticipantId] = React.useState<string | undefined>()
 
@@ -27,7 +28,7 @@ export const useBillContext = () => {
         dispatch({type: ActionType.moveItemToBill, payload: {itemId, participantId: selectedParticipantId, quantity}})
     }
 
-    const setBill = (bill: IBillItem[]) => {
+    const setBill = (bill: IItem[]) => {
         dispatch({type: ActionType.setBill, payload: {bill}})
     }
 
@@ -35,18 +36,16 @@ export const useBillContext = () => {
         dispatch({type: ActionType.addParticipants, payload: {participants}})
     }
 
-    const billItems: IBillItem[] = Object.values(store.bill);
+    const items: IItem[] = Object.values(store.items);
     const participants: IParticipant[] = Object.values(store.participants);
-    const selectedParticipant = selectedParticipantId ? {
-        ...store.participants[selectedParticipantId],
-        items: Object.values(store.participantsItems[selectedParticipantId] || {})
-    } : undefined;
+    const selectedParticipant = selectedParticipantId ? store.participants[selectedParticipantId] : undefined;
 
-    const {isBillLoaded} = store;
+    const {isBillLoaded, bill} = store;
 
     return {
         isBillLoaded,
-        billItems,
+        items,
+        bill,
         participants,
         selectedParticipant,
         moveItemToParticipant,
