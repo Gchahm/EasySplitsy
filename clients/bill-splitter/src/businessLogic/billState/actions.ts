@@ -14,7 +14,7 @@ interface IBillStoreAction<T, P> {
     payload: P
 }
 
-interface IMoveItemToFromParticipantPayload {
+interface IMoveItemPayload {
     itemId: string;
     participantId: string;
     quantity: number;
@@ -28,7 +28,7 @@ interface IAddParticipantsPayload {
     participants: IParticipant[];
 }
 
-export type BillStoreAction = IBillStoreAction<ActionType.moveItemToParticipant, IMoveItemToFromParticipantPayload> |
-    IBillStoreAction<ActionType.moveItemToBill, IMoveItemToFromParticipantPayload> |
+export type BillStoreAction = IBillStoreAction<ActionType.moveItemToParticipant, IMoveItemPayload> |
+    IBillStoreAction<ActionType.moveItemToBill, IMoveItemPayload> |
     IBillStoreAction<ActionType.setBill, ISetBillPayload> |
-    IBillStoreAction<ActionType.addParticipants, IAddParticipantsPayload>
+    IBillStoreAction<ActionType.addParticipants, IAddParticipantsPayload>;
