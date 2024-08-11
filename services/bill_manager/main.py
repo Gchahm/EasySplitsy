@@ -1,23 +1,26 @@
-from fastapi import FastAPI, File, UploadFile
-from typing import Annotated
-from fastapi.staticfiles import StaticFiles
 import base64
+import os
 
-from modules.image_converter.openAIConverter import convert_image_to_text
+from fastapi import FastAPI, UploadFile
+from fastapi.staticfiles import StaticFiles
+
+from models.Receipt import Receipt
+from modules.image_converter import open_ai_helper
 
 app = FastAPI()
 
 
-def encode_image(image_path):
-    with open(image_path, "rb") as image_file:
-        return base64.b64encode(image_file.read())
-
-
 @app.post("/api/bills/")
 async def create_upload_file(file: UploadFile):
-    base64_image = encode_image("bill.jpg")
-    response = convert_image_to_text(base64_image)
-    return response
+    base64_image = base64.b64encode(file.file.read()).decode('utf-8')
+    gpt_answer = open_ai_helper.read_receipt(base64_image)
+    return Receipt.from_csv(gpt_answer)
+
+
+@app.get("/api/bills/")
+async def get_receipt():
+    env_test = os.getenv("ENV_TEST")
+    return {"message": env_test}
 
 
 class SPAStaticFiles(StaticFiles):
