@@ -1,5 +1,4 @@
 import base64
-import os
 
 from fastapi import FastAPI, UploadFile
 from fastapi.staticfiles import StaticFiles
