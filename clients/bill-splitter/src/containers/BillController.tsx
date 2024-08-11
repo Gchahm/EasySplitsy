@@ -1,82 +1,34 @@
-import {useBillReducer} from "../businessLogic/billState";
-import {IBillItem} from "../interfaces/IBillItem";
 import * as React from "react";
 import {Receipt} from "../components/Receipt/Receipt";
-import {IParticipant} from "../interfaces/IParticipant";
 import {Participants} from "../components/Participants/Participants";
+import {useContext} from "react";
+import {BillContext, IBillContext} from "../businessLogic/billState";
+import {AddParticipantForm} from "../components/addParticipantForm";
 
-const initialBill: IBillItem[] = [
-    {
-        id: '1',
-        name: 'Frozen yoghurt',
-        value: 159,
-        quantity: 6,
-    },
-    {
-        id: '2',
-        name: 'Ice cream sandwich',
-        value: 237,
-        quantity: 2,
-    },
-    {
-        id: '3',
-        name: 'Eclair',
-        value: 262,
-        quantity: 16,
-    },
-    {
-        id: '4',
-        name: 'Cupcake',
-        value: 305,
-        quantity: 3,
-    },
-    {
-        id: '5',
-        name: 'Gingerbread',
-        value: 356,
-        quantity: 16,
-    },
-];
-
-const initialParticipants: IParticipant[] = [
-    {
-        id: '1',
-        name: 'John',
-    },
-    {
-        id: '2',
-        name: 'Jane',
-    },
-    {
-        id: '3',
-        name: 'Doe',
-    },
-    {
-        id: '4',
-        name: 'Smith',
-    },
-    {
-        id: '5',
-        name: 'Doe',
-    },
-];
-
+let id = 0;
 export const BillController: React.FC = () => {
+    const {participants, selectedParticipant, billItems, ...reducer} = useContext<IBillContext>(BillContext);
 
-    const {billItems, participants, selectedParticipant, ...reducer} = useBillReducer();
+    const [participantName, setParticipantName] = React.useState<string>("");
 
-    React.useEffect(() => {
-        reducer.setBill(initialBill);
-        reducer.addParticipants(initialParticipants);
-        // eslint-disable-next-line
-    }, []);
+    const handleAddParticipant = () => {
+        reducer.addParticipants([{
+            id: (id++).toString(),
+            name: participantName,
+        }]);
+        setParticipantName("");
+        reducer.setSelectedParticipantId((id - 1).toString());
+    }
 
     return (
         <>
+            <AddParticipantForm name={participantName}
+                                onNameChange={setParticipantName}
+                                onAddParticipant={handleAddParticipant}/>
             <Participants selectedParticipant={selectedParticipant} participants={participants}
                           onParticipantChange={reducer.setSelectedParticipantId}/>
             <Receipt items={billItems} title={"full bill"} onItemClick={reducer.moveItemToParticipant}/>
-            {selectedParticipant && selectedParticipant.items.length > 0 &&
+            {selectedParticipant?.items && selectedParticipant.items.length > 0 &&
                 <Receipt items={selectedParticipant.items} title={"full bill"} onItemClick={reducer.moveItemToBill}/>}
         </>
     );

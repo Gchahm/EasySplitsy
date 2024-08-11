@@ -3,8 +3,7 @@ import {IReceiptProps} from "./IReceiptProps";
 import {IconButton, Table, TableBody, TableCell, TableHead} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import Container from "@mui/material/Container";
-import {StyledTableRow} from "../StyledMUI/StyledTableRow";
-import {StyledTableHeaderRow} from "../StyledMUI/StyledTableHeaderRow";
+import {StyledTableHeaderRow, StyledTableRow} from "../StyledMUI";
 
 const containerStyle: React.CSSProperties = {
     margin: 2,
@@ -35,7 +34,7 @@ export const Receipt: React.FC<IReceiptProps> = (props) => {
                                 <TableCell component="th" scope="row">
                                     {item.name}
                                 </TableCell>
-                                <TableCell align="right">{item.value}</TableCell>
+                                <TableCell align="right">{item.price}</TableCell>
                                 <TableCell align="right">
                                     <IconButton aria-label="add" size="small" onClick={() => onItemClick(item.id)}>
                                         <AddIcon/>

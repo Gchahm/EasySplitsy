@@ -1,5 +1,4 @@
 import base64
-import os
 
 from fastapi import FastAPI, UploadFile
 from fastapi.staticfiles import StaticFiles
@@ -11,16 +10,15 @@ app = FastAPI()
 
 
 @app.post("/api/bills/")
-async def create_upload_file(file: UploadFile):
+async def create_upload_file(file: UploadFile) -> Receipt:
     base64_image = base64.b64encode(file.file.read()).decode('utf-8')
     gpt_answer = open_ai_helper.read_receipt(base64_image)
-    return Receipt.from_csv(gpt_answer)
+    return Receipt.from_csv(gpt_answer, delimiter="|")
 
 
 @app.get("/api/bills/")
-async def get_receipt():
-    env_test = os.getenv("ENV_TEST")
-    return {"message": env_test}
+async def get_receipt() -> Receipt:
+    return Receipt.from_csv("1|apple|1.00\n2|banana|2.00\n3|carrot|3.00\n", delimiter="|")
 
 
 class SPAStaticFiles(StaticFiles):
