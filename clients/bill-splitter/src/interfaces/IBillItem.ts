@@ -1,6 +1,5 @@
-import {IItem} from "./IItem";
+import { IItem } from "./IItem";
 
 export interface IBillItem extends IItem {
-    quantity: number;
-
+  quantity: number;
 }

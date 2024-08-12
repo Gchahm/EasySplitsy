@@ -1,4 +1,3 @@
-
 export interface ICurrencyProps {
-    value: number;
+  value: number;
 }

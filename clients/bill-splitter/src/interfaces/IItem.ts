@@ -1,7 +1,5 @@
-
 export interface IItem {
-    id: string;
-    name: string;
-    price: number;
+  id: string;
+  name: string;
+  price: number;
 }
-

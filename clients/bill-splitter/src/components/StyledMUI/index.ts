@@ -1,3 +1,2 @@
-
-export * from './StyledTableRow';
-export * from './StyledTableHeaderRow';
+export * from "./StyledTableRow";
+export * from "./StyledTableHeaderRow";

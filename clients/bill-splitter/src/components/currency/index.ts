@@ -1,2 +1,2 @@
-export { Currency } from './Currency';
-export type { ICurrencyProps } from './ICurrencyProps';
+export { Currency } from "./Currency";
+export type { ICurrencyProps } from "./ICurrencyProps";

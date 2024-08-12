@@ -1,4 +1,3 @@
 export interface IFilePickerProps {
-    onFileChange?: (file: File) => void;
+  onFileChange?: (file: File) => void;
 }
-
