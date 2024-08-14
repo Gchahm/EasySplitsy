@@ -1,10 +1,10 @@
 import * as React from "react";
 import { useContext } from "react";
 import { Receipt } from "../components/Receipt/Receipt";
-import { Participants } from "../components/Participants/Participants";
 import { BillContext, IBillContext } from "../businessLogic/billState";
-import { AddParticipantForm } from "../components/addParticipantForm";
 import { ScreenContainer } from "../components/screenContainer";
+import { MobileContainer } from "../components/StyledMUI/MobileContainer.ts";
+import { ParticipantReceiptHeader } from "../components/participantReceiptHeader";
 
 let id = 0;
 export const BillController: React.FC = () => {
@@ -26,29 +26,64 @@ export const BillController: React.FC = () => {
     reducer.setSelectedParticipantId((id - 1).toString());
   };
 
-  // const billTotal = items.reduce(
-  //   (acc, item) => acc + item.price * (bill[item.id] || 0),
-  //   0,
-  // );
+  const handleLeftClick = () => {
+    if (!selectedParticipant) {
+      reducer.setSelectedParticipantId(
+        participants[participants.length - 1].id,
+      );
+    }
+    const index = participants.indexOf(selectedParticipant);
+    if (index > 0) {
+      reducer.setSelectedParticipantId(participants[index - 1].id);
+    }
+  };
+
+  const handleRightClick = () => {
+    const index = participants.indexOf(selectedParticipant);
+    if (index < participants.length - 1) {
+      reducer.setSelectedParticipantId(participants[index + 1].id);
+    } else {
+      reducer.setSelectedParticipantId(undefined);
+    }
+  };
+
+  const isLeftDisabled =
+    participants.length === 0 ||
+    (selectedParticipant && participants.indexOf(selectedParticipant) === 0);
+
+  const isRightDisabled = !selectedParticipant;
 
   return (
-    <ScreenContainer
-      header={
-        <>
-          <AddParticipantForm
-            name={participantName}
-            onNameChange={setParticipantName}
-            onAddParticipant={handleAddParticipant}
+    <ScreenContainer>
+      <MobileContainer height={"100%"}>
+        <MobileContainer height={"50%"} padding={12}>
+          <Receipt
+            headerContent={
+              <ParticipantReceiptHeader
+                selectedParticipant={selectedParticipant}
+                participantName={participantName}
+                isLeftButtonDisabled={isLeftDisabled}
+                isRightButtonDisabled={isRightDisabled}
+                setParticipantName={setParticipantName}
+                onAddParticipant={handleAddParticipant}
+                onLeftClick={handleLeftClick}
+                onRightClick={handleRightClick}
+              />
+            }
+            items={items}
+            itemCount={selectedParticipant?.items || {}}
+            onItemClicked={reducer.moveItemToBill}
           />
-          <Participants
-            selectedParticipant={selectedParticipant}
-            participants={participants}
-            onParticipantChange={reducer.setSelectedParticipantId}
+        </MobileContainer>
+        <MobileContainer height={"50%"} padding={12}>
+          <Receipt
+            headerContent={"Remaining in receipt"}
+            items={items}
+            itemCount={bill}
+            onItemClicked={reducer.moveItemToParticipant}
           />
-        </>
-      }
-    >
-      <Receipt />
+        </MobileContainer>
+      </MobileContainer>
     </ScreenContainer>
   );
 };

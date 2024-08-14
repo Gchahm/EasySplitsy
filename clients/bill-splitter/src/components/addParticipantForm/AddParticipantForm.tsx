@@ -1,11 +1,14 @@
 import * as React from "react";
 import { IAddParticipantFormProps } from ".";
-import { Button, Stack, TextField } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import { IconButton, InputBase, Stack } from "@mui/material";
 
 export const AddParticipantForm: React.FC<IAddParticipantFormProps> = (
   props,
 ) => {
   const { name, onNameChange, onAddParticipant } = props;
+
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleParticipantChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -15,22 +18,27 @@ export const AddParticipantForm: React.FC<IAddParticipantFormProps> = (
     }
   };
 
+  React.useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <Stack
       direction="row"
       alignContent="center"
       justifyContent="center"
       spacing={2}
-      padding={"12px"}
     >
-      <TextField
+      <InputBase
+        inputRef={inputRef}
+        size={"small"}
         placeholder="participant name"
         value={name}
         onChange={handleParticipantChange}
       />
-      <Button variant="contained" onClick={onAddParticipant}>
-        add
-      </Button>
+      <IconButton size={"small"} onClick={onAddParticipant}>
+        <AddIcon />
+      </IconButton>
     </Stack>
   );
 };

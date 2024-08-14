@@ -22,6 +22,7 @@ export const ScreenContainerContent = styled(Stack, {
   slot: "content",
 })({
   padding: 0,
+  flexGrow: 1,
   overflow: "scroll",
 });
 

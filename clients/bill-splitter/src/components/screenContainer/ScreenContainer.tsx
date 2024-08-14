@@ -8,13 +8,13 @@ import {
 } from "./ScreenContainer.styled";
 
 export const ScreenContainer: React.FC<IScreenContainerProps> = (props) => {
-  const { header, children, footer } = props;
+  const { header, children, footer, height } = props;
 
   return (
-    <ScreenContainerRoot>
-      <ScreenContainerHeader>{header}</ScreenContainerHeader>
-      <ScreenContainerContent>{children}</ScreenContainerContent>
-      <ScreenContainerFooter>{footer}</ScreenContainerFooter>
+    <ScreenContainerRoot height={height} maxHeight={height}>
+      {header && <ScreenContainerHeader>{header}</ScreenContainerHeader>}
+      {children && <ScreenContainerContent>{children}</ScreenContainerContent>}
+      {footer && <ScreenContainerFooter>{footer}</ScreenContainerFooter>}
     </ScreenContainerRoot>
   );
 };
