@@ -2,6 +2,40 @@ import { Bill, IBillStore } from "./store";
 import { ActionType, BillStoreAction } from "./actions";
 import { IParticipant } from "../../interfaces/IParticipant";
 
+import {
+  red,
+  pink,
+  purple,
+  deepPurple,
+  indigo,
+  blue,
+  blueGrey,
+  grey,
+  amber,
+  cyan,
+  brown,
+  deepOrange,
+  orange,
+} from "@mui/material/colors";
+
+const colorNumber = 500;
+
+const colors = [
+  red[colorNumber],
+  pink[colorNumber],
+  purple[colorNumber],
+  deepPurple[colorNumber],
+  indigo[colorNumber],
+  blue[colorNumber],
+  blueGrey[colorNumber],
+  grey[colorNumber],
+  amber[colorNumber],
+  cyan[colorNumber],
+  brown[colorNumber],
+  deepOrange[colorNumber],
+  orange[colorNumber],
+];
+
 export function reducer(
   state: IBillStore,
   action: BillStoreAction,
@@ -77,8 +111,13 @@ export function reducer(
     case ActionType.addParticipants: {
       const newParticipants: Record<string, IParticipant> = {};
       action.payload.participants.forEach(
-        (participant) => (newParticipants[participant.id] = participant),
+        (participant) =>
+          (newParticipants[participant.id] = {
+            ...participant,
+            color: colors.pop() || red[colorNumber],
+          }),
       );
+      console.log(newParticipants);
       return {
         ...state,
         participants: { ...participants, ...newParticipants },

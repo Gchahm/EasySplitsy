@@ -21,6 +21,7 @@ export const AddParticipantForm: React.FC<IAddParticipantFormProps> = (
       alignContent="center"
       justifyContent="center"
       spacing={2}
+      padding={"12px"}
     >
       <TextField
         placeholder="participant name"

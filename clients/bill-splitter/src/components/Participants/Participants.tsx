@@ -3,7 +3,6 @@ import { Stack } from "@mui/material";
 import { IParticipantsProps } from "./IParticipantsProps";
 import { Persona } from "../Persona";
 import Container from "@mui/material/Container";
-import { Currency } from "../currency";
 
 const containerStyle: React.CSSProperties = {
   overflow: "scroll",
@@ -18,11 +17,10 @@ export const Participants: React.FC<IParticipantsProps> = (props) => {
       <Stack direction="row" spacing={2}>
         {participants.map((participant) => (
           <Persona
-            name={participant.name}
-            subText={<Currency value={participant.total} />}
-            isActive={participant.id === selectedParticipant?.id}
             key={participant.id}
+            isActive={participant.id === selectedParticipant?.id}
             onClick={() => onParticipantChange(participant.id)}
+            {...participant}
           />
         ))}
       </Stack>

@@ -4,6 +4,7 @@ import { Receipt } from "../components/Receipt/Receipt";
 import { Participants } from "../components/Participants/Participants";
 import { BillContext, IBillContext } from "../businessLogic/billState";
 import { AddParticipantForm } from "../components/addParticipantForm";
+import { ScreenContainer } from "../components/screenContainer";
 
 let id = 0;
 export const BillController: React.FC = () => {
@@ -25,31 +26,29 @@ export const BillController: React.FC = () => {
     reducer.setSelectedParticipantId((id - 1).toString());
   };
 
-  const billTotal = items.reduce(
-    (acc, item) => acc + item.price * (bill[item.id] || 0),
-    0,
-  );
+  // const billTotal = items.reduce(
+  //   (acc, item) => acc + item.price * (bill[item.id] || 0),
+  //   0,
+  // );
 
   return (
-    <>
-      <AddParticipantForm
-        name={participantName}
-        onNameChange={setParticipantName}
-        onAddParticipant={handleAddParticipant}
-      />
-      <Participants
-        selectedParticipant={selectedParticipant}
-        participants={participants}
-        onParticipantChange={reducer.setSelectedParticipantId}
-      />
-      <Receipt
-        items={items}
-        billTotal={billTotal}
-        selectedParticipant={selectedParticipant}
-        billItems={bill}
-        onItemClick={reducer.moveItemToParticipant}
-        onParticipantItemClick={reducer.moveItemToBill}
-      />
-    </>
+    <ScreenContainer
+      header={
+        <>
+          <AddParticipantForm
+            name={participantName}
+            onNameChange={setParticipantName}
+            onAddParticipant={handleAddParticipant}
+          />
+          <Participants
+            selectedParticipant={selectedParticipant}
+            participants={participants}
+            onParticipantChange={reducer.setSelectedParticipantId}
+          />
+        </>
+      }
+    >
+      <Receipt />
+    </ScreenContainer>
   );
 };

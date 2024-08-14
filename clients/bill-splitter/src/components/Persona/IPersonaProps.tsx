@@ -1,8 +1,6 @@
-import * as React from "react";
+import { IParticipant } from "../../interfaces/IParticipant";
 
-export interface IPersonaProps {
-  name: string;
-  subText?: string | React.ReactNode;
+export interface IPersonaProps extends IParticipant {
   isActive?: boolean;
   onClick?: () => void;
 }

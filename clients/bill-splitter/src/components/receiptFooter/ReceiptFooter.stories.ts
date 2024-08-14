@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ScreenContainer } from ".";
+import { ReceiptFooter } from ".";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Components/ScreenContainer",
-  component: ScreenContainer,
+  title: "Components/ReceiptFooter",
+  component: ReceiptFooter,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: {},
   args: {},
-} satisfies Meta<typeof ScreenContainer>;
+} satisfies Meta<typeof ReceiptFooter>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
