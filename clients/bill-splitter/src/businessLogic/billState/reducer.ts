@@ -117,7 +117,6 @@ export function reducer(
             color: colors.pop() || red[colorNumber],
           }),
       );
-      console.log(newParticipants);
       return {
         ...state,
         participants: { ...participants, ...newParticipants },

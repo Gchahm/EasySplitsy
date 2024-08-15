@@ -1,14 +1,36 @@
 import * as React from "react";
-import { reducer } from "./reducer";
-import { devInitialState, initialState } from "./store";
-import { ActionType } from "./actions";
-import { IItem } from "../../interfaces/IItem";
-import { IParticipant } from "../../interfaces/IParticipant";
-import { isDevMode } from "../utils";
 import { IBillContext } from "./IBillContext";
-import { IBillItem } from "../../interfaces/IBillItem";
+import { reducer } from "./reducer.ts";
+import { isDevMode } from "../utils";
+import { devInitialState, initialState } from "./store.ts";
+import { ActionType } from "./actions.ts";
+import { IBillItem } from "../../interfaces/IBillItem.ts";
+import { IParticipant } from "../../interfaces/IParticipant.ts";
+import { IItem } from "../../interfaces/IItem.ts";
 
-export const useBillContext = (): IBillContext => {
+export const BillContext = React.createContext<IBillContext>({
+  isBillLoaded: false,
+  bill: {},
+  items: [],
+  participants: [],
+  selectedParticipant: undefined,
+  moveItemToParticipant: () => {},
+  moveItemToBill: () => {},
+  setBill: () => {},
+  addParticipants: () => {},
+  setSelectedParticipantId: () => {},
+});
+
+export const BillContextProvider: React.FC = ({ children }) => {
+  const state = useBillContext();
+  return (
+    <BillContext.Provider value={state}>
+      {typeof children === "function" ? children(state) : children}
+    </BillContext.Provider>
+  );
+};
+
+const useBillContext = (): IBillContext => {
   const [store, dispatch] = React.useReducer(
     reducer,
     isDevMode ? devInitialState : initialState,
