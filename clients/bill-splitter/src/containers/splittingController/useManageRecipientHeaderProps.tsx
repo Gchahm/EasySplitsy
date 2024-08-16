@@ -1,26 +1,19 @@
 import { IParticipantReceiptHeaderProps } from "../../components/participantReceiptHeader";
 import * as React from "react";
-import { useContext } from "react";
-import { BillContext, IBillContext } from "../../businessLogic/billState";
+import { useBill } from "../../businessLogic/billProvider";
 
-let id = 0;
 export const useManageRecipientHeaderProps =
   (): IParticipantReceiptHeaderProps => {
-    const { participants, selectedParticipant, ...reducer } =
-      useContext<IBillContext>(BillContext);
+    const { participants, selectedParticipant, ...reducer } = useBill();
     const [participantName, setParticipantName] = React.useState<string>("");
 
     const onAddParticipant = () => {
-      reducer.addParticipants([
+      reducer.addPerson([
         {
-          id: (id++).toString(),
           name: participantName,
-          total: 0,
-          items: {},
         },
       ]);
       setParticipantName("");
-      reducer.setSelectedParticipantId((id - 1).toString());
     };
 
     const onLeftClick = () => {
@@ -28,25 +21,29 @@ export const useManageRecipientHeaderProps =
         reducer.setSelectedParticipantId(
           participants[participants.length - 1].id,
         );
-      }
-      const index = participants.indexOf(selectedParticipant);
-      if (index > 0) {
-        reducer.setSelectedParticipantId(participants[index - 1].id);
+      } else {
+        const index = participants.indexOf(selectedParticipant);
+        if (index > 0) {
+          reducer.setSelectedParticipantId(participants[index - 1].id);
+        }
       }
     };
 
     const onRightClick = () => {
-      const index = participants.indexOf(selectedParticipant);
-      if (index < participants.length - 1) {
-        reducer.setSelectedParticipantId(participants[index + 1].id);
-      } else {
-        reducer.setSelectedParticipantId(undefined);
+      if (selectedParticipant) {
+        const index = participants.indexOf(selectedParticipant);
+        if (index < participants.length - 1) {
+          reducer.setSelectedParticipantId(participants[index + 1].id);
+        } else {
+          reducer.setSelectedParticipantId(undefined);
+        }
       }
     };
 
-    const isLeftButtonDisabled =
+    const isLeftButtonDisabled: boolean =
       participants.length === 0 ||
-      (selectedParticipant && participants.indexOf(selectedParticipant) === 0);
+      (!!selectedParticipant &&
+        participants.indexOf(selectedParticipant) === 0);
 
     const isRightButtonDisabled = !selectedParticipant;
 

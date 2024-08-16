@@ -4,40 +4,21 @@ import { reducer } from "./reducer.ts";
 import { isDevMode } from "../utils";
 import { devInitialState, initialState } from "./store.ts";
 import { ActionType } from "./actions.ts";
-import { IBillItem } from "../../interfaces/IBillItem.ts";
-import { IParticipant } from "../../interfaces/IParticipant.ts";
-import { IItem } from "../../interfaces/IItem.ts";
+import {
+  IBaseFC,
+  IBillItem,
+  IItem,
+  IParticipant,
+  IPerson,
+} from "../../interfaces";
+import { BillContext } from "./BillContext.tsx";
 
-export const BillContext = React.createContext<IBillContext>({
-  isBillLoaded: false,
-  bill: {},
-  items: [],
-  participants: [],
-  selectedParticipant: undefined,
-  moveItemToParticipant: () => {},
-  moveItemToBill: () => {},
-  setBill: () => {},
-  addParticipants: () => {},
-  setSelectedParticipantId: () => {},
-});
-
-export const BillContextProvider: React.FC = ({ children }) => {
-  const state = useBillContext();
-  return (
-    <BillContext.Provider value={state}>
-      {typeof children === "function" ? children(state) : children}
-    </BillContext.Provider>
-  );
-};
-
-const useBillContext = (): IBillContext => {
+export const BillProvider: React.FC<IBaseFC<IBillContext>> = ({ children }) => {
   const [store, dispatch] = React.useReducer(
     reducer,
     isDevMode ? devInitialState : initialState,
   );
-  const [selectedParticipantId, setSelectedParticipantId] = React.useState<
-    string | undefined
-  >();
+  const { isBillLoaded, bill, selectedParticipantId } = store;
 
   const moveItemToParticipant = (itemId: string, quantity: number = 1) => {
     if (!selectedParticipantId) {
@@ -63,8 +44,22 @@ const useBillContext = (): IBillContext => {
     dispatch({ type: ActionType.setBill, payload: { bill } });
   };
 
-  const addParticipants = (participants: IParticipant[]) => {
-    dispatch({ type: ActionType.addParticipants, payload: { participants } });
+  const addPerson = (people: IPerson[]) => {
+    dispatch({
+      type: ActionType.addParticipants,
+      payload: {
+        people,
+      },
+    });
+  };
+
+  const setSelectedParticipantId = (
+    selectedParticipantId: string | undefined,
+  ) => {
+    dispatch({
+      type: ActionType.setSelectedParticipantId,
+      payload: { selectedParticipantId },
+    });
   };
 
   const items: IItem[] = Object.values(store.items);
@@ -73,9 +68,7 @@ const useBillContext = (): IBillContext => {
     ? store.participants[selectedParticipantId]
     : undefined;
 
-  const { isBillLoaded, bill } = store;
-
-  return {
+  const state: IBillContext = {
     isBillLoaded,
     items,
     bill,
@@ -84,7 +77,13 @@ const useBillContext = (): IBillContext => {
     moveItemToParticipant,
     moveItemToBill,
     setBill,
-    addParticipants,
+    addPerson,
     setSelectedParticipantId,
   };
+
+  return (
+    <BillContext.Provider value={state}>
+      {typeof children === "function" ? children(state) : children}
+    </BillContext.Provider>
+  );
 };

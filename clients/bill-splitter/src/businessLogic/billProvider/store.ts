@@ -1,13 +1,13 @@
-import { IItem } from "../../interfaces/IItem";
-import { IParticipant } from "../../interfaces/IParticipant";
+import { IItem, IParticipant } from "../../interfaces";
 
 export type Bill = Record<string, IItem>;
 
 export interface IBillStore {
-  isBillLoaded?: boolean;
   items: Record<string, IItem>;
   bill: Record<string, number>;
   participants: Record<string, IParticipant>;
+  isBillLoaded?: boolean;
+  selectedParticipantId?: string;
 }
 
 export const initialState: IBillStore = {

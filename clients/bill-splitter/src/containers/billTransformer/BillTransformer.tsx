@@ -1,14 +1,13 @@
 import * as React from "react";
-import { useContext } from "react";
 import { IBillTransformerProps } from ".";
 import { FilePicker } from "../../components/filePicker";
 import { createUploadFileApiBillsPost } from "../../client";
-import { BillContext } from "../../businessLogic/billState";
+import { useBill } from "../../businessLogic/billProvider";
 import { CircularProgress } from "@mui/material";
-import { IBillItem } from "../../interfaces/IBillItem";
+import { IBillItem } from "../../interfaces";
 
 export const BillTransformer: React.FC<IBillTransformerProps> = () => {
-  const billContext = useContext(BillContext);
+  const bill = useBill();
   const [isWaiting, setIsWaiting] = React.useState(false);
   const handleFileChange = (file: File) => {
     setIsWaiting(true);
@@ -20,7 +19,7 @@ export const BillTransformer: React.FC<IBillTransformerProps> = () => {
             ...item,
           };
         }) || [];
-      billContext.setBill(items);
+      bill.setBill(items);
     });
   };
 

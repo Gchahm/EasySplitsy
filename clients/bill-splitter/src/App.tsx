@@ -1,18 +1,18 @@
 import "./App.css";
-import {darkTheme} from "./theming/DarkTheme";
-import {ThemeProvider} from "@mui/material";
-import {BillTransformer} from "./containers/billTransformer";
-import {SplittingController} from "./containers/splittingController";
-import React from "react";
-import {BillContextProvider} from "./businessLogic/billState/billContext.tsx";
+import { darkTheme } from "./theming/DarkTheme";
+import { ThemeProvider } from "@mui/material";
+import { BillTransformer } from "./containers/billTransformer";
+import { SplittingController } from "./containers/splittingController";
+import { BillProvider } from "./businessLogic/billProvider/";
 
 export default function App() {
-
   return (
     <ThemeProvider theme={darkTheme}>
-      <BillContextProvider>
-          {context => context.isBillLoaded ? <SplittingController /> : <BillTransformer />}
-      </BillContextProvider>
+      <BillProvider>
+        {(context) =>
+          context.isBillLoaded ? <SplittingController /> : <BillTransformer />
+        }
+      </BillProvider>
     </ThemeProvider>
   );
 }

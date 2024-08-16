@@ -1,21 +1,21 @@
 import { Bill, IBillStore } from "./store";
 import { ActionType, BillStoreAction } from "./actions";
-import { IParticipant } from "../../interfaces/IParticipant";
+import { IParticipant } from "../../interfaces";
 
 import {
-  red,
-  pink,
-  purple,
-  deepPurple,
-  indigo,
+  amber,
   blue,
   blueGrey,
-  grey,
-  amber,
-  cyan,
   brown,
+  cyan,
   deepOrange,
+  deepPurple,
+  grey,
+  indigo,
   orange,
+  pink,
+  purple,
+  red,
 } from "@mui/material/colors";
 
 const colorNumber = 500;
@@ -35,6 +35,7 @@ const colors = [
   deepOrange[colorNumber],
   orange[colorNumber],
 ];
+let id: number = 0;
 
 export function reducer(
   state: IBillStore,
@@ -110,16 +111,28 @@ export function reducer(
 
     case ActionType.addParticipants: {
       const newParticipants: Record<string, IParticipant> = {};
-      action.payload.participants.forEach(
-        (participant) =>
-          (newParticipants[participant.id] = {
-            ...participant,
+      action.payload.people.forEach(
+        (person) =>
+          (newParticipants[id++] = {
+            ...person,
+            id: (id++).toString(),
+            total: 0,
+            items: {},
             color: colors.pop() || red[colorNumber],
           }),
       );
       return {
         ...state,
+        selectedParticipantId: id.toString(),
         participants: { ...participants, ...newParticipants },
+      };
+    }
+
+    case ActionType.setSelectedParticipantId: {
+      const { selectedParticipantId } = action.payload;
+      return {
+        ...state,
+        selectedParticipantId,
       };
     }
 
