@@ -1,2 +1,2 @@
-export * from "./StyledTableRow";
-export * from "./StyledTableHeaderRow";
+export * from "./MobileContainer";
+export * from "./ParticipantAvatar";
