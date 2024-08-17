@@ -2,6 +2,8 @@ import * as React from "react";
 import { IAddParticipantFormProps } from ".";
 import AddIcon from "@mui/icons-material/Add";
 import { IconButton, InputBase, Stack } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import resources from "../../@types/resources.ts";
 
 export const AddParticipantForm: React.FC<IAddParticipantFormProps> = (
   props,
@@ -9,6 +11,7 @@ export const AddParticipantForm: React.FC<IAddParticipantFormProps> = (
   const { name, onNameChange, onAddParticipant } = props;
 
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
 
   const handleParticipantChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -32,7 +35,7 @@ export const AddParticipantForm: React.FC<IAddParticipantFormProps> = (
       <InputBase
         inputRef={inputRef}
         size={"small"}
-        placeholder="participant name"
+        placeholder={t(resources.translation.addParticipantPlaceholder)}
         value={name}
         onChange={handleParticipantChange}
       />

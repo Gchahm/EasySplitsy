@@ -3,9 +3,12 @@ import { IFilePickerProps } from ".";
 import { Button } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { VisuallyHiddenInput } from "./VisuallyHiddenInput";
+import resources from "../../@types/resources.ts";
+import { useTranslation } from "react-i18next";
 
 export const FilePicker: React.FC<IFilePickerProps> = (props) => {
   const { onFileChange } = props;
+  const { t } = useTranslation();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -22,7 +25,7 @@ export const FilePicker: React.FC<IFilePickerProps> = (props) => {
       tabIndex={-1}
       startIcon={<CloudUploadIcon />}
     >
-      Upload file
+      {t(resources.translation.uploadFile)}
       <VisuallyHiddenInput onChange={handleChange} type="file" />
     </Button>
   );

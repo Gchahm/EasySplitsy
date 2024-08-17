@@ -5,6 +5,8 @@ import { BillTransformer } from "./containers/billTransformer";
 import { SplittingController } from "./containers/splittingController";
 import { BillProvider } from "./businessLogic/billProvider/";
 
+import "./i18n/config";
+
 export default function App() {
   return (
     <ThemeProvider theme={darkTheme}>
