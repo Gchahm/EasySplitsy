@@ -305,6 +305,10 @@
     {
     "packageName": "easy-splitsy-logic",
     "projectFolder": "easy-splitsy-logic"
+    },
+    {
+    "packageName": "easy-splitsy-clients",
+    "projectFolder": "easy-splitsy-clients"
     }
     // {
     //   /**
