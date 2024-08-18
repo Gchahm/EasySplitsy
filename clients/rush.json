@@ -301,6 +301,10 @@
     {
     "packageName": "easy-splitsy-interfaces",
     "projectFolder": "easy-splitsy-interfaces"
+    },
+    {
+    "packageName": "easy-splitsy-logic",
+    "projectFolder": "easy-splitsy-logic"
     }
     // {
     //   /**
