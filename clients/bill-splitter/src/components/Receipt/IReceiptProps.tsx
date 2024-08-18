@@ -1,4 +1,4 @@
-import { IItem } from "../../interfaces/IItem.ts";
+import { IItem } from "easy-splitsy-interfaces";
 import * as React from "react";
 
 export interface IReceiptProps {

@@ -4,7 +4,7 @@ import { Card, IconButton, Stack } from "@mui/material";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import LeftIcon from "@mui/icons-material/ChevronLeft";
 import RightIcon from "@mui/icons-material/ChevronRight";
-import { ParticipantAvatar } from "../StyledMUI/ParticipantAvatar";
+import { ParticipantAvatar } from "../StyledMUI";
 
 export const ReceiptFooter: React.FC<IReceiptFooterProps> = (props) => {
   const {

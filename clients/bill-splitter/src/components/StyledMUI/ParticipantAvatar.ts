@@ -1,5 +1,5 @@
 import { Avatar, styled } from "@mui/material";
-import { IParticipant } from "../../interfaces/IParticipant";
+import { IParticipant } from "easy-splitsy-interfaces";
 
 export const ParticipantAvatar = styled(Avatar, {
   name: "MuiSParticipantAvatar",

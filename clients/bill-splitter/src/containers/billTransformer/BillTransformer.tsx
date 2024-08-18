@@ -1,10 +1,10 @@
 import * as React from "react";
 import { IBillTransformerProps } from ".";
 import { FilePicker } from "../../components/filePicker";
-import { createUploadFileApiBillsPost } from "../../client";
-import { useBill } from "../../businessLogic/billProvider";
+import { createUploadFileApiBillsPost } from "easy-splitsy-clients";
+import { useBill } from "easy-splitsy-logic";
 import { CircularProgress } from "@mui/material";
-import { IBillItem } from "../../interfaces";
+import { IBillItem } from "easy-splitsy-interfaces";
 
 export const BillTransformer: React.FC<IBillTransformerProps> = () => {
   const bill = useBill();

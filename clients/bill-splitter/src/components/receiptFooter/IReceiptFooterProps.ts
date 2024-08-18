@@ -1,5 +1,4 @@
-import { IItem } from "../../interfaces/IItem";
-import { IParticipant } from "../../interfaces/IParticipant";
+import { IItem, IParticipant } from "easy-splitsy-interfaces";
 
 export interface IReceiptFooterProps {
   billItems: Record<string, number>;

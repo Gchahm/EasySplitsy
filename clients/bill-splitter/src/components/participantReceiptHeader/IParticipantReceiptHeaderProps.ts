@@ -1,10 +1,10 @@
-import { IParticipant } from "../../interfaces/IParticipant.ts";
+import { IParticipant } from "easy-splitsy-interfaces";
 
 export interface IParticipantReceiptHeaderProps {
-  selectedParticipant: IParticipant | undefined;
   participantName: string;
-  isLeftButtonDisabled: boolean;
-  isRightButtonDisabled: boolean;
+  selectedParticipant?: IParticipant;
+  isLeftButtonDisabled?: boolean;
+  isRightButtonDisabled?: boolean;
   setParticipantName: (name: string) => void;
   onAddParticipant: () => void;
   onLeftClick: () => void;

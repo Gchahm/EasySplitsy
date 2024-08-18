@@ -1,5 +1,5 @@
 {
-  "name": "bill-splitter",
+  "name": "easy-splitsy-web",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -18,13 +18,15 @@
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.0.14",
-    "@hey-api/client-fetch": "^0.2.3",
     "@mui/icons-material": "^5.16.6",
     "@mui/material": "^5.16.6",
+    "react-i18next": "^15.0.1",
+    "easy-splitsy-interfaces": "workspace:*",
+    "easy-splitsy-logic": "workspace:*",
     "i18next": "^23.13.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-i18next": "^15.0.1"
+    "easy-splitsy-clients": "workspace:*"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",

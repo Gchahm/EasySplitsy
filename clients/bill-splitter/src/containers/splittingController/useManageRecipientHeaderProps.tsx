@@ -1,6 +1,6 @@
 import { IParticipantReceiptHeaderProps } from "../../components/participantReceiptHeader";
 import * as React from "react";
-import { useBill } from "../../businessLogic/billProvider";
+import { useBill } from "easy-splitsy-logic";
 
 export const useManageRecipientHeaderProps =
   (): IParticipantReceiptHeaderProps => {
