@@ -27,13 +27,13 @@ importers:
         version: 5.16.7(@emotion/react@11.13.0)(@emotion/styled@11.13.0)(@types/react@18.3.3)(react-dom@18.3.1)(react@18.3.1)
       easy-splitsy-clients:
         specifier: workspace:*
-        version: link:../../easy-splitsy-clients
+        version: link:../../libraries/easy-splitsy-clients
       easy-splitsy-interfaces:
         specifier: workspace:*
-        version: link:../../easy-splitsy-interfaces
+        version: link:../../libraries/easy-splitsy-interfaces
       easy-splitsy-logic:
         specifier: workspace:*
-        version: link:../../easy-splitsy-logic
+        version: link:../../libraries/easy-splitsy-logic
       i18next:
         specifier: ^23.13.0
         version: 23.13.0
@@ -123,7 +123,7 @@ importers:
         specifier: ^5.3.4
         version: 5.4.1
 
-  ../../easy-splitsy-clients:
+  ../../libraries/easy-splitsy-clients:
     dependencies:
       '@hey-api/client-fetch':
         specifier: ^0.2.3
@@ -145,7 +145,7 @@ importers:
         specifier: ^5.2.2
         version: 5.5.4
 
-  ../../easy-splitsy-interfaces:
+  ../../libraries/easy-splitsy-interfaces:
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.15.0
@@ -163,7 +163,7 @@ importers:
         specifier: ^5.2.2
         version: 5.5.4
 
-  ../../easy-splitsy-logic:
+  ../../libraries/easy-splitsy-logic:
     dependencies:
       '@types/node':
         specifier: ~22.4.0

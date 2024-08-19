@@ -288,15 +288,15 @@
   "projects": [
     {
       "packageName": "easy-splitsy-interfaces",
-      "projectFolder": "easy-splitsy-interfaces"
+      "projectFolder": "libraries/easy-splitsy-interfaces"
     },
     {
       "packageName": "easy-splitsy-logic",
-      "projectFolder": "easy-splitsy-logic"
+      "projectFolder": "libraries/easy-splitsy-logic"
     },
     {
       "packageName": "easy-splitsy-clients",
-      "projectFolder": "easy-splitsy-clients"
+      "projectFolder": "libraries/easy-splitsy-clients"
     },
     {
       "packageName": "easy-splitsy-web",
