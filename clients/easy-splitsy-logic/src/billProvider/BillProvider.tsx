@@ -1,9 +1,9 @@
 import * as React from "react";
 import { IBillContext } from "./IBillContext";
-import { reducer } from "./reducer";
+import { billReducer } from "./billReducer";
 import { isDevMode } from "../utils";
-import { devInitialState, initialState } from "./store";
-import { ActionType } from "./actions";
+import { devInitialState, initialState } from "./billStore";
+import { ActionType } from "./billActions";
 import {
   IBillItem,
   IItem,
@@ -16,7 +16,7 @@ export const BillProvider: React.FC<{
   children: React.ReactNode | ((state: IBillContext) => React.ReactNode);
 }> = ({ children }) => {
   const [store, dispatch] = React.useReducer(
-    reducer,
+    billReducer,
     isDevMode ? devInitialState : initialState,
   );
   const { isBillLoaded, bill, selectedParticipantId } = store;
@@ -45,7 +45,7 @@ export const BillProvider: React.FC<{
     dispatch({ type: ActionType.setBill, payload: { bill } });
   };
 
-  const addPerson = (people: IPerson[]) => {
+  const addPeople = (people: IPerson[]) => {
     dispatch({
       type: ActionType.addParticipants,
       payload: {
@@ -78,7 +78,7 @@ export const BillProvider: React.FC<{
     moveItemToParticipant,
     moveItemToBill,
     setBill,
-    addPerson,
+    addPeople,
     setSelectedParticipantId,
   };
 

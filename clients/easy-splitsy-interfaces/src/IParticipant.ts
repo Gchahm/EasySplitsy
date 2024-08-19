@@ -5,6 +5,5 @@ export interface IPerson {
 export interface IParticipant extends IPerson {
   id: string;
   total: number;
-  color: string;
   items: Record<string, number>;
 }

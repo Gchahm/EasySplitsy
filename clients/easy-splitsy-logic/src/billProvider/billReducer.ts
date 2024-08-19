@@ -1,43 +1,9 @@
-import { Bill, IBillStore } from "./store";
-import { ActionType, BillStoreAction } from "./actions";
+import { Bill, IBillStore } from "./billStore";
+import { ActionType, BillStoreAction } from "./billActions";
 import { IParticipant } from "easy-splitsy-interfaces";
+import { uuidv4 } from "../utils/generateGuid";
 
-// import {
-//   amber,
-//   blue,
-//   blueGrey,
-//   brown,
-//   cyan,
-//   deepOrange,
-//   deepPurple,
-//   grey,
-//   indigo,
-//   orange,
-//   pink,
-//   purple,
-//   red,
-// } from "@mui/material/colors";
-
-// const colorNumber = 500;
-//
-// const colors = [
-//   red[colorNumber],
-//   pink[colorNumber],
-//   purple[colorNumber],
-//   deepPurple[colorNumber],
-//   indigo[colorNumber],
-//   blue[colorNumber],
-//   blueGrey[colorNumber],
-//   grey[colorNumber],
-//   amber[colorNumber],
-//   cyan[colorNumber],
-//   brown[colorNumber],
-//   deepOrange[colorNumber],
-//   orange[colorNumber],
-// ];
-let id: number = 0;
-
-export function reducer(
+export function billReducer(
   state: IBillStore,
   action: BillStoreAction,
 ): IBillStore {
@@ -112,21 +78,20 @@ export function reducer(
     }
 
     case ActionType.addParticipants: {
+      let id: string | undefined;
       const newParticipants: Record<string, IParticipant> = {};
-      const colors = [...state.colors];
-      action.payload.people.forEach(
-        (person) =>
-          (newParticipants[id++] = {
-            ...person,
-            id: (id++).toString(),
-            total: 0,
-            items: {},
-            color: colors.pop() || "#FFFFFF",
-          }),
-      );
+      action.payload.people.forEach((person) => {
+        id = uuidv4();
+        newParticipants[id] = {
+          ...person,
+          id,
+          total: 0,
+          items: {},
+        };
+      });
       return {
         ...state,
-        selectedParticipantId: id.toString(),
+        selectedParticipantId: id,
         participants: { ...participants, ...newParticipants },
       };
     }

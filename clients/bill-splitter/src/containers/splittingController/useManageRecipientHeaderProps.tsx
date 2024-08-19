@@ -8,7 +8,8 @@ export const useManageRecipientHeaderProps =
     const [participantName, setParticipantName] = React.useState<string>("");
 
     const onAddParticipant = () => {
-      reducer.addPerson([
+      console.log("add participant");
+      reducer.addPeople([
         {
           name: participantName,
         },

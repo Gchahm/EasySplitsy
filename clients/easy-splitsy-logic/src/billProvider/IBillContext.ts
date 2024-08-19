@@ -14,6 +14,6 @@ export interface IBillContext {
   moveItemToParticipant: (itemId: string, quantity?: number) => void;
   moveItemToBill: (itemId: string, quantity?: number) => void;
   setBill: (bill: IBillItem[]) => void;
-  addPerson: (person: IPerson[]) => void;
+  addPeople: (people: IPerson[]) => void;
   setSelectedParticipantId: (participantId: string | undefined) => void;
 }

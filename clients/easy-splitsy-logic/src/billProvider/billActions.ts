@@ -1,12 +1,11 @@
 import { IPerson, IBillItem } from "easy-splitsy-interfaces";
 
 export enum ActionType {
-  setColors = "SET_COLORS",
   moveItemToParticipant = "MOVE_ITEM_TO_PARTICIPANT",
   moveItemToBill = "MOVE_ITEM_TO_BILL",
   setBill = "SET_BILL",
   addParticipants = "ADD_PARTICIPANTS",
-  setSelectedParticipantId = "",
+  setSelectedParticipantId = "SET_PARTICIPANT_ID",
 }
 
 interface IBillStoreAction<T, P> {
@@ -32,10 +31,6 @@ interface ISetSelectedParticipantId {
   selectedParticipantId: string | undefined;
 }
 
-interface ISetColors {
-  colors: string[];
-}
-
 export type BillStoreAction =
   | IBillStoreAction<ActionType.moveItemToParticipant, IMoveItemPayload>
   | IBillStoreAction<ActionType.moveItemToBill, IMoveItemPayload>
@@ -44,5 +39,4 @@ export type BillStoreAction =
   | IBillStoreAction<
       ActionType.setSelectedParticipantId,
       ISetSelectedParticipantId
-    >
-  | IBillStoreAction<ActionType.setColors, ISetColors>;
+    >;
