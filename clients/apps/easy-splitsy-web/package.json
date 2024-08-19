@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build --outDir ../../services/bill_manager/spa_dist",
+    "build": "tsc -b && vite build --outDir ../../../services/bill_manager/spa_dist",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "gen:component": "plop --plopfile ../tools/plop/plopfile.js",
