@@ -196,3 +196,4 @@ jspm_packages/
 !.vscode/tasks.json
 !.vscode/launch.json
 
+lib/

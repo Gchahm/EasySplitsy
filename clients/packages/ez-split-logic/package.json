@@ -1,27 +1,30 @@
 {
-  "name": "ez-split-logic",
-  "version": "1.0.0",
-  "description": "business logic for easy splitsy app",
-  "main": "libcommonjs/index.js",
-  "module": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "scripts": {
-    "build": "rimraf ./lib && tsc"
-  },
-  "dependencies": {
-    "react": "^18.3.1",
-    "ez-split-interfaces": "1.0.0",
-    "@types/node": "~22.4.0"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.15.0",
-    "@typescript-eslint/parser": "^7.15.0",
-    "@types/react": "^18.3.3",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "rimraf": "~6.0.1",
-    "eslint": "^8.57.0",
-    "typescript": "^5.2.2"
-  },
-  "author": "Gustavo Chahm Francelino",
-  "license": "ISC"
+    "name": "ez-split-logic",
+    "version": "1.0.0",
+    "description": "business logic for easy splitsy app",
+    "main": "libcommonjs/index.js",
+    "module": "lib/index.js",
+    "typings": "lib/index.d.ts",
+    "scripts": {
+        "build": "rimraf ./lib && tsc"
+    },
+    "dependencies": {
+        "ez-split-interfaces": "*"
+    },
+    "peerDependencies": {
+        "react": "^18.3.1"
+    },
+    "devDependencies": {
+        "@types/node": "~22.4.0",
+        "@typescript-eslint/eslint-plugin": "^7.15.0",
+        "@typescript-eslint/parser": "^7.15.0",
+        "@types/react": "^18.3.1",
+        "eslint-plugin-react-hooks": "^4.6.2",
+        "rimraf": "~6.0.1",
+        "eslint": "^8.57.0",
+        "react": "^18.3.1",
+        "typescript": "^5.2.2"
+    },
+    "author": "Gustavo Chahm Francelino",
+    "license": "ISC"
 }

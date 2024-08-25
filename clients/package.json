@@ -8,6 +8,6 @@
     "scripts": {
         "build": "yarn workspaces run build",
         "dev:web": "yarn workspace ez-split-web run dev",
-        "dev:mobile": "yarn workspace bill-splitter-mobile run start"
+        "dev:mobile": "yarn workspace ez-split-mobile start"
     }
 }
