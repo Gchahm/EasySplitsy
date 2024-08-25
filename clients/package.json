@@ -7,6 +7,7 @@
     "workspaces": ["packages/*", "apps/*"],
     "scripts": {
         "build": "yarn workspaces run build",
-        "dev:web": "yarn workspace ez-split-web run dev"
+        "dev:web": "yarn workspace ez-split-web run dev",
+        "dev:mobile": "yarn workspace bill-splitter-mobile run start"
     }
 }
