@@ -38,15 +38,8 @@ foreach ($line in $proxyLines) {
     Invoke-Expression $command
 }
 
-
 Write-Host "adding new proxy"
-$netshCommand = @"
-netsh interface portproxy add v4tov4 `
-listenport=8081 `
-listenaddress=192.168.0.22 `
-connectport=$port `
-connectaddress=$addr
-"@
+$netshCommand = @"netsh interface portproxy add v4tov4 listenport=8081 listenaddress=192.168.0.22 connectport=$port connectaddress=$addr"@
 
 Invoke-Expression $netshCommand
 
