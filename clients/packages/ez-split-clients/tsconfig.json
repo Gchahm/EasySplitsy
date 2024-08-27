@@ -13,6 +13,7 @@
         "moduleResolution": "node",
         "isolatedModules": true,
         "moduleDetection": "force",
+        "skipLibCheck": true,
         /* Linting */
         "strict": true,
         "noUnusedLocals": true,
