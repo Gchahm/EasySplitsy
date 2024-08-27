@@ -5,15 +5,32 @@ import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
+import { useEffect } from 'react';
+import { useBill } from 'ez-split-logic';
+import { BillItem } from '@/components/BillItem';
 import { ThemedView } from '@/components/ThemedView';
+import { ScrollView } from '@/components/ScrollView';
 
 export default function TabTwoScreen() {
+    const { bill, selectedParticipant, items } = useBill();
+
+    const handleSwipeEnd = () => {
+        console.log('swipe end');
+    }
     return (
-        <ParallaxScrollView
-            headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-            headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-            <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>
-        </ParallaxScrollView>
+        <ScrollView>
+            <ThemedView>
+                {items.filter(item => selectedParticipant?.items[item.id]).map((item, key) => (
+                    <BillItem onSwipeEnd={handleSwipeEnd} {...item} key={key} quantity={bill[item.id]} />
+                ))}
+            </ThemedView>
+
+            <ThemedView>
+                {items.filter(item => bill[item.id]).map((item, key) => (
+                    <BillItem onSwipeEnd={handleSwipeEnd} {...item} key={key} quantity={bill[item.id]} />
+                ))}
+            </ThemedView>
+        </ScrollView>
     );
 }
 
