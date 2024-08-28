@@ -1,25 +1,36 @@
-import * as React from 'react'
-import { Button, Icon, ListItem } from '@rneui/base';
-import { IBillItem } from 'ez-split-interfaces';
+import * as React from "react";
+import { Button, Icon, ListItem } from "@rneui/base";
+import { IBillItem } from "ez-split-interfaces";
 
 export interface IBillItemProps extends IBillItem {
-    onSwipeEnd: () => void;
+  onRemoveClick: () => void;
 }
 
 export const BillItem: React.FC<IBillItemProps> = (props) => {
-    const { onSwipeEnd, ...item } = props;
+  const { onRemoveClick, ...item } = props;
 
-    return (
-        <ListItem
+  return (
+    <ListItem.Swipeable
+      rightContent={(reset) => (
+        <Button
+          title={"remove"}
+          onPress={() => {
+            onRemoveClick();
+            reset();
+          }}
+          icon={{ name: "info", color: "white" }}
+          buttonStyle={{ minHeight: "100%" }}
         >
-            <Icon name="label-important-outline" type="material" />
-            <ListItem.Content>
-                <ListItem.Title>{item.name}</ListItem.Title>
-                <ListItem.Subtitle>{item.price}</ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron />
-        </ListItem>
-    )
-}
-
-
+          test
+        </Button>
+      )}
+    >
+      <ListItem.Content>
+        <ListItem.Title>
+          {item.name} - {item.quantity}
+        </ListItem.Title>
+      </ListItem.Content>
+      <ListItem.Chevron />
+    </ListItem.Swipeable>
+  );
+};

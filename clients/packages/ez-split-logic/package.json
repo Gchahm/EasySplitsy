@@ -9,20 +9,23 @@
         "build": "rimraf ./lib && tsc"
     },
     "dependencies": {
-        "ez-split-interfaces": "*"
+        "ez-split-interfaces": "*",
+        "import": "^0.0.6",
+        "react-native-get-random-values": "^1.11.0",
+        "uuid": "^10.0.0"
     },
     "peerDependencies": {
         "react": "18.2.0"
     },
     "devDependencies": {
         "@types/node": "~22.4.0",
+        "@types/react": "^18.3.1",
         "@typescript-eslint/eslint-plugin": "^7.15.0",
         "@typescript-eslint/parser": "^7.15.0",
-        "@types/react": "^18.3.1",
-        "eslint-plugin-react-hooks": "^4.6.2",
-        "rimraf": "~6.0.1",
         "eslint": "^8.57.0",
+        "eslint-plugin-react-hooks": "^4.6.2",
         "react": "18.2.0",
+        "rimraf": "~6.0.1",
         "typescript": "~5.3.3"
     },
     "author": "Gustavo Chahm Francelino",
