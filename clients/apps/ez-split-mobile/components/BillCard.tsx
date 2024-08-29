@@ -1,7 +1,7 @@
 import { IItem } from "ez-split-interfaces";
 import * as React from "react";
 import { BillItem } from "./BillItem";
-import { Card } from "@rneui/base";
+import { Button, Card } from "@rneui/themed";
 import { StyleSheet } from "react-native";
 import Animated, { useAnimatedRef } from "react-native-reanimated";
 

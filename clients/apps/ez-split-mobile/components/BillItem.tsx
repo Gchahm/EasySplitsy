@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Icon, ListItem } from "@rneui/base";
+import { Button, Icon, ListItem, useTheme } from "@rneui/themed";
 import { IBillItem } from "ez-split-interfaces";
 
 export interface IBillItemProps extends IBillItem {
@@ -10,27 +10,17 @@ export const BillItem: React.FC<IBillItemProps> = (props) => {
   const { onRemoveClick, ...item } = props;
 
   return (
-    <ListItem.Swipeable
-      rightContent={(reset) => (
-        <Button
-          title={"remove"}
-          onPress={() => {
-            onRemoveClick();
-            reset();
-          }}
-          icon={{ name: "info", color: "white" }}
-          buttonStyle={{ minHeight: "100%" }}
-        >
-          test
-        </Button>
-      )}
-    >
+    <ListItem bottomDivider>
       <ListItem.Content>
-        <ListItem.Title>
-          {item.name} - {item.quantity}
+        <ListItem.Title style={{ textAlign: "right" }}>
+          {item.name} - {item.price} - {item.quantity}
         </ListItem.Title>
       </ListItem.Content>
-      <ListItem.Chevron />
-    </ListItem.Swipeable>
+      <Icon
+        onPressIn={onRemoveClick}
+        name="remove-circle-outline"
+        type="ionicon"
+      />
+    </ListItem>
   );
 };

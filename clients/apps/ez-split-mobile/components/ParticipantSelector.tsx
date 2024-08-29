@@ -1,4 +1,4 @@
-import { Input, Text } from "@rneui/base";
+import { Input, Text } from "@rneui/themed";
 import * as React from "react";
 
 export interface IParticipantSelectorProps {
