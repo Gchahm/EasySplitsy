@@ -6,7 +6,7 @@ import { StyleSheet } from "react-native";
 import Animated, { useAnimatedRef } from "react-native-reanimated";
 
 interface IBillCardProps {
-  title: string;
+  title: React.ReactNode;
   itemsCount: Record<string, number>;
   items: IItem[];
   onRemoveClick: (id: string) => void;
