@@ -8,30 +8,31 @@ export default function Splitter() {
   const { bill, selectedParticipant, items, participants, ...actions } =
     useBill();
 
+  const selectedParticipantIndex: number | undefined =
+    selectedParticipant && participants.indexOf(selectedParticipant);
+
   const handleOnPreviousClick = () => {
-    if (!selectedParticipant) return;
-
-    const index = participants.indexOf(selectedParticipant);
-
-    if (index === 0) return;
-
-    actions.setSelectedParticipantId(participants[index - 1].id);
+    selectedParticipant &&
+      actions.setSelectedParticipantId(
+        participants[selectedParticipantIndex! - 1].id,
+      );
   };
 
   const handleNextClick = () => {
-    if (!selectedParticipant) return;
-
-    const index = participants.indexOf(selectedParticipant);
-
-    if (index === participants.length - 1) return;
-
-    actions.setSelectedParticipantId(participants[index + 1].id);
+    selectedParticipant &&
+      actions.setSelectedParticipantId(
+        participants[selectedParticipantIndex! + 1].id,
+      );
   };
+
+  const canSelectPrevious: boolean = selectedParticipantIndex !== 0;
+  const canSelectNext: boolean =
+    selectedParticipantIndex !== participants.length - 1;
 
   const participantCardHeader: React.ReactNode = (
     <ParticipantSelector
-      onPreviousClick={handleOnPreviousClick}
-      onNextClick={handleNextClick}
+      onPreviousClick={canSelectPrevious ? handleOnPreviousClick : undefined}
+      onNextClick={canSelectNext ? handleNextClick : undefined}
       participantName={selectedParticipant?.name}
     />
   );

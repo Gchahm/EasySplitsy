@@ -16,25 +16,51 @@ export default function BillCard(props: IBillCardProps) {
   const { title, items, itemsCount, onRemoveClick } = props;
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
 
+  const [resetFn, setResetFn] = React.useState<() => void>(() => {});
+  React.useEffect(() => {
+    console.log(resetFn);
+    return () => resetFn();
+  }, [resetFn]);
+
+  const handleSwipe = (reset: () => void) => {
+    console.log("handle swipe", reset);
+    setResetFn(reset);
+  };
+
   return (
-    <Card containerStyle={styles.card} wrapperStyle={styles.card}>
-      <Card.Title>{title}</Card.Title>
-      <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
+    <Animated.ScrollView
+      style={styles.container}
+      ref={scrollRef}
+      scrollEventThrottle={16}
+    >
+      <Card
+        containerStyle={styles.cardContainer}
+        wrapperStyle={styles.cardWrapper}
+      >
         {items
           .filter((item) => itemsCount[item.id])
           .map((item, key) => (
             <BillItem
+              onSwipe={handleSwipe}
               {...item}
               key={key}
               quantity={itemsCount[item.id]}
               onRemoveClick={() => onRemoveClick(item.id)}
             />
           ))}
-      </Animated.ScrollView>
-    </Card>
+      </Card>
+    </Animated.ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { flex: 1 },
+  container: { flex: 1, padding: 12 },
+  cardContainer: {
+    flex: 1,
+    overflow: "hidden",
+    margin: 0,
+    padding: 0,
+    paddingTop: 8,
+  },
+  cardWrapper: { flex: 1, overflow: "hidden" },
 });

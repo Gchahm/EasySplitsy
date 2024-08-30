@@ -3,8 +3,8 @@ import * as React from "react";
 import { StyleSheet, View } from "react-native";
 
 export interface IParticipantSelectorProps {
-  onPreviousClick: () => void;
-  onNextClick: () => void;
+  onPreviousClick?: () => void;
+  onNextClick?: () => void;
   participantName?: string;
 }
 
@@ -15,22 +15,32 @@ export const ParticipantSelector: React.FC<IParticipantSelectorProps> = (
 
   return (
     <View style={styles.container}>
-      <Icon
-        onPress={onPreviousClick}
-        name="remove-circle-outline"
-        type="ionicon"
-      />
-      <Text>{participantName}</Text>
-      <Icon onPress={onNextClick} name="remove-circle-outline" type="ionicon" />
+      {onPreviousClick && (
+        <Icon
+          onPress={onPreviousClick}
+          name="arrow-back-outline"
+          type="ionicon"
+        />
+      )}
+      <Text style={styles.middle}>{participantName}</Text>
+      {onNextClick && (
+        <Icon
+          onPress={onNextClick}
+          name="arrow-forward-outline"
+          type="ionicon"
+        />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: "100%",
     flexDirection: "row",
-    alignItems: "center",
-    alignContent: "space-between",
+    alignItems: "stretch",
+  },
+  middle: {
+    flex: 1,
   },
 });
