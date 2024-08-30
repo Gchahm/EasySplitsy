@@ -12,4 +12,5 @@ export const BillContext = React.createContext<IBillContext>({
   setBill: () => {},
   addPeople: () => {},
   setSelectedParticipantId: () => {},
+  removeParticipants: () => {},
 });

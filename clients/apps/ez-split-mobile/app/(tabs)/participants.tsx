@@ -27,7 +27,11 @@ export default function Participants() {
               <ListItem.Content>
                 <ListItem.Title>{participant.name}</ListItem.Title>
               </ListItem.Content>
-              <Icon name="trash-outline" type="ionicon" />
+              <Icon
+                name="trash-outline"
+                type="ionicon"
+                onPress={() => actions.removeParticipants([participant.id])}
+              />
             </ListItem>
           ))}
         </ScrollView>

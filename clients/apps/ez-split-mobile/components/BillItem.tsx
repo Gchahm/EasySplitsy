@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Icon, ListItem, useTheme } from "@rneui/themed";
+import { Icon, ListItem } from "@rneui/themed";
 import { IBillItem } from "ez-split-interfaces";
 
 export interface IBillItemProps extends IBillItem {
@@ -17,7 +17,7 @@ export const BillItem: React.FC<IBillItemProps> = (props) => {
         </ListItem.Title>
       </ListItem.Content>
       <Icon
-        onPressIn={onRemoveClick}
+        onPress={onRemoveClick}
         name="remove-circle-outline"
         type="ionicon"
       />
