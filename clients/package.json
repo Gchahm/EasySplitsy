@@ -1,13 +1,19 @@
 {
-    "name": "ez-split",
-    "version": "1.0.0",
-    "main": "index.js",
-    "license": "MIT",
-    "private": true,
-    "workspaces": ["packages/*", "apps/*"],
-    "scripts": {
-        "build": "yarn workspaces run build",
-        "dev:web": "yarn workspace ez-split-web run dev",
-        "dev:mobile": "yarn workspace ez-split-mobile start"
-    }
+  "name": "ez-split",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "yarn build:interfaces && yarn build:clients && yarn build:logic",
+    "build:interfaces": "yarn workspace ez-split-interfaces run build",
+    "build:logic": "yarn workspace ez-split-logic run build",
+    "build:clients": "yarn workspace ez-split-clients run build",
+    "dev:web": "yarn workspace ez-split-web run dev",
+    "dev:mobile": "yarn workspace ez-split-mobile start"
+  }
 }
