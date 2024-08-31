@@ -6,9 +6,9 @@ from fastapi import FastAPI, UploadFile
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 
+import mocks
 from models.Receipt import Receipt
 from modules.image_converter import open_ai_helper
-
 
 
 settings = Settings()
@@ -31,6 +31,8 @@ def index():
 
 @app.post("/api/bills/")
 async def create_upload_file(file: UploadFile) -> Receipt:
+    if settings.dev_mode:
+        return mocks.mock_result
     base64_image = base64.b64encode(file.file.read()).decode('utf-8')
     gpt_answer = open_ai_helper.read_receipt(base64_image)
     return Receipt.from_csv(gpt_answer, delimiter="|")
