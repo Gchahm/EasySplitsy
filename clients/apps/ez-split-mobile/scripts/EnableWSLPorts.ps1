@@ -1,14 +1,15 @@
 #This should be the port and address that show in Expo
-$ports=@(8081);
+$ports=@(8081,8000);
 $addr='172.27.126.14';
-$port=@(8081);
+$listenAddress='192.168.0.22'
+$ports_a = $ports -join ",";
 
 Write-Host "Remove Firewall Exception Rules"
 iex "Remove-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock'";
 
 Write-Host "adding Exception Rules for inbound and outbound Rules"
-iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Outbound -LocalPort $port -Action Allow -Protocol TCP";
-iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Inbound -LocalPort $port -Action Allow -Protocol TCP";
+iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Outbound -LocalPort $ports_a -Action Allow -Protocol TCP";
+iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Inbound -LocalPort $ports_a -Action Allow -Protocol TCP";
 
 for( $i = 0; $i -lt $ports.length; $i++ ){
   $port = $ports[$i];
@@ -29,19 +30,22 @@ foreach ($line in $proxyLines) {
     $parts = $line -split '\s+'
 
     # Extract the ListenAddress and ListenPort
-    $listenAddress = $parts[0]
-    $listenPort = $parts[1]
+    $dListenAddress = $parts[0]
+    $dListenPort = $parts[1]
 
     # Construct and execute the netsh delete command
-    $command = "netsh interface portproxy delete v4tov4 listenaddress=$listenAddress listenport=$listenPort"
+    $command = "netsh interface portproxy delete v4tov4 listenaddress=$dListenAddress listenport=$dListenPort"
     Write-Host "Executing: $command"
     Invoke-Expression $command
 }
 
-Write-Host "adding new proxy"
-$netshCommand = @"netsh interface portproxy add v4tov4 listenport=8081 listenaddress=192.168.0.22 connectport=$port connectaddress=$addr"@
+for( $i = 0; $i -lt $ports.length; $i++ ){
+  $port = $ports[$i];
+  Write-Host "adding new proxy for port: $port from $listenAddress to $addr"
+  $netshCommand = "netsh interface portproxy add v4tov4 listenport=$port listenaddress=$listenAddress connectport=$port connectaddress=$addr"
+  Invoke-Expression $netshCommand
+}
 
-Invoke-Expression $netshCommand
 
 Write-Host "port proxy entries:"
 netsh interface portproxy show all

@@ -1,12 +1,32 @@
 import base64
 
+from config import Settings 
+
 from fastapi import FastAPI, UploadFile
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 from models.Receipt import Receipt
 from modules.image_converter import open_ai_helper
 
+
+
+settings = Settings()
 app = FastAPI()
+
+origins = ("http://localhost:8081",) if settings.dev_mode else ()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/api/mode")
+def index():
+    return {'dev_mode': settings.dev_mode}
 
 
 @app.post("/api/bills/")

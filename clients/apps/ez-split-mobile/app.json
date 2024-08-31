@@ -22,14 +22,12 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ],
+      "permissions": ["android.permission.RECORD_AUDIO"],
       "package": "com.gustavoch.ezsplit"
     },
     "web": {
       "bundler": "metro",
-      "output": "static",
+      "output": "../../../services/bill_manager/spa_dist",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
