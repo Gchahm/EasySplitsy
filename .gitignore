@@ -165,6 +165,9 @@ jspm_packages/
 # next.js build output
 .next/
 
+venv/
+
+
 # Docusaurus cache and generated files
 .docusaurus/
 
