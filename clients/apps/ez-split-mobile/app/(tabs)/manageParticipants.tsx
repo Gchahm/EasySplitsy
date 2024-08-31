@@ -1,3 +1,4 @@
+import ConfirmAction from "@/components/ConfirmAction";
 import ParticipantInput from "@/components/ParticipantInput";
 import { Participants } from "@/components/Participants";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
@@ -8,13 +9,8 @@ import { StyleSheet } from "react-native";
 export default function ManageParticipants() {
   const { selectedParticipant, participants, ...actions } = useBill();
   const [name, setName] = React.useState("");
-
-  React.useEffect(() => {
-    //const participants = "123456789123456789"
-    //  .split("")
-    //  .map(() => ({ name: "Gustavo" }));
-    //actions.addPeople(participants);
-  }, []);
+  const [removeId, setRemoveId] = React.useState<string | undefined>();
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
   const handleAddPerson = () => {
     if (name !== "") {
@@ -23,8 +19,43 @@ export default function ManageParticipants() {
     }
   };
 
+  const clearRemoveId = () => {
+    setRemoveId(undefined);
+    setIsDialogOpen(false);
+  };
+
+  const removeParticipant = () => {
+    if (removeId) {
+      actions.removeParticipants([removeId]);
+      clearRemoveId();
+    }
+  };
+
+  const handleRemoveClick = (id: string) => {
+    setRemoveId(id);
+    const participant = participants.find((p) => p.id === id);
+    if (participant && Object.keys(participant.items).length > 0) {
+      setIsDialogOpen(true);
+    } else {
+      removeParticipant();
+    }
+  };
+
+  const confirmDialog = (
+    <ConfirmAction
+      isVisible={isDialogOpen}
+      title={"Are you sure?"}
+      text={
+        "This participant has items in his troley removing it will send them back to bill"
+      }
+      onConfirm={removeParticipant}
+      onDecline={clearRemoveId}
+    />
+  );
+
   return (
     <ThemedSafeAreaView style={styles.container}>
+      {confirmDialog}
       <ParticipantInput
         name={name}
         onNameChange={setName}
@@ -32,7 +63,7 @@ export default function ManageParticipants() {
       />
       <Participants
         participants={participants}
-        onRemovePress={(id) => actions.removeParticipants([id])}
+        onRemovePress={handleRemoveClick}
       />
     </ThemedSafeAreaView>
   );

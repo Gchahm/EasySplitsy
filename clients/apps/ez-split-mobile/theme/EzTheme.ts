@@ -1,10 +1,10 @@
-import { EzColors } from "@/constants/Colors";
+import { lightColors, darkColors } from "@/constants/Colors";
 import { ThemeMode, createTheme } from "@rneui/themed";
 
 export const ezTheme = (mode: ThemeMode) =>
   createTheme({
-    lightColors: EzColors.light,
-    darkColors: EzColors.dark,
+    lightColors: lightColors,
+    darkColors: darkColors,
     mode,
     components: {
       Button: () => ({
@@ -48,7 +48,6 @@ export const ezTheme = (mode: ThemeMode) =>
           color: theme.colors.black,
         },
       }),
-
       ListItemSwipeable: (_, theme) => ({
         containerStyle: {
           backgroundColor: theme.colors.white,
@@ -64,6 +63,17 @@ export const ezTheme = (mode: ThemeMode) =>
           borderWidth: 0,
           backgroundColor: theme.colors.white,
           borderRadius: 12,
+        },
+      }),
+      Dialog: (_, theme) => ({
+        overlayStyle: {
+          borderRadius: 12,
+          backgroundColor: theme.colors.white,
+        },
+      }),
+      DialogTitle: (_, theme) => ({
+        titleStyle: {
+          color: theme.colors.black,
         },
       }),
     },

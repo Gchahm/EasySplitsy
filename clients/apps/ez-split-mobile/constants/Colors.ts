@@ -3,7 +3,7 @@ import { Colors } from "@rneui/base";
 const tintColorLight = "#0a7ea4";
 const tintColorDark = "#fff";
 
-const light: Partial<Colors> = {
+export const lightColors: Partial<Colors> = {
   primary: "#6200EE", // A shade of purple, often used for buttons or highlights
   secondary: "#03DAC6", // A teal color, used for secondary buttons or accents
   background: "#FFFFFF", // White background
@@ -12,7 +12,7 @@ const light: Partial<Colors> = {
   error: "#F44336", // Red for errors
 };
 
-const dark: Partial<Colors> = {
+export const darkColors: Partial<Colors> = {
   primary: "#BB86FC", // A lighter purple, still vibrant but suitable for dark backgrounds
   secondary: "#03DAC6", // Teal, works well on dark surfaces too
   white: "#161618",
@@ -25,7 +25,7 @@ const dark: Partial<Colors> = {
 
 export const EzColors = {
   light: {
-    ...light,
+    ...lightColors,
     card: "#F8F8F8", // Light gray for cards or surfaces
     text: "#000000", // Black text color
     border: "#E0E0E0", // Light gray border color
@@ -38,7 +38,7 @@ export const EzColors = {
   },
 
   dark: {
-    ...dark,
+    ...darkColors,
     icon: "#9BA1A6",
     tabIconDefault: "#9BA1A6",
     tabIconSelected: tintColorDark,
