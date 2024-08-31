@@ -1,41 +1,39 @@
-import { ScrollView } from "@/components/ScrollView";
+import ParticipantInput from "@/components/ParticipantInput";
+import { Participants } from "@/components/Participants";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
-import { Card, Icon, Input, ListItem } from "@rneui/themed";
 import { useBill } from "ez-split-logic";
 import * as React from "react";
 import { StyleSheet } from "react-native";
 
-export default function Participants() {
+export default function ManageParticipants() {
   const { selectedParticipant, participants, ...actions } = useBill();
   const [name, setName] = React.useState("");
 
+  React.useEffect(() => {
+    const participants = "123456789123456789"
+      .split("")
+      .map(() => ({ name: "Gustavo" }));
+    actions.addPeople(participants);
+  }, []);
+
+  const handleAddPerson = () => {
+    if (name !== "") {
+      actions.addPeople([{ name }]);
+      setName("");
+    }
+  };
+
   return (
     <ThemedSafeAreaView style={styles.container}>
-      <Card containerStyle={styles.container}>
-        <Input
-          value={name}
-          onChangeText={setName}
-          placeholder="add participant"
-          onSubmitEditing={() => {
-            actions.addPeople([{ name }]);
-            setName("");
-          }}
-        />
-        <ScrollView>
-          {participants.map((participant) => (
-            <ListItem key={participant.id}>
-              <ListItem.Content>
-                <ListItem.Title>{participant.name}</ListItem.Title>
-              </ListItem.Content>
-              <Icon
-                name="trash-outline"
-                type="ionicon"
-                onPress={() => actions.removeParticipants([participant.id])}
-              />
-            </ListItem>
-          ))}
-        </ScrollView>
-      </Card>
+      <ParticipantInput
+        name={name}
+        onNameChange={setName}
+        onAddClick={handleAddPerson}
+      />
+      <Participants
+        participants={participants}
+        onRemovePress={(id) => actions.removeParticipants([id])}
+      />
     </ThemedSafeAreaView>
   );
 }

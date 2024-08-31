@@ -1,11 +1,14 @@
 import * as React from "react";
+import { ViewProps } from "react-native";
 import Animated, { useAnimatedRef } from "react-native-reanimated";
 
-export const ScrollView: React.FC<React.PropsWithChildren> = (props) => {
+type ScrollViewProps = ViewProps;
+
+export const ScrollView = (props: ScrollViewProps) => {
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
 
   return (
-    <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
+    <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16} {...props}>
       {props.children}
     </Animated.ScrollView>
   );

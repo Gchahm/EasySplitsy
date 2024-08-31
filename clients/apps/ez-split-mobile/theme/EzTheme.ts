@@ -1,10 +1,10 @@
-import { Colors } from "@/constants/Colors";
+import { EzColors } from "@/constants/Colors";
 import { ThemeMode, createTheme } from "@rneui/themed";
 
 export const ezTheme = (mode: ThemeMode) =>
   createTheme({
-    lightColors: Colors.light,
-    darkColors: Colors.dark,
+    lightColors: EzColors.light,
+    darkColors: EzColors.dark,
     mode,
     components: {
       Button: () => ({
@@ -31,14 +31,21 @@ export const ezTheme = (mode: ThemeMode) =>
         },
       },
       Input: (_, theme) => ({
+        containerStyle: {
+          margin: 0,
+          padding: 0,
+        },
         inputContainerStyle: {
-          borderRadius: 5,
+          borderRadius: 32,
+          backgroundColor: theme.colors.searchBg,
+          borderWidth: 0,
+          colors: theme.colors.black,
+        },
+        inputStyle: {
           padding: 10,
-          backgroundColor: theme.colors.white,
-          borderWidth: 1,
         },
         labelStyle: {
-          color: "#BB86FC",
+          color: theme.colors.black,
         },
       }),
 
