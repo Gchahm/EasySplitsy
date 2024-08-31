@@ -3,9 +3,11 @@ import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { useTheme } from "@rneui/themed";
+import { useBill } from "ez-split-logic";
 
 export default function TabLayout() {
   const { theme } = useTheme();
+  const { participants } = useBill();
 
   return (
     <Tabs
@@ -42,6 +44,7 @@ export default function TabLayout() {
         name="splitter"
         options={{
           title: "Split",
+          href: participants.length < 2 ? null : undefined,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "code-slash" : "code-slash-outline"}
