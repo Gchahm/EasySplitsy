@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 import { ThemedView } from "./ThemedView";
-import { View } from "react-native";
-import { Button, Icon, Input } from "@rneui/themed";
+import { Input } from "@rneui/themed";
 
 type ParticipantInputProps = {
   name: string;
@@ -14,18 +13,13 @@ export default function ParticipantInput(props: ParticipantInputProps) {
 
   return (
     <ThemedView style={styles.headerContainer}>
-      <View>
-        <Input
-          value={name}
-          onChangeText={setName}
-          placeholder="add participant"
-          renderErrorMessage={false}
-          onSubmitEditing={onAddClick}
-        />
-      </View>
-      <Button>
-        <Icon name="add" onPress={onAddClick} />
-      </Button>
+      <Input
+        value={name}
+        onChangeText={setName}
+        placeholder="add participant"
+        renderErrorMessage={false}
+        onSubmitEditing={onAddClick}
+      />
     </ThemedView>
   );
 }

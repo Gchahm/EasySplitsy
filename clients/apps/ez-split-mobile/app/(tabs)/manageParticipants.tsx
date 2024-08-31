@@ -10,10 +10,10 @@ export default function ManageParticipants() {
   const [name, setName] = React.useState("");
 
   React.useEffect(() => {
-    const participants = "123456789123456789"
-      .split("")
-      .map(() => ({ name: "Gustavo" }));
-    actions.addPeople(participants);
+    //const participants = "123456789123456789"
+    //  .split("")
+    //  .map(() => ({ name: "Gustavo" }));
+    //actions.addPeople(participants);
   }, []);
 
   const handleAddPerson = () => {

@@ -27,7 +27,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="participants"
+        name="manageParticipants"
         options={{
           title: "Participants",
           tabBarIcon: ({ color, focused }) => (
