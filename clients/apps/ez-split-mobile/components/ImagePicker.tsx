@@ -16,12 +16,8 @@ export default function ImagePicker(props: ImagePickerProps) {
     let result = await ExpoImageHelpers.launchImageLibraryAsync({
       mediaTypes: ExpoImageHelpers.MediaTypeOptions.All,
       allowsEditing: true,
-      aspect: [4, 3],
       quality: 1,
     });
-
-    console.log(result);
-
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
@@ -33,8 +29,14 @@ export default function ImagePicker(props: ImagePickerProps) {
         {image && <Image source={{ uri: image }} style={styles.image} />}
       </View>
       <View style={styles.footer}>
-        <Button title="Select Image" onPress={pickImage} />
         <Button
+          style={styles.button}
+          type="outline"
+          title="Select Image"
+          onPress={pickImage}
+        />
+        <Button
+          style={styles.button}
           disabled={!image}
           title="Send"
           onPress={() => image && onSendClick(image)}
@@ -56,8 +58,8 @@ const styles = StyleSheet.create({
     alignContent: "stretch",
     alignItems: "stretch",
   },
-  image: {
-    width: 200,
-    height: 200,
+  button: {
+    margin: 12,
   },
+  image: {},
 });

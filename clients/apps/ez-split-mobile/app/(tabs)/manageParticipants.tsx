@@ -43,6 +43,10 @@ export default function ManageParticipantsScreen() {
     }
   };
 
+  const handleOnCreatePress = (id: string) => {
+    router.navigate(`/participants/${id}`);
+  };
+
   const confirmDialog = (
     <ConfirmAction
       isVisible={isDialogOpen}
@@ -54,10 +58,6 @@ export default function ManageParticipantsScreen() {
       onDecline={clearRemoveId}
     />
   );
-
-  const handleOnCreatePress = (id: string) => {
-    router.navigate(`/participants/${id}`);
-  };
 
   return (
     <ThemedSafeAreaView style={styles.container}>

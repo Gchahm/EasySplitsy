@@ -29,7 +29,13 @@ export default function RootLayout() {
     <EzThemeProvider>
       <BillProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
-          <Stack>
+          <Stack
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: "#f4511e",
+              },
+            }}
+          >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen
               name="participants/[id]"

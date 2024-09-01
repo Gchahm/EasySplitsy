@@ -1,5 +1,6 @@
 import ImagePicker from "@/components/ImagePicker";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
+import { router } from "expo-router";
 import { createUploadFileApiBillsPost } from "ez-split-clients";
 import { IBillItem } from "ez-split-interfaces";
 import { useBill } from "ez-split-logic";
@@ -15,23 +16,27 @@ export default function UploadScreen() {
     const fileType = blob.type;
     const file = new File([blob], fileName, { type: fileType });
 
-    createUploadFileApiBillsPost({
-      baseUrl: process.env.EXPO_PUBLIC_API_URL,
-      body: { file },
-    })
-      .then((response) => {
-        const items: IBillItem[] =
-          response.data?.items.map((item, id) => {
-            return {
-              id: id.toString(),
-              ...item,
-            };
-          }) || [];
-        setBill(items);
-      })
-      .catch((error) => {
-        console.log(error);
+    handleServerCall(file);
+    router.navigate("/(tabs)/manageParticipants");
+  };
+
+  const handleServerCall = async (file: File) => {
+    try {
+      const response = await createUploadFileApiBillsPost({
+        baseUrl: process.env.EXPO_PUBLIC_API_URL,
+        body: { file },
       });
+      const items: IBillItem[] =
+        response.data?.items.map((item, id) => {
+          return {
+            id: id.toString(),
+            ...item,
+          };
+        }) || [];
+      setBill(items);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
