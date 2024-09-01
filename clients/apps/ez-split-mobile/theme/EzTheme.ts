@@ -1,10 +1,18 @@
 import { lightColors, darkColors } from "@/constants/Colors";
+import { MARGIN_HORIZONTAL } from "@/constants/Padding";
 import { ThemeMode, createTheme } from "@rneui/themed";
 
 export const ezTheme = (mode: ThemeMode) =>
   createTheme({
     lightColors: lightColors,
     darkColors: darkColors,
+    spacing: {
+      xs: 8,
+      sm: 12,
+      md: 16,
+      lg: 24,
+      xl: 32,
+    },
     mode,
     components: {
       Button: () => ({
@@ -63,6 +71,7 @@ export const ezTheme = (mode: ThemeMode) =>
           borderWidth: 0,
           backgroundColor: theme.colors.white,
           borderRadius: 12,
+          margin: MARGIN_HORIZONTAL,
         },
       }),
       Dialog: (_, theme) => ({
