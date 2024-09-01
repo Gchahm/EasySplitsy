@@ -5,7 +5,7 @@ import { IBillItem } from "ez-split-interfaces";
 import { useBill } from "ez-split-logic";
 import { StyleSheet } from "react-native";
 
-export default function HomeScreen() {
+export default function UploadScreen() {
   const { setBill } = useBill();
 
   const handleSendClick = async (uri: string) => {

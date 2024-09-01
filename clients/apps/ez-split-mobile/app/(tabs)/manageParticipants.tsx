@@ -6,7 +6,7 @@ import { useBill } from "ez-split-logic";
 import * as React from "react";
 import { StyleSheet } from "react-native";
 
-export default function ManageParticipants() {
+export default function ManageParticipantsScreen() {
   const { selectedParticipant, participants, ...actions } = useBill();
   const [name, setName] = React.useState("");
   const [removeId, setRemoveId] = React.useState<string | undefined>();

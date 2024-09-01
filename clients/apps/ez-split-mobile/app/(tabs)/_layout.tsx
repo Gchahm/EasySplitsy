@@ -17,12 +17,12 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="upload"
         options={{
-          title: "Home",
+          title: "Upload",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "home" : "home-outline"}
+              name={focused ? "cloud-upload" : "cloud-upload-outline"}
               color={color}
             />
           ),
@@ -31,7 +31,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="manageParticipants"
         options={{
-          title: "Participants",
+          title: "Friends",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "people" : "people-outline"}
@@ -47,7 +47,7 @@ export default function TabLayout() {
           href: participants.length < 2 ? null : undefined,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
+              name={focused ? "swap-vertical" : "swap-vertical-outline"}
               color={color}
             />
           ),

@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
 import { ParticipantSelector } from "@/components/ParticipantSelector";
 
-export default function Splitter() {
+export default function SplitReceiptScreen() {
   const { bill, selectedParticipant, items, participants, ...actions } =
     useBill();
 
