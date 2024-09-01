@@ -3,6 +3,7 @@ import BillCard from "@/components/BillCard";
 import { StyleSheet } from "react-native";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
 import { ParticipantSelector } from "@/components/ParticipantSelector";
+import { Text } from "@rneui/themed";
 
 export default function SplitReceiptScreen() {
   const { bill, selectedParticipant, items, participants, ...actions } =
@@ -37,16 +38,12 @@ export default function SplitReceiptScreen() {
     />
   );
 
+  const receiptCardHeader: React.ReactNode = <Text>Receipt</Text>;
+
   return (
     <ThemedSafeAreaView style={styles.container}>
+      {participantCardHeader}
       <BillCard
-        title={participantCardHeader}
-        items={items}
-        itemsCount={selectedParticipant?.items || {}}
-        onRemoveClick={actions.moveItemToBill}
-      />
-      <BillCard
-        title={"bill"}
         items={items}
         itemsCount={bill}
         onRemoveClick={actions.moveItemToParticipant}

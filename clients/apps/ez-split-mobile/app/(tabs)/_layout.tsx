@@ -17,7 +17,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="upload"
+        name="index"
         options={{
           title: "Upload",
           tabBarIcon: ({ color, focused }) => (
@@ -41,7 +41,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="splitter"
+        name="splitReceipt"
         options={{
           title: "Split",
           href: participants.length < 2 ? null : undefined,
