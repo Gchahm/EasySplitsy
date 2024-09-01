@@ -91,7 +91,9 @@ export const ezTheme = (mode: ThemeMode) =>
   });
 
 function buttonColor(props: ButtonProps, colors: Colors): string {
+  console.log(props.type);
   switch (props.type) {
+    case undefined:
     case "solid":
       return colors.black;
     default:
