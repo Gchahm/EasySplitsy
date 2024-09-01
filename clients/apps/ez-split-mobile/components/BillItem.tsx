@@ -4,56 +4,46 @@ import { IBillItem } from "ez-split-interfaces";
 import { StyleSheet } from "react-native";
 
 export interface IBillItemProps extends IBillItem {
-  moveQuantity: number;
-  onMoveQuantityChange: (id: string, value: number) => void;
-  showSplitControl?: boolean;
+  participantQuantity: number;
+  onAddItemPress: () => void;
+  onRemoveItemPress: () => void;
 }
 
 export const BillItem: React.FC<IBillItemProps> = (props) => {
-  const { moveQuantity, onMoveQuantityChange, showSplitControl, ...item } =
+  const { participantQuantity, onAddItemPress, onRemoveItemPress, ...item } =
     props;
 
   const { theme } = useTheme();
 
-  const handleRemovePress = () => {
-    onMoveQuantityChange(item.id, -1);
-  };
-
-  const handleAddPress = () => {
-    onMoveQuantityChange(item.id, 1);
-  };
-
-  const total = item.price * item.quantity;
+  const total = item.price * participantQuantity;
+  const totalCount = item.quantity + participantQuantity;
 
   return (
     <ListItem containerStyle={styles.container}>
-      <Text>${total.toFixed(2)}</Text>
+      <>
+        {!!participantQuantity && (
+          <Icon
+            color={theme.colors.secondary}
+            name="remove"
+            onPress={onRemoveItemPress}
+          />
+        )}
+        <Text>
+          {participantQuantity}/{totalCount}
+        </Text>
+        {participantQuantity < totalCount && (
+          <Icon
+            color={theme.colors.secondary}
+            name="add"
+            onPress={onAddItemPress}
+          />
+        )}
+      </>
       <ListItem.Content style={styles.listContent}>
         <ListItem.Title>{item.name}</ListItem.Title>
         <ListItem.Subtitle>${item.price.toFixed()} each</ListItem.Subtitle>
-        <ListItem.Subtitle>{item.quantity} unit(s)</ListItem.Subtitle>
       </ListItem.Content>
-      {showSplitControl && (
-        <>
-          {!!moveQuantity && (
-            <Icon
-              color={theme.colors.secondary}
-              name="remove"
-              onPress={handleRemovePress}
-            />
-          )}
-          <Text>
-            {moveQuantity}/{item.quantity}
-          </Text>
-          {moveQuantity < item.quantity && (
-            <Icon
-              color={theme.colors.secondary}
-              name="add"
-              onPress={handleAddPress}
-            />
-          )}
-        </>
-      )}
+      <Text>${total.toFixed(2)}</Text>
     </ListItem>
   );
 };

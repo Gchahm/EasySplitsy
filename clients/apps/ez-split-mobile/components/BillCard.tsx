@@ -4,101 +4,47 @@ import { BillItem } from "./BillItem";
 import { StyleSheet } from "react-native";
 import { ScrollView } from "./ScrollView";
 import { ListView } from "./ListView";
-import { Button, Text, Icon, useTheme } from "@rneui/themed";
+import { Text } from "@rneui/themed";
 import { View } from "react-native";
-import ConfirmAction from "./ConfirmAction";
 import Filler from "./primitives/Filler";
 
 interface IBillCardProps {
-  itemsCount: Record<string, number>;
   items: IItem[];
-  onConfirmSplit: (items: Record<string, number>) => void;
+  receiptCount: Record<string, number>;
+  participantCount: Record<string, number>;
+  onAddItem: (id: string) => void;
+  onRemoveItem: (id: string) => void;
 }
 
 export default function BillCard(props: IBillCardProps) {
-  const { items, itemsCount, onConfirmSplit } = props;
-
-  const [isEditMode, setIsEditMode] = React.useState(false);
-  const [split, setSplit] = React.useState<Record<string, number>>({});
-  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = React.useState(false);
-
-  const { theme } = useTheme();
+  const { items, receiptCount, participantCount, onAddItem, onRemoveItem } =
+    props;
 
   const total = items.reduce(
-    (sum, item) => sum + item.price * itemsCount[item.id],
+    (sum, item) => sum + item.price * participantCount[item.id] || 0,
     0,
   );
 
-  const resetSplit = () => {
-    setIsEditMode(false);
-    setSplit({});
-    setIsConfirmDialogOpen(false);
-  };
-
-  const handleSplitPress = () => setIsEditMode(true);
-  const handleCancelPress = () => {
-    if (Object.keys(split).length > 0) {
-      setIsConfirmDialogOpen(true);
-    } else {
-      resetSplit();
-    }
-  };
-
-  const handleConfirmPress = () => {
-    onConfirmSplit(split);
-    resetSplit();
-  };
-
-  const handleMoveQuantityChange = (id: string, value: number) => {
-    setSplit((prev) => ({
-      ...prev,
-      [id]: value + prev[id] || 0,
-    }));
-  };
-
   return (
     <ListView>
-      <ConfirmAction
-        isVisible={isConfirmDialogOpen}
-        title="are you sure"
-        text="this will undo all your changes to splitting"
-        onConfirm={resetSplit}
-        onDecline={() => setIsConfirmDialogOpen(false)}
-      />
-      <View style={styles.header}>
-        <Text>Receipt</Text>
-      </View>
       <ScrollView style={styles.container}>
+        <View style={styles.header}></View>
         {items
-          .filter((item) => itemsCount[item.id])
+          .filter(({ id }) => receiptCount[id] || participantCount[id])
           .map((item, key) => (
             <BillItem
               {...item}
               key={key}
-              showSplitControl={isEditMode}
-              quantity={itemsCount[item.id]}
-              moveQuantity={split[item.id] || 0}
-              onMoveQuantityChange={handleMoveQuantityChange}
+              participantQuantity={participantCount[item.id] || 0}
+              quantity={receiptCount[item.id] || 0}
+              onAddItemPress={() => onAddItem(item.id)}
+              onRemoveItemPress={() => onRemoveItem(item.id)}
             />
           ))}
       </ScrollView>
       <View style={styles.footer}>
-        <Text>${total.toFixed(2)}</Text>
         <Filler />
-        {isEditMode ? (
-          <>
-            <Button onPress={handleCancelPress} type="clear" color="error">
-              Cancel
-            </Button>
-            <Button onPress={handleConfirmPress} type="clear" color="secondary">
-              <Icon name="send" color={theme.colors.primary} />
-            </Button>
-          </>
-        ) : (
-          <Button onPress={handleSplitPress} type="outline" color="primary">
-            Split
-          </Button>
-        )}
+        <Text>${total.toFixed(2)}</Text>
       </View>
     </ListView>
   );

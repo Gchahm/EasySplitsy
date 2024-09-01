@@ -1,35 +1,42 @@
-import { Icon, Input, Text } from "@rneui/themed";
+import { Button, Icon, Input, Text, useTheme } from "@rneui/themed";
 import * as React from "react";
 import { StyleSheet, View } from "react-native";
 
 export interface IParticipantSelectorProps {
-  onPreviousClick?: () => void;
-  onNextClick?: () => void;
+  onCancelPress?: () => void;
+  onConfirmPress?: () => void;
   participantName?: string;
 }
 
 export const ParticipantSelector: React.FC<IParticipantSelectorProps> = (
   props,
 ) => {
-  const { onNextClick, onPreviousClick, participantName } = props;
+  const { onConfirmPress, onCancelPress, participantName } = props;
+  const { theme } = useTheme();
 
   return (
     <View style={styles.container}>
-      {onPreviousClick && (
-        <Icon
-          onPress={onPreviousClick}
-          name="arrow-back-outline"
-          type="ionicon"
-        />
-      )}
-      <Text style={styles.middle}>{participantName}</Text>
-      {onNextClick && (
-        <Icon
-          onPress={onNextClick}
-          name="arrow-forward-outline"
-          type="ionicon"
-        />
-      )}
+      <View style={styles.middle}>
+        <Text>{participantName}</Text>
+      </View>
+      <View style={styles.buttons}>
+        {onCancelPress && (
+          <Button type="clear" color="error" onPress={onCancelPress}>
+            <Icon
+              name="close-circle-outline"
+              type="ionicon"
+              color={theme.colors.error}
+            />
+          </Button>
+        )}
+        <Button type="clear" color="secondary" onPress={onConfirmPress}>
+          <Icon
+            name="checkmark-circle-outline"
+            type="ionicon"
+            color={theme.colors.success}
+          />
+        </Button>
+      </View>
     </View>
   );
 };
@@ -38,11 +45,16 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flexDirection: "row",
-    alignItems: "stretch",
   },
   middle: {
     flex: 1,
-    alignItems: "stretch",
-    textAlign: "center",
+    flexDirection: "row",
+    alignContent: "center",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttons: {
+    alignItems: "flex-end",
+    flexDirection: "row",
   },
 });
