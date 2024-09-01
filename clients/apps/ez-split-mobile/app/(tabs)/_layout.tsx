@@ -3,11 +3,9 @@ import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { useTheme } from "@rneui/themed";
-import { useBill } from "ez-split-logic";
 
 export default function TabLayout() {
   const { theme } = useTheme();
-  const { participants } = useBill();
 
   return (
     <Tabs
@@ -17,7 +15,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="upload"
+        name="index"
         options={{
           title: "Upload",
           tabBarIcon: ({ color, focused }) => (
@@ -35,19 +33,6 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "people" : "people-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="splitter"
-        options={{
-          title: "Split",
-          href: participants.length < 2 ? null : undefined,
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "swap-vertical" : "swap-vertical-outline"}
               color={color}
             />
           ),

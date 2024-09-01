@@ -1,18 +1,28 @@
 import { lightColors, darkColors } from "@/constants/Colors";
-import { ThemeMode, createTheme } from "@rneui/themed";
+import { MARGIN_HORIZONTAL } from "@/constants/Padding";
+import { ButtonProps, Colors, ThemeMode, createTheme } from "@rneui/themed";
 
 export const ezTheme = (mode: ThemeMode) =>
   createTheme({
     lightColors: lightColors,
     darkColors: darkColors,
+    spacing: {
+      xs: 8,
+      sm: 12,
+      md: 16,
+      lg: 24,
+      xl: 32,
+    },
     mode,
     components: {
-      Button: () => ({
+      Button: (props, theme) => ({
         buttonStyle: {
+          borderColor: buttonColor(props, theme.colors),
           borderRadius: 5,
           padding: 10,
         },
         titleStyle: {
+          color: buttonColor(props, theme.colors),
           fontSize: 16,
           fontWeight: "bold",
         },
@@ -63,6 +73,7 @@ export const ezTheme = (mode: ThemeMode) =>
           borderWidth: 0,
           backgroundColor: theme.colors.white,
           borderRadius: 12,
+          margin: MARGIN_HORIZONTAL,
         },
       }),
       Dialog: (_, theme) => ({
@@ -78,3 +89,27 @@ export const ezTheme = (mode: ThemeMode) =>
       }),
     },
   });
+
+function buttonColor(props: ButtonProps, colors: Colors): string {
+  switch (props.type) {
+    case "solid":
+      return colors.black;
+    default:
+      return outlineColor(props, colors);
+  }
+}
+
+function outlineColor(props: ButtonProps, colors: Colors): string {
+  switch (props.color) {
+    case "success":
+      return colors.success;
+    case "error":
+      return colors.error;
+    case "warning":
+      return colors.warning;
+    case "secondary":
+      return colors.secondary;
+    default:
+      return colors.primary;
+  }
+}

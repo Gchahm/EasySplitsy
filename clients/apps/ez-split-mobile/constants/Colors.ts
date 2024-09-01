@@ -13,8 +13,8 @@ export const lightColors: Partial<Colors> = {
 };
 
 export const darkColors: Partial<Colors> = {
-  primary: "#BB86FC", // A lighter purple, still vibrant but suitable for dark backgrounds
-  secondary: "#03DAC6", // Teal, works well on dark surfaces too
+  primary: "#667DFF",
+  secondary: "#8F8F91",
   white: "#161618",
   background: "#000000",
   success: "#66BB6A", // Light green for success messages
