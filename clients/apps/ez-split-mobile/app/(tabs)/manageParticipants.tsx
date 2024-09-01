@@ -2,17 +2,24 @@ import ConfirmAction from "@/components/ConfirmAction";
 import ParticipantInput from "@/components/ParticipantInput";
 import { Participants } from "@/components/Participants";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
-import AppHeader from "@/components/primitives/AppHeader";
+import { AppHeader } from "@/components";
+import { Card, Text } from "@rneui/themed";
 import { router } from "expo-router";
 import { useBill } from "ez-split-logic";
 import * as React from "react";
 import { StyleSheet } from "react-native";
 
 export default function ManageParticipantsScreen() {
-  const { selectedParticipant, participants, ...actions } = useBill();
+  const { selectedParticipant, participants, bill, items, ...actions } =
+    useBill();
   const [name, setName] = React.useState("");
   const [removeId, setRemoveId] = React.useState<string | undefined>();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+
+  const receiptRemaining = items.reduce(
+    (sum, { id, price }) => sum + price * bill[id] || 0,
+    0,
+  );
 
   const handleAddPerson = () => {
     if (name !== "") {
@@ -69,6 +76,9 @@ export default function ManageParticipantsScreen() {
           onAddClick={handleAddPerson}
         />
       </AppHeader>
+      <Card>
+        <Text>${receiptRemaining.toFixed(2)} remaining</Text>
+      </Card>
       <Participants
         participants={participants}
         onCreatePress={handleOnCreatePress}

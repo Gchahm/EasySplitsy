@@ -7,7 +7,7 @@ type AppHeaderProps = {
   children: React.ReactNode;
 };
 
-export default function AppHeader(props: AppHeaderProps) {
+export function AppHeader(props: AppHeaderProps) {
   return (
     <ThemedView style={styles.headerContainer}>{props.children}</ThemedView>
   );

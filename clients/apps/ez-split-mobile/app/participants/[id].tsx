@@ -1,9 +1,9 @@
 import { useBill } from "ez-split-logic";
-import BillCard from "@/components/BillCard";
+import { SplitReceipt } from "@/components";
 import { StyleSheet } from "react-native";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
 import { ParticipantSelector } from "@/components/ParticipantSelector";
-import AppHeader from "@/components/primitives/AppHeader";
+import { AppHeader } from "@/components";
 import * as React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 
@@ -36,9 +36,10 @@ export default function SplitReceiptScreen() {
     <ThemedSafeAreaView style={styles.container}>
       {participantCardHeader}
       {!!selectedParticipant && (
-        <BillCard
+        <SplitReceipt
           items={items}
           receiptCount={bill}
+          total={selectedParticipant.total}
           participantCount={selectedParticipant.items}
           onRemoveItem={actions.moveItemToBill}
           onAddItem={actions.moveItemToParticipant}

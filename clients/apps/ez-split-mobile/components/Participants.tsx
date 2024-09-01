@@ -32,6 +32,9 @@ export const Participants = (props: ParticipantsProps) => {
           <ListItem key={participant.id}>
             <ListItem.Content>
               <ListItem.Title>{participant.name}</ListItem.Title>
+              <ListItem.Subtitle>
+                ${participant.total.toFixed(2)}
+              </ListItem.Subtitle>
             </ListItem.Content>
             <Icon
               name="receipt-outline"

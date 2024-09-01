@@ -1,29 +1,31 @@
 import { IItem } from "ez-split-interfaces";
 import * as React from "react";
-import { BillItem } from "./BillItem";
+import { ReceiptItem } from "./ReceiptItem";
 import { StyleSheet } from "react-native";
-import { ScrollView } from "./ScrollView";
-import { ListView } from "./ListView";
+import { ScrollView } from "@/components/ScrollView";
+import { ListView } from "@/components/ListView";
 import { Text } from "@rneui/themed";
 import { View } from "react-native";
-import Filler from "./primitives/Filler";
+import { Filler } from "@/components";
 
 interface IBillCardProps {
   items: IItem[];
+  total: number;
   receiptCount: Record<string, number>;
   participantCount: Record<string, number>;
   onAddItem: (id: string) => void;
   onRemoveItem: (id: string) => void;
 }
 
-export default function BillCard(props: IBillCardProps) {
-  const { items, receiptCount, participantCount, onAddItem, onRemoveItem } =
-    props;
-
-  const total = items.reduce(
-    (sum, item) => sum + item.price * participantCount[item.id] || 0,
-    0,
-  );
+export const SplitReceipt = (props: IBillCardProps) => {
+  const {
+    items,
+    total,
+    receiptCount,
+    participantCount,
+    onAddItem,
+    onRemoveItem,
+  } = props;
 
   return (
     <ListView>
@@ -32,7 +34,7 @@ export default function BillCard(props: IBillCardProps) {
         {items
           .filter(({ id }) => receiptCount[id] || participantCount[id])
           .map((item, key) => (
-            <BillItem
+            <ReceiptItem
               {...item}
               key={key}
               participantQuantity={participantCount[item.id] || 0}
@@ -48,7 +50,7 @@ export default function BillCard(props: IBillCardProps) {
       </View>
     </ListView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
