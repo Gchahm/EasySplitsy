@@ -2,6 +2,7 @@ import ConfirmAction from "@/components/ConfirmAction";
 import ParticipantInput from "@/components/ParticipantInput";
 import { Participants } from "@/components/Participants";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
+import AppHeader from "@/components/primitives/AppHeader";
 import { useBill } from "ez-split-logic";
 import * as React from "react";
 import { StyleSheet } from "react-native";
@@ -56,11 +57,13 @@ export default function ManageParticipantsScreen() {
   return (
     <ThemedSafeAreaView style={styles.container}>
       {confirmDialog}
-      <ParticipantInput
-        name={name}
-        onNameChange={setName}
-        onAddClick={handleAddPerson}
-      />
+      <AppHeader>
+        <ParticipantInput
+          name={name}
+          onNameChange={setName}
+          onAddClick={handleAddPerson}
+        />
+      </AppHeader>
       <Participants
         participants={participants}
         onRemovePress={handleRemoveClick}
