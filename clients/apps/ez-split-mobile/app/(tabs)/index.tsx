@@ -16,7 +16,7 @@ export default function UploadScreen() {
     const file = new File([blob], fileName, { type: fileType });
 
     createUploadFileApiBillsPost({
-      baseUrl: "http://127.0.0.1:8000",
+      baseUrl: process.env.EXPO_PUBLIC_API_URL,
       body: { file },
     })
       .then((response) => {

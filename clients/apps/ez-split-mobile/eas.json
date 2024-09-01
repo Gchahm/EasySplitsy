@@ -1,22 +1,25 @@
 {
-  "cli": {
-    "version": ">= 11.0.3"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "node": "v20.17.0"
+    "cli": {
+        "version": ">= 11.0.3"
     },
-    "preview": {
-      "distribution": "internal",
-      "node": "v20.17.0"
+    "build": {
+        "development": {
+            "developmentClient": true,
+            "distribution": "internal",
+            "node": "v20.17.0"
+        },
+        "preview": {
+            "distribution": "internal",
+            "node": "v20.17.0"
+        },
+        "production": {
+            "node": "v20.17.0",
+            "env": {
+                "EXPO_PUBLIC_API_URL": "https://easysplit.azurewebsites.net/"
+            }
+        }
     },
-    "production": {
-      "node": "v20.17.0"
+    "submit": {
+        "production": {}
     }
-  },
-  "submit": {
-    "production": {}
-  }
 }
