@@ -9,7 +9,6 @@ type ConfirmActionProps = {
   onDecline: () => void;
 };
 
-// TODO: Fix colors
 export default function ConfirmAction(props: ConfirmActionProps) {
   const { isVisible, title, text, onConfirm, onDecline } = props;
 
@@ -28,7 +27,7 @@ export default function ConfirmAction(props: ConfirmActionProps) {
         <Button
           title="decline"
           onPress={onDecline}
-          color="decline"
+          color="error"
           type="clear"
         />
       </Dialog.Actions>

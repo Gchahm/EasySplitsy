@@ -3,7 +3,8 @@ import BillCard from "@/components/BillCard";
 import { StyleSheet } from "react-native";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
 import { ParticipantSelector } from "@/components/ParticipantSelector";
-import { Text } from "@rneui/themed";
+import AppHeader from "@/components/primitives/AppHeader";
+import * as React from "react";
 
 export default function SplitReceiptScreen() {
   const { bill, selectedParticipant, items, participants, ...actions } =
@@ -30,15 +31,21 @@ export default function SplitReceiptScreen() {
   const canSelectNext: boolean =
     selectedParticipantIndex !== participants.length - 1;
 
-  const participantCardHeader: React.ReactNode = (
-    <ParticipantSelector
-      onPreviousClick={canSelectPrevious ? handleOnPreviousClick : undefined}
-      onNextClick={canSelectNext ? handleNextClick : undefined}
-      participantName={selectedParticipant?.name}
-    />
-  );
+  const handleOnConfirmSplit = (split: Record<string, number>) => {
+    Object.keys(split).forEach((key) => {
+      actions.moveItemToParticipant(key, split[key]);
+    });
+  };
 
-  const receiptCardHeader: React.ReactNode = <Text>Receipt</Text>;
+  const participantCardHeader: React.ReactNode = (
+    <AppHeader>
+      <ParticipantSelector
+        onPreviousClick={canSelectPrevious ? handleOnPreviousClick : undefined}
+        onNextClick={canSelectNext ? handleNextClick : undefined}
+        participantName={selectedParticipant?.name}
+      />
+    </AppHeader>
+  );
 
   return (
     <ThemedSafeAreaView style={styles.container}>
@@ -46,7 +53,7 @@ export default function SplitReceiptScreen() {
       <BillCard
         items={items}
         itemsCount={bill}
-        onRemoveClick={actions.moveItemToParticipant}
+        onConfirmSplit={handleOnConfirmSplit}
       />
     </ThemedSafeAreaView>
   );

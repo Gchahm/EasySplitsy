@@ -42,5 +42,7 @@ const styles = StyleSheet.create({
   },
   middle: {
     flex: 1,
+    alignItems: "stretch",
+    textAlign: "center",
   },
 });
