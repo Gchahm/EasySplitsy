@@ -38,19 +38,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="participants/[id]"
-        options={{
-          title: "Split",
-          href: null,
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "swap-vertical" : "swap-vertical-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
     </Tabs>
   );
 }

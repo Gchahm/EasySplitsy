@@ -56,7 +56,7 @@ export default function ManageParticipantsScreen() {
   );
 
   const handleOnCreatePress = (id: string) => {
-    router.navigate(`/(tabs)/participants/${id}`);
+    router.navigate(`/participants/${id}`);
   };
 
   return (
