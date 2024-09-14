@@ -1,20 +1,20 @@
-import React from "react";
-import { Text, Animated, StyleSheet, View } from "react-native";
+import React from 'react';
+import { Text, Animated, StyleSheet, View } from 'react-native';
 
 import {
   Swipeable,
   GestureHandlerRootView,
-} from "react-native-gesture-handler";
-import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
+} from 'react-native-gesture-handler';
+import ReanimatedSwipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 import Reanimated, {
   SharedValue,
   useAnimatedStyle,
-} from "react-native-reanimated";
+} from 'react-native-reanimated';
 
 function LeftAction(prog: SharedValue<number>, drag: SharedValue<number>) {
   const styleAnimation = useAnimatedStyle(() => {
-    console.log("[R] showLeftProgress:", prog.value);
-    console.log("[R] appliedTranslation:", drag.value);
+    console.log('[R] showLeftProgress:', prog.value);
+    console.log('[R] appliedTranslation:', drag.value);
 
     return {
       transform: [{ translateX: drag.value - 50 }],
@@ -30,8 +30,8 @@ function LeftAction(prog: SharedValue<number>, drag: SharedValue<number>) {
 
 function RightAction(prog: SharedValue<number>, drag: SharedValue<number>) {
   const styleAnimation = useAnimatedStyle(() => {
-    console.log("[R] showRightProgress:", prog.value);
-    console.log("[R] appliedTranslation:", drag.value);
+    console.log('[R] showRightProgress:', prog.value);
+    console.log('[R] appliedTranslation:', drag.value);
 
     return {
       transform: [{ translateX: drag.value + 50 }],
@@ -47,10 +47,10 @@ function RightAction(prog: SharedValue<number>, drag: SharedValue<number>) {
 
 function LegacyLeftAction(prog: any, drag: any) {
   prog.addListener((value: any) => {
-    console.log("[L] showLeftProgress:", value.value);
+    console.log('[L] showLeftProgress:', value.value);
   });
   drag.addListener((value: any) => {
-    console.log("[L] appliedTranslation:", value.value);
+    console.log('[L] appliedTranslation:', value.value);
   });
 
   const trans = Animated.subtract(drag, 50);
@@ -71,10 +71,10 @@ function LegacyLeftAction(prog: any, drag: any) {
 
 function LegacyRightAction(prog: any, drag: any) {
   prog.addListener((value: any) => {
-    console.log("[L] showRightProgress:", value.value);
+    console.log('[L] showRightProgress:', value.value);
   });
   drag.addListener((value: any) => {
-    console.log("[L] appliedTranslation:", value.value);
+    console.log('[L] appliedTranslation:', value.value);
   });
 
   const trans = Animated.add(drag, 50);
@@ -130,15 +130,15 @@ export default function Example() {
 }
 
 const styles = StyleSheet.create({
-  leftAction: { width: 50, height: 50, backgroundColor: "crimson" },
-  rightAction: { width: 50, height: 50, backgroundColor: "purple" },
+  leftAction: { width: 50, height: 50, backgroundColor: 'crimson' },
+  rightAction: { width: 50, height: 50, backgroundColor: 'purple' },
   separator: {
-    width: "100%",
+    width: '100%',
     borderTopWidth: 1,
   },
   swipeable: {
     height: 50,
-    backgroundColor: "papayawhip",
-    alignItems: "center",
+    backgroundColor: 'papayawhip',
+    alignItems: 'center',
   },
 });

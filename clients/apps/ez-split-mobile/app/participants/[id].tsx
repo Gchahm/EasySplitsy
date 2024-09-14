@@ -1,11 +1,11 @@
-import { useSplit } from "ez-split-logic";
-import { SplitReceipt } from "@/components";
-import { StyleSheet } from "react-native";
-import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
-import { ParticipantSelector } from "@/components/ParticipantSelector";
-import { AppHeader } from "@/components";
-import * as React from "react";
-import { router, useLocalSearchParams } from "expo-router";
+import { useSplit } from 'ez-split-logic';
+import { SplitReceipt } from '@/components';
+import { StyleSheet } from 'react-native';
+import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
+import { ParticipantSelector } from '@/components/ParticipantSelector';
+import { AppHeader } from '@/components';
+import * as React from 'react';
+import { router, useLocalSearchParams } from 'expo-router';
 
 export default function SplitReceiptScreen() {
   const {
@@ -25,7 +25,7 @@ export default function SplitReceiptScreen() {
   }, [id]);
 
   const handleOnConfirmPress = () => {
-    router.navigate("/(tabs)/manageParticipants");
+    router.navigate('/(tabs)/manageParticipants');
   };
 
   const participantCardHeader: React.ReactNode = (

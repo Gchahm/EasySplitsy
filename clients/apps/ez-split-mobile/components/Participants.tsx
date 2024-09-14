@@ -1,11 +1,11 @@
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
-import { Icon, ListItem, useTheme } from "@rneui/themed";
-import { ScrollView } from "./ScrollView";
-import { ListView } from "./ListView";
-import { IParticipant } from "ez-split-interfaces";
-import { ScreenHeight } from "@rneui/base";
-import ContactSvg from "@/constants/svgs/contact";
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Icon, ListItem, useTheme } from '@rneui/themed';
+import { ScrollView } from './ScrollView';
+import { ListView } from './ListView';
+import { IParticipant } from 'ez-split-interfaces';
+import { ScreenHeight } from '@rneui/base';
+import ContactSvg from '@/constants/svgs/contact';
 
 type ParticipantsProps = {
   participants: IParticipant[];

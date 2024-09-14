@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Button, Dialog, Text } from "@rneui/themed";
+import * as React from 'react';
+import { Button, Dialog, Text } from '@rneui/themed';
 
 type ConfirmActionProps = {
   isVisible: boolean;

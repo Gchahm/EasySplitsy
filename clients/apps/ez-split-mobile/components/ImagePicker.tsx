@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Image, View, StyleSheet } from "react-native";
-import * as ExpoImageHelpers from "expo-image-picker";
-import { Button } from "@rneui/themed";
+import { useState } from 'react';
+import { Image, View, StyleSheet } from 'react-native';
+import * as ExpoImageHelpers from 'expo-image-picker';
+import { Button } from '@rneui/themed';
 
 export type ImagePickerProps = {
   onSendClick: (image: string) => void;
@@ -49,14 +49,14 @@ export default function ImagePicker(props: ImagePickerProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   footer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     margin: 10,
-    alignContent: "stretch",
-    alignItems: "stretch",
+    alignContent: 'stretch',
+    alignItems: 'stretch',
   },
   button: {
     margin: 12,

@@ -1,4 +1,4 @@
-import { Input } from "@rneui/themed";
+import { Input } from '@rneui/themed';
 
 type ParticipantInputProps = {
   name: string;

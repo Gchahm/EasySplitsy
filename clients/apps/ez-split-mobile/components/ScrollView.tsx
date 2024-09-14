@@ -1,6 +1,6 @@
-import * as React from "react";
-import { StyleSheet, ViewProps } from "react-native";
-import Animated, { useAnimatedRef } from "react-native-reanimated";
+import * as React from 'react';
+import { StyleSheet, ViewProps } from 'react-native';
+import Animated, { useAnimatedRef } from 'react-native-reanimated';
 
 type ScrollViewProps = ViewProps;
 
