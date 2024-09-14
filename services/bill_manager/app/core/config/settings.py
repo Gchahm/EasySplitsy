@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     github_token: str = ""
     keyvault_name: str = "ezsplit-kv"
     github_secret_name: str = "github-secret"
-    app_secret_name: str = "app-secret"
+    app_name_secret_name: str = "app-secret"
     model_config = SettingsConfigDict(env_file=".env")
 
 
