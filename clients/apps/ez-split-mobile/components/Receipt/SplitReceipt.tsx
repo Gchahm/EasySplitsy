@@ -1,12 +1,7 @@
 import { IItem } from "ez-split-interfaces";
 import * as React from "react";
-import { ReceiptItem } from "./ReceiptItem";
-import { StyleSheet } from "react-native";
-import { ScrollView } from "@/components/ScrollView";
-import { ListView } from "@/components/ListView";
-import { Text } from "@rneui/themed";
-import { View } from "react-native";
-import { Filler } from "@/components";
+import { SplitReceiptItem } from "./SplitReceiptItem";
+import { ReceiptContainer } from "./ReceiptContainer";
 
 interface IBillCardProps {
   items: IItem[];
@@ -28,34 +23,19 @@ export const SplitReceipt = (props: IBillCardProps) => {
   } = props;
 
   return (
-    <ListView>
-      <ScrollView style={styles.container}>
-        <View style={styles.header}></View>
-        {items
-          .filter(({ id }) => receiptCount[id] || participantCount[id])
-          .map((item, key) => (
-            <ReceiptItem
-              {...item}
-              key={key}
-              participantQuantity={participantCount[item.id] || 0}
-              quantity={receiptCount[item.id] || 0}
-              onAddItemPress={() => onAddItem(item.id)}
-              onRemoveItemPress={() => onRemoveItem(item.id)}
-            />
-          ))}
-      </ScrollView>
-      <View style={styles.footer}>
-        <Filler />
-        <Text>${total.toFixed(2)}</Text>
-      </View>
-    </ListView>
+    <ReceiptContainer total={total}>
+      {items
+        .filter(({ id }) => receiptCount[id] || participantCount[id])
+        .map((item, key) => (
+          <SplitReceiptItem
+            {...item}
+            key={key}
+            participantQuantity={participantCount[item.id] || 0}
+            quantity={receiptCount[item.id] || 0}
+            onAddItemPress={() => onAddItem(item.id)}
+            onRemoveItemPress={() => onRemoveItem(item.id)}
+          />
+        ))}
+    </ReceiptContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  footer: { flexDirection: "row", marginTop: 8 },
-  header: {
-    alignItems: "center",
-  },
-});

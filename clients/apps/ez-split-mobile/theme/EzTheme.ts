@@ -87,6 +87,12 @@ export const ezTheme = (mode: ThemeMode) =>
           color: theme.colors.black,
         },
       }),
+      Icon: (_, theme) => ({
+        color: theme.colors.black,
+        disabledStyle: {
+          backgroundColor: "inherit",
+        },
+      }),
     },
   });
 
