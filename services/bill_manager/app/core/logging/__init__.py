@@ -1,37 +1,32 @@
-import logging
-
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
+from opentelemetry import trace
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
-# from opentelemetry.exporter.azuremonitor import AzureMonitorTraceExporter
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+
+from app.core.config import get_settings
+from app.core.logging.azure_exporter import get_azure_exporter 
+
 
 
 def setup_telemetry(app): 
-# Set up OpenTelemetry tracing
+    settings = get_settings() 
+    # Set up OpenTelemetry tracing
     resource = Resource(attributes={
         SERVICE_NAME: "my-fastapi-service"
     })
 
-# Use Azure Monitor Trace Exporter
-# azure_exporter = AzureMonitorTraceExporter(
-#     connection_string="InstrumentationKey=YOUR_INSTRUMENTATION_KEY"  # Replace with your key or connection string
-# )
-    console_exporter = ConsoleSpanExporter()
-
     trace_provider = TracerProvider(resource=resource)
 
-# Add a batch span processor to send the trace data
-# span_processor = BatchSpanProcessor(azure_exporter)
-# trace_provider.add_span_processor(span_processor)
-    trace_provider.add_span_processor(BatchSpanProcessor(console_exporter))
+    if settings.dev_mode:
+        console_exporter = ConsoleSpanExporter()
+        span_processor = BatchSpanProcessor(console_exporter)
+        trace_provider.add_span_processor(span_processor)
+    else:
+        span_processor = BatchSpanProcessor(get_azure_exporter())
+        trace_provider.add_span_processor(span_processor)
 
-# Set the global trace provider
-    from opentelemetry import trace
+    # Set the global trace provider
     trace.set_tracer_provider(trace_provider)
 
     FastAPIInstrumentor.instrument_app(app)

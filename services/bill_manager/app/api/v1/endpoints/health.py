@@ -1,13 +1,16 @@
 from fastapi import APIRouter
-from app.core.config.settings import Settings 
-from app.core.config.secrets import get_secrets 
+from app.core.config import get_secrets, get_settings 
 
 
 router = APIRouter()
-settings = Settings()
-secret_settings = get_secrets()
 
 
 @router.get("/")
 def health():
-    return {'dev_mode': settings.dev_mode, 'app_name': secret_settings.app_name}
+    settings = get_settings()
+    secret_settings = get_secrets()
+    return {
+            'dev_mode': settings.dev_mode,
+            'app_name': secret_settings.app_name,
+            'constring': settings.applicationinsights_connection_string
+            }

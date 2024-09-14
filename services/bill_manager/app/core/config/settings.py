@@ -7,7 +7,8 @@ class Settings(BaseSettings):
     github_secret_name: str = "github-secret"
     app_name_secret_name: str = "app-secret"
     model_config = SettingsConfigDict(env_file=".env")
-
+    
+    applicationinsights_connection_string: str = ""
 
 class SecretSettings(BaseSettings):
     github_token: str = ""
