@@ -1,4 +1,4 @@
-import { Button, Icon, Input, Text, useTheme } from '@rneui/themed';
+import { Button, Icon, Text, useTheme } from '@rneui/themed';
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 
