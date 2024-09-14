@@ -1,11 +1,11 @@
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
-import { Icon, ListItem, useTheme } from "@rneui/themed";
-import { ScrollView } from "./ScrollView";
-import { ListView } from "./ListView";
-import { IParticipant } from "ez-split-interfaces";
-import { ScreenHeight } from "@rneui/base";
-import ContactSvg from "@/constants/svgs/contact";
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Icon, ListItem, useTheme } from '@rneui/themed';
+import { ScrollView } from './ScrollView';
+import { ListView } from './ListView';
+import { IParticipant } from 'ez-split-interfaces';
+import { ScreenHeight } from '@rneui/base';
+import ContactSvg from '@/constants/svgs/contact';
 
 type ParticipantsProps = {
   participants: IParticipant[];
@@ -32,6 +32,9 @@ export const Participants = (props: ParticipantsProps) => {
           <ListItem key={participant.id}>
             <ListItem.Content>
               <ListItem.Title>{participant.name}</ListItem.Title>
+              <ListItem.Subtitle>
+                ${participant.total.toFixed(2)}
+              </ListItem.Subtitle>
             </ListItem.Content>
             <Icon
               name="receipt-outline"

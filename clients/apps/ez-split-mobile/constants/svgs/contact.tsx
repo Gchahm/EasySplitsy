@@ -1,5 +1,5 @@
-import React from "react";
-import Svg, { Circle, Rect, G, Path, Ellipse, Polygon } from "react-native-svg";
+import React from 'react';
+import Svg, { Circle, Rect, G, Path, Ellipse, Polygon } from 'react-native-svg';
 
 export default function ContactSvg() {
   return (

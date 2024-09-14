@@ -1,37 +1,42 @@
-import ImagePicker from "@/components/ImagePicker";
-import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
-import { createUploadFileApiBillsPost } from "ez-split-clients";
-import { IBillItem } from "ez-split-interfaces";
-import { useBill } from "ez-split-logic";
-import { StyleSheet } from "react-native";
+import ImagePicker from '@/components/ImagePicker';
+import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
+import { router } from 'expo-router';
+import { createUploadFileApiBillsPost } from 'ez-split-clients';
+import { IReceiptItem } from 'ez-split-interfaces';
+import { useSplit } from 'ez-split-logic';
+import { StyleSheet } from 'react-native';
 
 export default function UploadScreen() {
-  const { setBill } = useBill();
+  const { setBill } = useSplit();
 
   const handleSendClick = async (uri: string) => {
     const response = await fetch(uri);
     const blob = await response.blob();
-    const fileName = uri.split("/").pop() || "";
+    const fileName = uri.split('/').pop() || '';
     const fileType = blob.type;
     const file = new File([blob], fileName, { type: fileType });
 
-    createUploadFileApiBillsPost({
-      baseUrl: "http://127.0.0.1:8000",
-      body: { file },
-    })
-      .then((response) => {
-        const items: IBillItem[] =
-          response.data?.items.map((item, id) => {
-            return {
-              id: id.toString(),
-              ...item,
-            };
-          }) || [];
-        setBill(items);
-      })
-      .catch((error) => {
-        console.log(error);
+    handleServerCall(file);
+    router.navigate('/(tabs)/manageParticipants');
+  };
+
+  const handleServerCall = async (file: File) => {
+    try {
+      const response = await createUploadFileApiBillsPost({
+        baseUrl: process.env.EXPO_PUBLIC_API_URL,
+        body: { file },
       });
+      const items: IReceiptItem[] =
+        response.data?.items.map((item, id) => {
+          return {
+            id: id.toString(),
+            ...item,
+          };
+        }) || [];
+      setBill(items);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -44,7 +49,7 @@ export default function UploadScreen() {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    alignItems: "center",
-    verticalAlign: "middle",
+    alignItems: 'center',
+    verticalAlign: 'middle',
   },
 });

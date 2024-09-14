@@ -1,8 +1,8 @@
-import { Tabs } from "expo-router";
-import React from "react";
+import { Tabs } from 'expo-router';
+import React from 'react';
 
-import { TabBarIcon } from "@/components/navigation/TabBarIcon";
-import { useTheme } from "@rneui/themed";
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { useTheme } from '@rneui/themed';
 
 export default function TabLayout() {
   const { theme } = useTheme();
@@ -17,10 +17,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Upload",
+          title: 'Upload',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "cloud-upload" : "cloud-upload-outline"}
+              name={focused ? 'cloud-upload' : 'cloud-upload-outline'}
               color={color}
             />
           ),
@@ -29,10 +29,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="manageParticipants"
         options={{
-          title: "Friends",
+          title: 'Friends',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "people" : "people-outline"}
+              name={focused ? 'people' : 'people-outline'}
               color={color}
             />
           ),

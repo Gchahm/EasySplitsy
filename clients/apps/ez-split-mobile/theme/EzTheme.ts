@@ -1,6 +1,6 @@
-import { lightColors, darkColors } from "@/constants/Colors";
-import { MARGIN_HORIZONTAL } from "@/constants/Padding";
-import { ButtonProps, Colors, ThemeMode, createTheme } from "@rneui/themed";
+import { lightColors, darkColors } from '@/constants/Colors';
+import { MARGIN_HORIZONTAL } from '@/constants/Padding';
+import { ButtonProps, Colors, ThemeMode, createTheme } from '@rneui/themed';
 
 export const ezTheme = (mode: ThemeMode) =>
   createTheme({
@@ -24,7 +24,7 @@ export const ezTheme = (mode: ThemeMode) =>
         titleStyle: {
           color: buttonColor(props, theme.colors),
           fontSize: 16,
-          fontWeight: "bold",
+          fontWeight: 'bold',
         },
       }),
       Text: {
@@ -33,11 +33,11 @@ export const ezTheme = (mode: ThemeMode) =>
         },
         h1Style: {
           fontSize: 30,
-          fontWeight: "bold",
+          fontWeight: 'bold',
         },
         h2Style: {
           fontSize: 24,
-          fontWeight: "600",
+          fontWeight: '600',
         },
       },
       Input: (_, theme) => ({
@@ -87,12 +87,19 @@ export const ezTheme = (mode: ThemeMode) =>
           color: theme.colors.black,
         },
       }),
+      Icon: (_, theme) => ({
+        color: theme.colors.black,
+        disabledStyle: {
+          backgroundColor: 'inherit',
+        },
+      }),
     },
   });
 
 function buttonColor(props: ButtonProps, colors: Colors): string {
   switch (props.type) {
-    case "solid":
+    case undefined:
+    case 'solid':
       return colors.black;
     default:
       return outlineColor(props, colors);
@@ -101,13 +108,13 @@ function buttonColor(props: ButtonProps, colors: Colors): string {
 
 function outlineColor(props: ButtonProps, colors: Colors): string {
   switch (props.color) {
-    case "success":
+    case 'success':
       return colors.success;
-    case "error":
+    case 'error':
       return colors.error;
-    case "warning":
+    case 'warning':
       return colors.warning;
-    case "secondary":
+    case 'secondary':
       return colors.secondary;
     default:
       return colors.primary;

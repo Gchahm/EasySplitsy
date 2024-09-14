@@ -1,2 +1,2 @@
-export * from "./billProvider";
+export * from "./splitProvider";
 export * from "./utils";

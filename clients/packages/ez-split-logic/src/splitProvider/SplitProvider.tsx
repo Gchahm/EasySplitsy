@@ -1,20 +1,29 @@
 import * as React from "react";
-import { IBillContext } from "./IBillContext";
-import { billReducer } from "./billReducer";
+import { ISplitContext } from "./ISplitContext";
+import { splitReducer } from "./splitReducer";
 import { isDevMode } from "../utils";
-import { devInitialState, initialState } from "./billStore";
-import { ActionType } from "./billActions";
-import { IBillItem, IItem, IParticipant, IPerson } from "ez-split-interfaces";
-import { BillContext } from "./BillContext";
+import { devInitialState, initialState } from "./splitStore";
+import { ActionType } from "./splitActions";
+import {
+  IReceiptItem,
+  IItem,
+  IParticipant,
+  IPerson,
+} from "ez-split-interfaces";
+import { SplitContext } from "./SplitContext";
 
-export const BillProvider: React.FC<{
-  children: React.ReactNode | ((state: IBillContext) => React.ReactNode);
+export const SplitProvider: React.FC<{
+  children: React.ReactNode | ((state: ISplitContext) => React.ReactNode);
 }> = ({ children }) => {
   const [store, dispatch] = React.useReducer(
-    billReducer,
+    splitReducer,
     isDevMode ? devInitialState : initialState,
   );
-  const { isBillLoaded, bill, selectedParticipantId } = store;
+  const {
+    isReceiptLoaded: isBillLoaded,
+    remainingCount: bill,
+    selectedParticipantId,
+  } = store;
 
   const moveItemToParticipant = (itemId: string, quantity: number = 1) => {
     if (!selectedParticipantId) {
@@ -36,8 +45,8 @@ export const BillProvider: React.FC<{
     });
   };
 
-  const setBill = (bill: IBillItem[]) => {
-    dispatch({ type: ActionType.setBill, payload: { bill } });
+  const setBill = (bill: IReceiptItem[]) => {
+    dispatch({ type: ActionType.setReceipt, payload: { receipt: bill } });
   };
 
   const addPeople = (people: IPerson[]) => {
@@ -71,10 +80,10 @@ export const BillProvider: React.FC<{
     ? store.participants[selectedParticipantId]
     : undefined;
 
-  const state: IBillContext = {
-    isBillLoaded,
+  const state: ISplitContext = {
+    isReceiptLoaded: isBillLoaded,
     items,
-    bill,
+    remainingCount: bill,
     participants,
     selectedParticipant,
     moveItemToParticipant,
@@ -86,8 +95,8 @@ export const BillProvider: React.FC<{
   };
 
   return (
-    <BillContext.Provider value={state}>
+    <SplitContext.Provider value={state}>
       {typeof children === "function" ? children(state) : children}
-    </BillContext.Provider>
+    </SplitContext.Provider>
   );
 };

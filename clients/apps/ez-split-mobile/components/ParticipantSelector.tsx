@@ -1,6 +1,6 @@
-import { Button, Icon, Input, Text, useTheme } from "@rneui/themed";
-import * as React from "react";
-import { StyleSheet, View } from "react-native";
+import { Button, Icon, Text, useTheme } from '@rneui/themed';
+import * as React from 'react';
+import { StyleSheet, View } from 'react-native';
 
 export interface IParticipantSelectorProps {
   onCancelPress?: () => void;
@@ -43,18 +43,18 @@ export const ParticipantSelector: React.FC<IParticipantSelectorProps> = (
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    flexDirection: "row",
+    width: '100%',
+    flexDirection: 'row',
   },
   middle: {
     flex: 1,
-    flexDirection: "row",
-    alignContent: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttons: {
-    alignItems: "flex-end",
-    flexDirection: "row",
+    alignItems: 'flex-end',
+    flexDirection: 'row',
   },
 });

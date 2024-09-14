@@ -1,9 +1,9 @@
 import * as React from "react";
-import { IBillContext } from "./IBillContext";
+import { ISplitContext } from "./ISplitContext";
 
-export const BillContext = React.createContext<IBillContext>({
-  isBillLoaded: false,
-  bill: {},
+export const SplitContext = React.createContext<ISplitContext>({
+  isReceiptLoaded: false,
+  remainingCount: {},
   items: [],
   participants: [],
   selectedParticipant: undefined,

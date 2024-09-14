@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Card, CardProps } from "@rneui/themed";
-import { StyleSheet } from "react-native";
+import * as React from 'react';
+import { Card, CardProps } from '@rneui/themed';
+import { StyleSheet } from 'react-native';
 
 type ListViewProps = CardProps & {
   children: React.ReactNode;
