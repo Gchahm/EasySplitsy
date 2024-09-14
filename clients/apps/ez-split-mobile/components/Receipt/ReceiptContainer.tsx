@@ -1,10 +1,10 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import { ScrollView } from "@/components/ScrollView";
-import { ListView } from "@/components/ListView";
-import { Text } from "@rneui/themed";
-import { View } from "react-native";
-import { Filler } from "@/components";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { ScrollView } from '@/components/ScrollView';
+import { ListView } from '@/components/ListView';
+import { Text } from '@rneui/themed';
+import { View } from 'react-native';
+import { Filler } from '@/components';
 
 type ReceiptContainerProps = {
   total: number;
@@ -26,8 +26,8 @@ export const ReceiptContainer = (props: ReceiptContainerProps) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
-  footer: { flexDirection: "row", marginTop: 8 },
+  footer: { flexDirection: 'row', marginTop: 8 },
   header: {
-    alignItems: "center",
+    alignItems: 'center',
   },
 });

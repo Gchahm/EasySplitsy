@@ -1,18 +1,18 @@
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-import { BillProvider } from "ez-split-logic";
-import "react-native-reanimated";
-import { EzThemeProvider } from "@/theme/EzThemeProvider";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { useFonts } from 'expo-font';
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
+import { SplitProvider } from 'ez-split-logic';
+import 'react-native-reanimated';
+import { EzThemeProvider } from '@/theme/EzThemeProvider';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
   useEffect(() => {
@@ -27,12 +27,12 @@ export default function RootLayout() {
 
   return (
     <EzThemeProvider>
-      <BillProvider>
+      <SplitProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Stack
             screenOptions={{
               headerStyle: {
-                backgroundColor: "#f4511e",
+                backgroundColor: '#f4511e',
               },
             }}
           >
@@ -44,7 +44,7 @@ export default function RootLayout() {
             <Stack.Screen name="+not-found" />
           </Stack>
         </GestureHandlerRootView>
-      </BillProvider>
+      </SplitProvider>
     </EzThemeProvider>
   );
 }

@@ -1,13 +1,13 @@
-import { Bill, IBillStore } from "./billStore";
-import { ActionType, BillStoreAction } from "./billActions";
+import { OriginalReceipt, ISplitStore } from "./splitStore";
+import { ActionType, SplitStoreAction } from "./splitActions";
 import { IParticipant } from "ez-split-interfaces";
 import { uuidv4 } from "../utils/generateGuid";
 
-export function billReducer(
-  state: IBillStore,
-  action: BillStoreAction,
-): IBillStore {
-  const { participants, bill, items } = state;
+export function splitReducer(
+  state: ISplitStore,
+  action: SplitStoreAction,
+): ISplitStore {
+  const { participants, remainingCount: bill, items } = state;
 
   switch (action.type) {
     case ActionType.moveItemToParticipant: {
@@ -18,7 +18,7 @@ export function billReducer(
       const moveQuantity = quantity > itemQuantity ? itemQuantity : quantity;
       return {
         ...state,
-        bill: {
+        remainingCount: {
           ...bill,
           [itemId]: (bill[itemId] || 0) - moveQuantity,
         },
@@ -44,7 +44,7 @@ export function billReducer(
       const moveQuantity = quantity > itemQuantity ? itemQuantity : quantity;
       return {
         ...state,
-        bill: {
+        remainingCount: {
           ...bill,
           [itemId]: (bill[itemId] || 0) + moveQuantity,
         },
@@ -62,18 +62,18 @@ export function billReducer(
       };
     }
 
-    case ActionType.setBill: {
-      const items: Bill = {};
+    case ActionType.setReceipt: {
+      const items: OriginalReceipt = {};
       const newBill: Record<string, number> = {};
-      action.payload.bill.forEach((item) => {
+      action.payload.receipt.forEach((item) => {
         items[item.id] = item;
         newBill[item.id] = item.quantity;
       });
       return {
         ...state,
         items: items,
-        bill: newBill,
-        isBillLoaded: true,
+        remainingCount: newBill,
+        isReceiptLoaded: true,
       };
     }
 
@@ -106,7 +106,7 @@ export function billReducer(
 
     case ActionType.removeParticipants: {
       const { ids } = action.payload;
-      const billItems = { ...state.bill };
+      const billItems = { ...state.remainingCount };
       const newParticipants = { ...state.participants };
       ids.forEach((id) => {
         const items = participants[id].items;
@@ -118,7 +118,7 @@ export function billReducer(
 
       return {
         ...state,
-        bill: billItems,
+        remainingCount: billItems,
         participants: newParticipants,
       };
     }

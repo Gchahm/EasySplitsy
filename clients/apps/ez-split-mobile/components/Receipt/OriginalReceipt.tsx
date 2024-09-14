@@ -1,10 +1,10 @@
-import { IBillItem } from "ez-split-interfaces";
-import { ReceiptContainer } from "./ReceiptContainer";
-import { ReceiptItem } from "./ReceiptItem";
+import { IReceiptItem } from 'ez-split-interfaces';
+import { ReceiptContainer } from './ReceiptContainer';
+import { ReceiptItem } from './ReceiptItem';
 
 type OriginalReceiptProps = {
   total: number;
-  items: IBillItem[];
+  items: IReceiptItem[];
 };
 
 export const OriginalReceipt = (props: OriginalReceiptProps) => {

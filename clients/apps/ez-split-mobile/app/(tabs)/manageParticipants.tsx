@@ -1,93 +1,98 @@
-import ConfirmAction from "@/components/ConfirmAction";
-import ParticipantInput from "@/components/ParticipantInput";
-import { Participants } from "@/components/Participants";
-import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
-import { AppHeader } from "@/components";
-import { Card, Text } from "@rneui/themed";
-import { router } from "expo-router";
-import { useBill } from "ez-split-logic";
-import * as React from "react";
-import { StyleSheet } from "react-native";
+import ConfirmAction from '@/components/ConfirmAction';
+import ParticipantInput from '@/components/ParticipantInput';
+import { Participants } from '@/components/Participants';
+import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
+import { AppHeader } from '@/components';
+import { Card, Text } from '@rneui/themed';
+import { router } from 'expo-router';
+import { useSplit } from 'ez-split-logic';
+import * as React from 'react';
+import { StyleSheet } from 'react-native';
 
 export default function ManageParticipantsScreen() {
-  const { selectedParticipant, participants, bill, items, ...actions } =
-    useBill();
-  const [name, setName] = React.useState("");
-  const [removeId, setRemoveId] = React.useState<string | undefined>();
-  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+    const {
+        selectedParticipant,
+        participants,
+        remainingCount,
+        items,
+        ...actions
+    } = useSplit();
+    const [name, setName] = React.useState('');
+    const [removeId, setRemoveId] = React.useState<string | undefined>();
+    const [isDialogOpen, setIsDialogOpen] = React.useState(false);
 
-  const receiptRemaining = items.reduce(
-    (sum, { id, price }) => sum + price * bill[id] || 0,
-    0,
-  );
+    const receiptRemaining = items.reduce(
+        (sum, { id, price }) => sum + price * remainingCount[id] || 0,
+        0,
+    );
 
-  const handleAddPerson = () => {
-    if (name !== "") {
-      actions.addPeople([{ name }]);
-      setName("");
-    }
-  };
+    const handleAddPerson = () => {
+        if (name !== '') {
+            actions.addPeople([{ name }]);
+            setName('');
+        }
+    };
 
-  const clearRemoveId = () => {
-    setRemoveId(undefined);
-    setIsDialogOpen(false);
-  };
+    const clearRemoveId = () => {
+        setRemoveId(undefined);
+        setIsDialogOpen(false);
+    };
 
-  const removeParticipant = () => {
-    if (removeId) {
-      actions.removeParticipants([removeId]);
-      clearRemoveId();
-    }
-  };
+    const removeParticipant = () => {
+        if (removeId) {
+            actions.removeParticipants([removeId]);
+            clearRemoveId();
+        }
+    };
 
-  const handleRemoveClick = (id: string) => {
-    setRemoveId(id);
-    const participant = participants.find((p) => p.id === id);
-    if (participant && Object.keys(participant.items).length > 0) {
-      setIsDialogOpen(true);
-    } else {
-      removeParticipant();
-    }
-  };
+    const handleRemoveClick = (id: string) => {
+        setRemoveId(id);
+        const participant = participants.find((p) => p.id === id);
+        if (participant && Object.keys(participant.items).length > 0) {
+            setIsDialogOpen(true);
+        } else {
+            removeParticipant();
+        }
+    };
 
-  const handleOnCreatePress = (id: string) => {
-    router.navigate(`/participants/${id}`);
-  };
+    const handleOnCreatePress = (id: string) => {
+        router.navigate(`/participants/${id}`);
+    };
 
-  const confirmDialog = (
-    <ConfirmAction
-      isVisible={isDialogOpen}
-      title={"Are you sure?"}
-      text={
-        "This participant has items in his troley removing it will send them back to bill"
-      }
-      onConfirm={removeParticipant}
-      onDecline={clearRemoveId}
-    />
-  );
-
-  return (
-    <ThemedSafeAreaView style={styles.container}>
-      {confirmDialog}
-      <AppHeader>
-        <ParticipantInput
-          name={name}
-          onNameChange={setName}
-          onAddClick={handleAddPerson}
+    const confirmDialog = (
+        <ConfirmAction
+            isVisible={isDialogOpen}
+            title={'Are you sure?'}
+            text={
+                'This participant has items in his troley removing it will send them back to bill'
+            }
+            onConfirm={removeParticipant}
+            onDecline={clearRemoveId}
         />
-      </AppHeader>
-      <Card>
-        <Text>${receiptRemaining.toFixed(2)} remaining</Text>
-      </Card>
-      <Participants
-        participants={participants}
-        onCreatePress={handleOnCreatePress}
-        onRemovePress={handleRemoveClick}
-      />
-    </ThemedSafeAreaView>
-  );
+    );
+
+    return (
+        <ThemedSafeAreaView style={styles.container}>
+            {confirmDialog}
+            <AppHeader>
+                <ParticipantInput
+                    name={name}
+                    onNameChange={setName}
+                    onAddClick={handleAddPerson}
+                />
+            </AppHeader>
+            <Card>
+                <Text>${receiptRemaining.toFixed(2)} remaining</Text>
+            </Card>
+            <Participants
+                participants={participants}
+                onCreatePress={handleOnCreatePress}
+                onRemovePress={handleRemoveClick}
+            />
+        </ThemedSafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+    container: { flex: 1 },
 });

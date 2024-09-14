@@ -1,9 +1,9 @@
-import { ListItem, Text } from "@rneui/themed";
-import { IBillItem } from "ez-split-interfaces";
-import React from "react";
-import { StyleSheet } from "react-native";
+import { ListItem, Text } from '@rneui/themed';
+import { IReceiptItem } from 'ez-split-interfaces';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
-type ReceiptItemContentProps = IBillItem & {
+type ReceiptItemContentProps = IReceiptItem & {
   total: number;
 };
 
@@ -21,5 +21,5 @@ export const ReceiptItemContent = (props: ReceiptItemContentProps) => {
 };
 
 const styles = StyleSheet.create({
-  listContent: { alignItems: "stretch" },
+  listContent: { alignItems: 'stretch' },
 });

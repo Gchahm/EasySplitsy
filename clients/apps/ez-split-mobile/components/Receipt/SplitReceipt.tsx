@@ -1,18 +1,18 @@
-import { IItem } from "ez-split-interfaces";
-import * as React from "react";
-import { SplitReceiptItem } from "./SplitReceiptItem";
-import { ReceiptContainer } from "./ReceiptContainer";
+import { IItem } from 'ez-split-interfaces';
+import * as React from 'react';
+import { SplitReceiptItem } from './SplitReceiptItem';
+import { ReceiptContainer } from './ReceiptContainer';
 
-interface IBillCardProps {
+type ReceiptCardProps = {
   items: IItem[];
   total: number;
   receiptCount: Record<string, number>;
   participantCount: Record<string, number>;
   onAddItem: (id: string) => void;
   onRemoveItem: (id: string) => void;
-}
+};
 
-export const SplitReceipt = (props: IBillCardProps) => {
+export const SplitReceipt = (props: ReceiptCardProps) => {
   const {
     items,
     total,

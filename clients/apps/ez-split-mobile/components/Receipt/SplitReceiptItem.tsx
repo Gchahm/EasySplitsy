@@ -1,16 +1,16 @@
-import * as React from "react";
-import { Button, Icon, ListItem, Text, useTheme } from "@rneui/themed";
-import { IBillItem } from "ez-split-interfaces";
-import { StyleSheet } from "react-native";
-import { ReceiptItemContent } from "./ReceiptItemContent";
+import * as React from 'react';
+import { Icon, ListItem, Text, useTheme } from '@rneui/themed';
+import { IReceiptItem } from 'ez-split-interfaces';
+import { StyleSheet } from 'react-native';
+import { ReceiptItemContent } from './ReceiptItemContent';
 
-export interface IBillItemProps extends IBillItem {
+export interface IReceiptItemProps extends IReceiptItem {
   participantQuantity: number;
   onAddItemPress: () => void;
   onRemoveItemPress: () => void;
 }
 
-export const SplitReceiptItem: React.FC<IBillItemProps> = (props) => {
+export const SplitReceiptItem: React.FC<IReceiptItemProps> = (props) => {
   const { participantQuantity, onAddItemPress, onRemoveItemPress, ...item } =
     props;
 
@@ -24,7 +24,7 @@ export const SplitReceiptItem: React.FC<IBillItemProps> = (props) => {
   return (
     <ListItem containerStyle={styles.container}>
       <Icon
-        color={removeDisabled ? "transparent" : theme.colors.error}
+        color={removeDisabled ? 'transparent' : theme.colors.error}
         name="remove"
         onPress={onRemoveItemPress}
         disabled={removeDisabled}
@@ -33,7 +33,7 @@ export const SplitReceiptItem: React.FC<IBillItemProps> = (props) => {
         {participantQuantity}/{totalCount}
       </Text>
       <Icon
-        color={addDisabled ? "transparent" : theme.colors.success}
+        color={addDisabled ? 'transparent' : theme.colors.success}
         name="add"
         onPress={onAddItemPress}
         disabled={addDisabled}
@@ -45,5 +45,5 @@ export const SplitReceiptItem: React.FC<IBillItemProps> = (props) => {
 
 const styles = StyleSheet.create({
   container: { margin: 0, paddingHorizontal: 0 },
-  listContent: { alignItems: "stretch" },
+  listContent: { alignItems: 'stretch' },
 });

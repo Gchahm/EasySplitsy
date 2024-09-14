@@ -1,4 +1,4 @@
-import { useBill } from "ez-split-logic";
+import { useSplit } from "ez-split-logic";
 import { SplitReceipt } from "@/components";
 import { StyleSheet } from "react-native";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeView";
@@ -8,8 +8,13 @@ import * as React from "react";
 import { router, useLocalSearchParams } from "expo-router";
 
 export default function SplitReceiptScreen() {
-  const { bill, selectedParticipant, items, participants, ...actions } =
-    useBill();
+  const {
+    remainingCount,
+    selectedParticipant,
+    items,
+    participants,
+    ...actions
+  } = useSplit();
 
   const { id } = useLocalSearchParams();
 
@@ -38,7 +43,7 @@ export default function SplitReceiptScreen() {
       {!!selectedParticipant && (
         <SplitReceipt
           items={items}
-          receiptCount={bill}
+          receiptCount={remainingCount}
           total={selectedParticipant.total}
           participantCount={selectedParticipant.items}
           onRemoveItem={actions.moveItemToBill}

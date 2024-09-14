@@ -1,1 +1,1 @@
-export * from "./SplitReceipt";
+export * from './SplitReceipt';
