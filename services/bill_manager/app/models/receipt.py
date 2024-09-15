@@ -8,10 +8,10 @@ class ReceiptItem:
     quantity: int
     total: float
 
-    def __init__(self, quantity: str, name: str, price: str):
+    def __init__(self, quantity: str | int, name: str, price: str | float):
         self.name = name.strip()
-        self.price = float(price.strip())
-        self.quantity = int(quantity.strip())
+        self.price = float(price.strip()) if isinstance(price, str) else price
+        self.quantity = int(quantity.strip()) if isinstance(quantity, str) else quantity
         self.total = round(self.price * self.quantity, 2)
 
 
@@ -19,8 +19,8 @@ class ReceiptItem:
 class Receipt:
     items: list[ReceiptItem]
 
-    def __init__(self):
-        self.items = []
+    def __init__(self, items: list[ReceiptItem] = []):
+        self.items = items
 
     def add_item(self, item: ReceiptItem):
         self.items.append(item)
