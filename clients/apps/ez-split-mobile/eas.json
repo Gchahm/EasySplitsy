@@ -14,8 +14,11 @@
     },
     "production": {
       "node": "v20.17.0",
+      "android": {
+        "image": "latest"
+      },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://easysplit.azurewebsites.net/"
+        "EXPO_PUBLIC_API_URL": "https://ez-split-webapp.azurewebsites.net/"
       }
     }
   },
