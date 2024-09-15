@@ -7,7 +7,7 @@ from app.models import Receipt
 router = APIRouter()
 
 @router.post("/upload/")
-async def create_upload_file(file: UploadFile) -> Receipt:
+async def upload(file: UploadFile) -> Receipt:
     settings = config.get_settings()
     if settings.dev_mode:
         return mocks.get_mock_receipt()
