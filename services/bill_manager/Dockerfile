@@ -12,4 +12,7 @@ COPY . .
 
 EXPOSE 3100
 
+# Set environment variables for Gunicorn logging
+ENV GUNICORN_CMD_ARGS="--access-logfile - --error-logfile -"
+
 CMD ["gunicorn", "app.main:app"]
