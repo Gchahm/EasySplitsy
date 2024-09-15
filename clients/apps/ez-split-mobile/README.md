@@ -4,6 +4,9 @@ from yarn workspace root run `yarn dev:mobile` to start the devloop
 
 ## Deploy to Android
 
+from this directory
+run `eas build -p android`
+
 ## Learn more
 
 To learn more about developing your project with Expo, look at the following resources:
