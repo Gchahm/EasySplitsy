@@ -4,11 +4,12 @@ import * as ExpoImageHelpers from 'expo-image-picker';
 import { Button } from '@rneui/themed';
 
 export type ImagePickerProps = {
+  isLoading: boolean;
   onSendClick: (image: string) => void;
 };
 
 export default function ImagePicker(props: ImagePickerProps) {
-  const { onSendClick } = props;
+  const { isLoading, onSendClick } = props;
   const [image, setImage] = useState<string | null>(null);
 
   const pickImage = async () => {
@@ -20,6 +21,7 @@ export default function ImagePicker(props: ImagePickerProps) {
     });
     if (!result.canceled) {
       setImage(result.assets[0].uri);
+      console.log(result.assets[0].uri);
     }
   };
 
@@ -36,6 +38,7 @@ export default function ImagePicker(props: ImagePickerProps) {
           onPress={pickImage}
         />
         <Button
+          loading={isLoading}
           style={styles.button}
           disabled={!image}
           title="Send"
@@ -49,6 +52,8 @@ export default function ImagePicker(props: ImagePickerProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
+    padding: 32,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -61,5 +66,5 @@ const styles = StyleSheet.create({
   button: {
     margin: 12,
   },
-  image: {},
+  image: { flex: 1, width: '100%', height: '100%' },
 });
