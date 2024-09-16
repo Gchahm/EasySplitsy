@@ -4,7 +4,7 @@ import { ScrollView } from '@/components/ScrollView';
 import { ListView } from '@/components/ListView';
 import { Text } from '@rneui/themed';
 import { View } from 'react-native';
-import { Filler } from '@/components';
+import { Filler } from '../primitives';
 
 type ReceiptContainerProps = {
   total: number;
