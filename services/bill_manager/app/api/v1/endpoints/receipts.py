@@ -8,9 +8,6 @@ router = APIRouter()
 
 @router.post("/upload/")
 async def upload(file: UploadFile) -> Receipt:
-    settings = config.get_settings()
-    if settings.dev_mode:
-        return mocks.get_mock_receipt()
 
     secrets = config.get_secrets()
     open_ai = image_converter.OpenAIHelper(secrets.github_token)
