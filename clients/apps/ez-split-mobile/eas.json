@@ -22,7 +22,7 @@
         "image": "latest"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://ez-split-webapp.azurewebsites.net/"
+        "EXPO_PUBLIC_API_URL": "https://ez-split-webapp.azurewebsites.net"
       }
     }
   },

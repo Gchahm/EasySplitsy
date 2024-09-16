@@ -7,14 +7,11 @@ $ports_a = $ports -join ",";
 Write-Host "Remove Firewall Exception Rules"
 iex "Remove-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock'";
 
-Write-Host "adding Exception Rules for inbound and outbound Rules"
-iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Outbound -LocalPort $ports_a -Action Allow -Protocol TCP";
-iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Direction Inbound -LocalPort $ports_a -Action Allow -Protocol TCP";
-
-for( $i = 0; $i -lt $ports.length; $i++ ){
-  $port = $ports[$i];
-  iex "netsh interface portproxy delete v4tov4 listenport=$port listenaddress=$addr";
-  iex "netsh interface portproxy add v4tov4 listenport=$port listenaddress=$addr connectport=$port connectaddress=$remoteport";
+for( $i = 0; $i -lt $ports.length; $i++){
+$port = $ports[$i];
+Write-Host "adding Exception Rules for inbound and outbound Rules for port $port"
+iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Action Allow -Protocol TCP -Direction Outbound -LocalPort $port";
+iex "New-NetFireWallRule -DisplayName 'WSL 2 Firewall Unlock' -Action Allow -Protocol TCP -Direction Inbound -LocalPort $port";
 }
 
 
