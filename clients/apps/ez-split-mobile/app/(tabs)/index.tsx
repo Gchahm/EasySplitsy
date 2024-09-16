@@ -46,6 +46,7 @@ export default function UploadScreen() {
       setBill(items);
     } catch (error) {
       console.log(error);
+      throw new Error('Failed to upload receipt');
     }
   };
 
