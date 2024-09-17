@@ -1,38 +1,46 @@
-from opentelemetry import trace
+from opentelemetry import trace, _logs
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from opentelemetry.sdk.resources import Resource
+
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor, ConsoleSpanExporter
-from opentelemetry.sdk.resources import SERVICE_NAME, Resource
+
+from opentelemetry.sdk._logs import LoggerProvider
+from opentelemetry.sdk._logs.export import BatchLogRecordProcessor, ConsoleLogExporter
 
 from app.core.config import get_settings
-from app.core.logging.azure_exporter import get_azure_exporter 
+from app.core.logging import azure
 
-import logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 
 def setup_telemetry(app): 
-    logging.info("Setting up telemetry")
     settings = get_settings() 
-    # Set up OpenTelemetry tracing
-    resource = Resource(attributes={
-        SERVICE_NAME: "my-fastapi-service"
-    })
+    
+    resource = Resource.create({"service.name": "ez-split"})
 
-    trace_provider = TracerProvider(resource=resource)
+    tracer_provider = TracerProvider(resource=resource)
+    trace.set_tracer_provider(tracer_provider)
+    tracer_provider.add_span_processor(get_tracer_processor(settings))
 
+    logger_provider = LoggerProvider()
+    _logs.set_logger_provider(logger_provider)
+    logger_provider.add_log_record_processor(get_logger_processor(settings))
+
+    FastAPIInstrumentor.instrument_app(app, tracer_provider=tracer_provider)
+
+
+def get_tracer_processor(settings):
     if settings.dev_mode:
-        logging.info("Running in dev mode")
-        console_exporter = ConsoleSpanExporter()
-        span_processor = BatchSpanProcessor(console_exporter)
-        trace_provider.add_span_processor(span_processor)
+        return BatchSpanProcessor(ConsoleSpanExporter())
     else:
-        logging.info("Running in prod mode")
-        span_processor = BatchSpanProcessor(get_azure_exporter())
-        logging.info("Adding span processor")
-        trace_provider.add_span_processor(span_processor)
+        return BatchSpanProcessor(azure.get_monitor_trace_exporter(settings))
 
-    # Set the global trace provider
-    trace.set_tracer_provider(trace_provider)
 
-    FastAPIInstrumentor.instrument_app(app)
+def get_logger_processor(settings):
+    if settings.dev_mode:
+        return BatchLogRecordProcessor(ConsoleLogExporter())
+    else:
+        return BatchLogRecordProcessor(azure.get_monitor_log_exporter(settings))
+
+
+from app.core.logging.logger import get_logger
+
