@@ -4,7 +4,6 @@ import {
     createClient,
     createConfig,
     type Options,
-    formDataBodySerializer,
 } from "@hey-api/client-fetch";
 import type {
     HealthApiV1HealthGetError,
@@ -48,9 +47,8 @@ export const uploadApiV1ReceiptsUploadPost = <
         ThrowOnError
     >({
         ...options,
-        ...formDataBodySerializer,
         headers: {
-            "Content-Type": null,
+            "Content-Type": "multipart/form-data",
         },
         url: "/api/v1/receipts/upload/",
     });

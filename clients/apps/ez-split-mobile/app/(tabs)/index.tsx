@@ -16,12 +16,7 @@ export default function UploadScreen() {
   const handleSendClick = async (uri: string) => {
     try {
       setIsLoading(true);
-      const response = await fetch(uri);
-      const blob = await response.blob();
-      const fileName = uri.split('/').pop() || '';
-      const fileType = blob.type;
-      const file = new File([blob], fileName, { type: fileType });
-      await handleServerCall(file);
+      await handleServerCall(uri);
       router.navigate('/(tabs)/manageParticipants');
       setIsLoading(false);
     } catch (errror) {
@@ -30,10 +25,19 @@ export default function UploadScreen() {
     }
   };
 
-  const handleServerCall = async (file: File) => {
+  const handleServerCall = async (uri: string) => {
+    const baseUrl: string | undefined = process.env.EXPO_PUBLIC_API_URL;
+    const file = {
+      uri,
+      type: 'image/jpeg',
+      name: 'photo.jpg',
+    } as unknown as Blob;
+    const formData = new FormData();
+    formData.append('file', file);
     try {
       const response = await uploadApiV1ReceiptsUploadPost({
-        baseUrl: process.env.EXPO_PUBLIC_API_URL,
+        baseUrl,
+        bodySerializer: () => formData,
         body: { file },
       });
       const items: IReceiptItem[] =
