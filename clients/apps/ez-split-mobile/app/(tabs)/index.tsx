@@ -5,28 +5,39 @@ import { uploadApiV1ReceiptsUploadPost } from 'ez-split-clients';
 import { IReceiptItem } from 'ez-split-interfaces';
 import { useSplit } from 'ez-split-logic';
 import { StyleSheet } from 'react-native';
+import * as React from 'react';
+import { Text } from '@rneui/base';
 
 export default function UploadScreen() {
   const { setBill } = useSplit();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState<string | undefined>();
 
   const handleSendClick = async (uri: string) => {
     try {
-      const response = await fetch(uri);
-      const blob = await response.blob();
-      const fileName = uri.split('/').pop() || '';
-      const fileType = blob.type;
-      const file = new File([blob], fileName, { type: fileType });
-      handleServerCall(file);
+      setIsLoading(true);
+      await handleServerCall(uri);
       router.navigate('/(tabs)/manageParticipants');
-    } catch (error) {
-      console.log(error);
+      setIsLoading(false);
+    } catch (errror) {
+      setErrorMessage('Failed to upload receipt');
+      setIsLoading(false);
     }
   };
 
-  const handleServerCall = async (file: File) => {
+  const handleServerCall = async (uri: string) => {
+    const baseUrl: string | undefined = process.env.EXPO_PUBLIC_API_URL;
+    const file = {
+      uri,
+      type: 'image/jpeg',
+      name: 'photo.jpg',
+    } as unknown as Blob;
+    const formData = new FormData();
+    formData.append('file', file);
     try {
       const response = await uploadApiV1ReceiptsUploadPost({
-        baseUrl: process.env.EXPO_PUBLIC_API_URL,
+        baseUrl,
+        bodySerializer: () => formData,
         body: { file },
       });
       const items: IReceiptItem[] =
@@ -39,12 +50,14 @@ export default function UploadScreen() {
       setBill(items);
     } catch (error) {
       console.log(error);
+      throw new Error('Failed to upload receipt');
     }
   };
 
   return (
     <ThemedSafeAreaView style={styles.page}>
-      <ImagePicker onSendClick={handleSendClick} />
+      {errorMessage && <Text>{errorMessage}</Text>}
+      <ImagePicker isLoading={isLoading} onSendClick={handleSendClick} />
     </ThemedSafeAreaView>
   );
 }

@@ -1,6 +1,7 @@
 {
   "cli": {
-    "version": ">= 11.0.3"
+    "version": ">= 11.0.3",
+    "appVersionSource": "remote"
   },
   "build": {
     "development": {
@@ -9,16 +10,19 @@
       "node": "v20.17.0"
     },
     "preview": {
+      "channel": "preview",
       "distribution": "internal",
       "node": "v20.17.0"
     },
     "production": {
       "node": "v20.17.0",
+      "channel": "production",
+      "autoIncrement": true,
       "android": {
         "image": "latest"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://ez-split-webapp.azurewebsites.net/"
+        "EXPO_PUBLIC_API_URL": "https://ez-split-webapp.azurewebsites.net"
       }
     }
   },
