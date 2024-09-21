@@ -5,15 +5,9 @@ import { ParticipantSelector } from '@/components/ParticipantSelector';
 import { AppHeader } from '@/components';
 import * as React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import {
-  splitActions,
-  splitSelectors,
-  useAppDispatch,
-  useAppSelector,
-} from 'ez-split-logic';
+import { splitThunk, splitSelectors, useAppSelector } from 'ez-split-logic';
 
 export default function SplitReceiptScreen() {
-  const dispatch = useAppDispatch();
   const items = useAppSelector(splitSelectors.selectItems);
   const remainingCount = useAppSelector(splitSelectors.selectRemainingCount);
   const selectedParticipant = useAppSelector(
@@ -24,11 +18,9 @@ export default function SplitReceiptScreen() {
 
   React.useEffect(() => {
     if (!Array.isArray(id)) {
-      dispatch(
-        splitActions.setSelectedParticipantId({ selectedParticipantId: id }),
-      );
+      splitThunk.setSelectedParticipantId(id);
     }
-  }, [id, dispatch]);
+  }, [id]);
 
   const handleOnConfirmPress = () => {
     router.navigate('/(tabs)/manageParticipants');
@@ -52,24 +44,8 @@ export default function SplitReceiptScreen() {
           receiptCount={remainingCount}
           total={selectedParticipant.total}
           participantCount={selectedParticipant.items}
-          onRemoveItem={(itemId) =>
-            dispatch(
-              splitActions.moveItemToBill({
-                itemId,
-                participantId: selectedParticipant.id,
-                quantity: 1,
-              }),
-            )
-          }
-          onAddItem={(itemId) =>
-            dispatch(
-              splitActions.moveItemToParticipant({
-                itemId,
-                participantId: selectedParticipant.id,
-                quantity: 1,
-              }),
-            )
-          }
+          onRemoveItem={splitThunk.moveItemToBill}
+          onAddItem={splitThunk.moveItemToParticipant}
         />
       )}
     </ThemedSafeAreaView>

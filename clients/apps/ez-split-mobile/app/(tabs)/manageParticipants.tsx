@@ -7,15 +7,9 @@ import { Card, Text } from '@rneui/themed';
 import { router } from 'expo-router';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import {
-  splitActions,
-  splitSelectors,
-  useAppDispatch,
-  useAppSelector,
-} from 'ez-split-logic';
+import { splitThunk, splitSelectors, useAppSelector } from 'ez-split-logic';
 
 export default function ManageParticipantsScreen() {
-  const dispatch = useAppDispatch();
   const participants = useAppSelector(splitSelectors.selectParticipants);
   const remainingCount = useAppSelector(splitSelectors.selectRemainingCount);
   const items = useAppSelector(splitSelectors.selectItems);
@@ -30,7 +24,7 @@ export default function ManageParticipantsScreen() {
 
   const handleAddPerson = () => {
     if (name !== '') {
-      dispatch(splitActions.addParticipants({ people: [{ name }] }));
+      splitThunk.addPeople([{ name }]);
       setName('');
     }
   };
@@ -42,7 +36,7 @@ export default function ManageParticipantsScreen() {
 
   const removeParticipant = () => {
     if (removeId) {
-      dispatch(splitActions.removeParticipants({ ids: [removeId] }));
+      splitThunk.removeParticipants([removeId]);
       clearRemoveId();
     }
   };
