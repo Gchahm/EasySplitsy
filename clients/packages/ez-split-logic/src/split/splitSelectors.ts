@@ -16,3 +16,9 @@ export const selectRemainingCount = (state: RootState) =>
 
 export const selectItems = (state: RootState): IReceiptItem[] =>
     Object.values(state.split.items);
+
+export const selectIsUploadingReceipt = (state: RootState) =>
+    state.split.isUploadingReceipt;
+
+export const selectIsReceiptLoaded = (state: RootState) =>
+    state.split.isReceiptLoaded;

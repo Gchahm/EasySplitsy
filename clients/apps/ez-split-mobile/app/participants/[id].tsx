@@ -5,9 +5,15 @@ import { ParticipantSelector } from '@/components/ParticipantSelector';
 import { AppHeader } from '@/components';
 import * as React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import { splitThunk, splitSelectors, useAppSelector } from 'ez-split-logic';
+import {
+  splitSelectors,
+  useAppSelector,
+  useAppDispatch,
+  splitActions,
+} from 'ez-split-logic';
 
 export default function SplitReceiptScreen() {
+  const dispatch = useAppDispatch();
   const items = useAppSelector(splitSelectors.selectItems);
   const remainingCount = useAppSelector(splitSelectors.selectRemainingCount);
   const selectedParticipant = useAppSelector(
@@ -18,12 +24,34 @@ export default function SplitReceiptScreen() {
 
   React.useEffect(() => {
     if (!Array.isArray(id)) {
-      splitThunk.setSelectedParticipantId(id);
+      dispatch(
+        splitActions.setSelectedParticipantId({ selectedParticipantId: id }),
+      );
     }
-  }, [id]);
+  }, [id, dispatch]);
 
   const handleOnConfirmPress = () => {
     router.navigate('/(tabs)/manageParticipants');
+  };
+
+  const handleOnRemoveItem = (id: string) => {
+    dispatch(
+      splitActions.moveItemToBill({
+        itemId: id,
+        participantId: selectedParticipant!.id,
+        quantity: 1,
+      }),
+    );
+  };
+
+  const handleOnAddItem = (id: string) => {
+    dispatch(
+      splitActions.moveItemToParticipant({
+        itemId: id,
+        participantId: selectedParticipant!.id,
+        quantity: 1,
+      }),
+    );
   };
 
   const participantCardHeader: React.ReactNode = (
@@ -44,8 +72,8 @@ export default function SplitReceiptScreen() {
           receiptCount={remainingCount}
           total={selectedParticipant.total}
           participantCount={selectedParticipant.items}
-          onRemoveItem={splitThunk.moveItemToBill}
-          onAddItem={splitThunk.moveItemToParticipant}
+          onRemoveItem={handleOnRemoveItem}
+          onAddItem={handleOnAddItem}
         />
       )}
     </ThemedSafeAreaView>
