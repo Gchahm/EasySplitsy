@@ -3,13 +3,13 @@ import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
 import { router } from 'expo-router';
 import { uploadApiV1ReceiptsUploadPost } from 'ez-split-clients';
 import { IReceiptItem } from 'ez-split-interfaces';
-import { useSplit } from 'ez-split-logic';
 import { StyleSheet } from 'react-native';
 import * as React from 'react';
 import { Text } from '@rneui/base';
+import { splitActions, useAppDispatch } from 'ez-split-logic';
 
 export default function UploadScreen() {
-  const { setBill } = useSplit();
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState<string | undefined>();
 
@@ -40,14 +40,14 @@ export default function UploadScreen() {
         bodySerializer: () => formData,
         body: { file },
       });
-      const items: IReceiptItem[] =
+      const receipt: IReceiptItem[] =
         response.data?.items.map((item, id) => {
           return {
             id: id.toString(),
             ...item,
           };
         }) || [];
-      setBill(items);
+      dispatch(splitActions.setReceipt({ receipt }));
     } catch (error) {
       console.log(error);
       throw new Error('Failed to upload receipt');

@@ -5,18 +5,20 @@ import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
 import { AppHeader } from '@/components';
 import { Card, Text } from '@rneui/themed';
 import { router } from 'expo-router';
-import { useSplit } from 'ez-split-logic';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
+import {
+  splitActions,
+  splitSelectors,
+  useAppDispatch,
+  useAppSelector,
+} from 'ez-split-logic';
 
 export default function ManageParticipantsScreen() {
-  const {
-    selectedParticipant,
-    participants,
-    remainingCount,
-    items,
-    ...actions
-  } = useSplit();
+  const dispatch = useAppDispatch();
+  const participants = useAppSelector(splitSelectors.selectParticipants);
+  const remainingCount = useAppSelector(splitSelectors.selectRemainingCount);
+  const items = useAppSelector(splitSelectors.selectItems);
   const [name, setName] = React.useState('');
   const [removeId, setRemoveId] = React.useState<string | undefined>();
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -28,7 +30,7 @@ export default function ManageParticipantsScreen() {
 
   const handleAddPerson = () => {
     if (name !== '') {
-      actions.addPeople([{ name }]);
+      dispatch(splitActions.addParticipants({ people: [{ name }] }));
       setName('');
     }
   };
@@ -40,7 +42,7 @@ export default function ManageParticipantsScreen() {
 
   const removeParticipant = () => {
     if (removeId) {
-      actions.removeParticipants([removeId]);
+      dispatch(splitActions.removeParticipants({ ids: [removeId] }));
       clearRemoveId();
     }
   };
