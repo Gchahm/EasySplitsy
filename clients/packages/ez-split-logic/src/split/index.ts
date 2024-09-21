@@ -1,4 +1,2 @@
-import { splitSlice } from "./splitSlice";
-
 export * as splitSelectors from "./splitSelectors";
-export const splitActions = splitSlice.actions;
+export * as splitThunk from "./splitThunk";
