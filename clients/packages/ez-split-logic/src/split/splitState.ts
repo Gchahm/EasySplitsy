@@ -2,8 +2,7 @@ import { IReceiptItem, IParticipant } from "ez-split-interfaces";
 
 export type OriginalReceipt = Record<string, IReceiptItem>;
 
-export interface ISplitStore {
-  colors: [];
+export interface ISplitState {
   items: OriginalReceipt;
   remainingCount: Record<string, number>;
   participants: Record<string, IParticipant>;
@@ -11,15 +10,13 @@ export interface ISplitStore {
   selectedParticipantId?: string;
 }
 
-export const initialState: ISplitStore = {
-  colors: [],
+export const initialState: ISplitState = {
   remainingCount: {},
   items: {},
   participants: {},
 };
 
-export const devInitialState: ISplitStore = {
-  colors: [],
+export const devInitialState: ISplitState = {
   isReceiptLoaded: true,
   items: {
     "1": {

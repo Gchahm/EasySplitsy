@@ -1,2 +1,5 @@
-export * from "./splitProvider";
-export * from "./utils";
+export * from "./store";
+export * from "./hooks";
+export * from "./split";
+
+export { EzSplitLogicProvider } from "./EzSplitLogicProvider";
