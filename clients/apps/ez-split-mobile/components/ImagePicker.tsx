@@ -21,7 +21,6 @@ export default function ImagePicker(props: ImagePickerProps) {
     });
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      console.log(result.assets[0].uri);
     }
   };
 

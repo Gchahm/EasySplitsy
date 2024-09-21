@@ -1,21 +1,27 @@
 import { IParticipant, IReceiptItem } from "ez-split-interfaces";
 import { RootState } from "../store";
+import { createSelector } from "@reduxjs/toolkit";
 
-export const selectParticipants = (state: RootState): IParticipant[] =>
-    Object.values(state.split.participants);
+export const selectParticipants = createSelector(
+    (state: RootState) => state.split.participants,
+    (participants): IParticipant[] => Object.values(participants),
+);
 
-export const selectSelectedParticipant = (
-    state: RootState,
-): IParticipant | undefined =>
-    state.split.selectedParticipantId
-        ? state.split.participants[state.split.selectedParticipantId]
-        : undefined;
+export const selectSelectedParticipant = createSelector(
+    (state: RootState) => state.split,
+    (split): IParticipant | undefined =>
+        split.selectedParticipantId
+            ? split.participants[split.selectedParticipantId]
+            : undefined,
+);
 
 export const selectRemainingCount = (state: RootState) =>
     state.split.remainingCount;
 
-export const selectItems = (state: RootState): IReceiptItem[] =>
-    Object.values(state.split.items);
+export const selectItems = createSelector(
+    (state: RootState) => state.split.items,
+    (items): IReceiptItem[] => Object.values(items),
+);
 
 export const selectIsUploadingReceipt = (state: RootState) =>
     state.split.isUploadingReceipt;
