@@ -20,10 +20,11 @@ export default function SplitReceiptScreen() {
 
   React.useEffect(() => {
     console.log('id', id);
+    console.log('participants', participants);
     if (!Array.isArray(id)) {
       actions.setSelectedParticipantId(id);
     }
-  }, [id, actions]);
+  }, [id]);
 
   const handleOnConfirmPress = () => {
     router.navigate('/(tabs)/manageParticipants');
