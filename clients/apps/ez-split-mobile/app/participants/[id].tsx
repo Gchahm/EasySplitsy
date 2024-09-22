@@ -1,4 +1,3 @@
-import { useSplit } from 'ez-split-logic';
 import { SplitReceipt } from '@/components';
 import { StyleSheet } from 'react-native';
 import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
@@ -6,27 +5,53 @@ import { ParticipantSelector } from '@/components/ParticipantSelector';
 import { AppHeader } from '@/components';
 import * as React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
+import {
+  splitSelectors,
+  useAppSelector,
+  useAppDispatch,
+  splitActions,
+} from 'ez-split-logic';
 
 export default function SplitReceiptScreen() {
-  const {
-    remainingCount,
-    selectedParticipant,
-    items,
-    participants,
-    ...actions
-  } = useSplit();
+  const dispatch = useAppDispatch();
+  const items = useAppSelector(splitSelectors.selectItems);
+  const remainingCount = useAppSelector(splitSelectors.selectRemainingCount);
+  const selectedParticipant = useAppSelector(
+    splitSelectors.selectSelectedParticipant,
+  );
 
   const { id } = useLocalSearchParams();
 
   React.useEffect(() => {
-    console.log('id', id);
     if (!Array.isArray(id)) {
-      actions.setSelectedParticipantId(id);
+      dispatch(
+        splitActions.setSelectedParticipantId({ selectedParticipantId: id }),
+      );
     }
-  }, [id, actions]);
+  }, [id, dispatch]);
 
   const handleOnConfirmPress = () => {
     router.navigate('/(tabs)/manageParticipants');
+  };
+
+  const handleOnRemoveItem = (id: string) => {
+    dispatch(
+      splitActions.moveItemToBill({
+        itemId: id,
+        participantId: selectedParticipant!.id,
+        quantity: 1,
+      }),
+    );
+  };
+
+  const handleOnAddItem = (id: string) => {
+    dispatch(
+      splitActions.moveItemToParticipant({
+        itemId: id,
+        participantId: selectedParticipant!.id,
+        quantity: 1,
+      }),
+    );
   };
 
   const participantCardHeader: React.ReactNode = (
@@ -47,8 +72,8 @@ export default function SplitReceiptScreen() {
           receiptCount={remainingCount}
           total={selectedParticipant.total}
           participantCount={selectedParticipant.items}
-          onRemoveItem={actions.moveItemToBill}
-          onAddItem={actions.moveItemToParticipant}
+          onRemoveItem={handleOnRemoveItem}
+          onAddItem={handleOnAddItem}
         />
       )}
     </ThemedSafeAreaView>

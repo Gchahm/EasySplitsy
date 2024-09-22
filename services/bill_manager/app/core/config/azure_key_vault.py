@@ -3,9 +3,9 @@ from azure.keyvault.secrets import SecretClient
 
 from app.core.config.settings import Settings, SecretSettings 
 
-settings = Settings()
 
 def get_key_vault_secrets() -> SecretSettings:
+    settings = Settings()
     # Replace with your Key Vault URL
     key_vault_url = f"https://{settings.keyvault_name}.vault.azure.net/"
 

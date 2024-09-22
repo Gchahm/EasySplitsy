@@ -48,7 +48,7 @@ export const uploadApiV1ReceiptsUploadPost = <
     >({
         ...options,
         headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": null,
         },
         url: "/api/v1/receipts/upload/",
     });
