@@ -6,6 +6,9 @@ import 'react-native-reanimated';
 import { EzThemeProvider } from '@/theme/EzThemeProvider';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { EzSplitLogicProvider } from 'ez-split-logic';
+import { polyfillWebCrypto } from 'expo-standard-web-crypto';
+
+polyfillWebCrypto();
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
