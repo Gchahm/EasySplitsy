@@ -2,11 +2,12 @@ import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit";
 import { splitSlice } from "./split/splitSlice";
 import { persistCombineReducers } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
-import storage from "@react-native-async-storage/async-storage";
+import storage from "redux-persist/lib/storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const persistConfig = {
   key: "root",
-  storage: storage,
+  storage: typeof window === "undefined" ? AsyncStorage : storage,
 };
 
 const reducer = persistCombineReducers(persistConfig, {
