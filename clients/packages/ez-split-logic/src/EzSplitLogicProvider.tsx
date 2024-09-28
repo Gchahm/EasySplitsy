@@ -6,7 +6,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 type EzSplitLogicProviderProps = {
   children: React.ReactNode;
-  loading: React.ReactNode;
+  loading?: React.ReactNode;
 };
 
 export const EzSplitLogicProvider: React.FC<EzSplitLogicProviderProps> = ({
