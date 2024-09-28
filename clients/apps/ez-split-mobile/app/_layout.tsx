@@ -34,9 +34,7 @@ export default function RootLayout() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <Stack
             screenOptions={{
-              headerStyle: {
-                backgroundColor: '#f4511e',
-              },
+              headerStyle: {},
             }}
           >
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -44,6 +42,7 @@ export default function RootLayout() {
               name="participants/[id]"
               options={{ headerShown: false }}
             />
+            <Stack.Screen name="contacts" />
             <Stack.Screen name="+not-found" />
           </Stack>
         </GestureHandlerRootView>

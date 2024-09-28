@@ -1,20 +1,16 @@
 import ImagePicker from '@/components/ImagePicker';
-import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
-import { router } from 'expo-router';
 import { Platform, StyleSheet } from 'react-native';
 import * as React from 'react';
 import {
-  contactsSelectors,
   splitSelectors,
   splitThunk,
   useAppDispatch,
   useAppSelector,
 } from 'ez-split-logic';
-import { Button, Card, Text } from '@rneui/themed';
+import { Text } from '@rneui/themed';
 
 export default function UploadScreen() {
   const dispatch = useAppDispatch();
-  const contacts = useAppSelector(contactsSelectors.selectContacts);
   const isLoading = useAppSelector(splitSelectors.selectIsUploadingReceipt);
   const [errorMessage, setErrorMessage] = React.useState<string | undefined>();
 
@@ -57,28 +53,11 @@ export default function UploadScreen() {
       }),
     );
   };
-  //{errorMessage && <Text>{errorMessage}</Text>}
-  //<ImagePicker isLoading={!!isLoading} onSendClick={handleSendClick} />
 
   return (
-    <ThemedSafeAreaView style={styles.page}>
-      <Card>you dont have any receipts yet</Card>
-      <Button onPress={() => router.navigate('/contacts')}>new contact</Button>
-      <Card>
-        {contacts.length > 0 ? (
-          contacts.map((contact) => (
-            <Text key={contact.id}>{contact.name}</Text>
-          ))
-        ) : (
-          <Text>you dont have contacts yet</Text>
-        )}
-      </Card>
-    </ThemedSafeAreaView>
+    <>
+      {errorMessage && <Text>{errorMessage}</Text>}
+      <ImagePicker isLoading={!!isLoading} onSendClick={handleSendClick} />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-  },
-});
