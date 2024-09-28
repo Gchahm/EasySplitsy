@@ -4,6 +4,7 @@ import { persistCombineReducers } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { contactsSlice } from "./contacts/contactsSlice";
 
 const persistConfig = {
   key: "root",
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const reducer = persistCombineReducers(persistConfig, {
   split: splitSlice.reducer,
+  contacts: contactsSlice.reducer,
 });
 
 export const store = configureStore({
