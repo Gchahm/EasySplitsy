@@ -9,12 +9,14 @@
         "build": "rimraf ./lib && tsc"
     },
     "dependencies": {
+        "@react-native-async-storage/async-storage": "^2.0.0",
         "@reduxjs/toolkit": "^2.2.7",
-        "ez-split-interfaces": "*",
         "ez-split-clients": "*",
+        "ez-split-interfaces": "*",
         "import": "^0.0.6",
         "react-native-get-random-values": "^1.11.0",
         "react-redux": "^9.1.2",
+        "redux-persist": "^6.0.0",
         "uuid": "^10.0.0"
     },
     "peerDependencies": {
