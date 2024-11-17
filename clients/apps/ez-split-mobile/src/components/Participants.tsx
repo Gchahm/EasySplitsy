@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Icon, ListItem, useTheme } from '@rneui/themed';
 import { ScrollView } from './ScrollView';
 import { ListView } from './ListView';
-import { IParticipant } from 'ez-split-interfaces';
+import { IParticipant } from '@/models';
 import { ScreenHeight } from '@rneui/base';
 import ContactSvg from '@/constants/svgs/contact';
 

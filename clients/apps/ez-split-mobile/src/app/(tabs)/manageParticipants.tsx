@@ -7,12 +7,7 @@ import { Card, Text } from '@rneui/themed';
 import { router } from 'expo-router';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import {
-  splitSelectors,
-  useAppSelector,
-  splitActions,
-  useAppDispatch,
-} from 'ez-split-logic';
+import { splitActions, splitSelectors, useAppDispatch, useAppSelector } from '@/store';
 
 export default function ManageParticipantsScreen() {
   const dispatch = useAppDispatch();
@@ -25,7 +20,7 @@ export default function ManageParticipantsScreen() {
 
   const receiptRemaining = items.reduce(
     (sum, { id, price }) => sum + price * remainingCount[id] || 0,
-    0,
+    0
   );
 
   const handleAddPerson = () => {
@@ -96,5 +91,5 @@ export default function ManageParticipantsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1 }
 });

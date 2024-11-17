@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { EzThemeProvider } from '@/theme/EzThemeProvider';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { EzSplitLogicProvider } from 'ez-split-logic';
+import { EzSplitLogicProvider } from '@/store';
 import { polyfillWebCrypto } from 'expo-standard-web-crypto';
 
 polyfillWebCrypto();

@@ -1,5 +1,5 @@
 import { uploadApiV1ReceiptsUploadPost } from "ez-split-clients";
-import { IReceiptItem } from "ez-split-interfaces";
+import { IReceiptItem } from '@/models';
 
 export interface IUploadRequest {
     baseUrl: string;

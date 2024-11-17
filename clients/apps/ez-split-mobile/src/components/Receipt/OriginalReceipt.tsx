@@ -1,6 +1,6 @@
-import { IReceiptItem } from 'ez-split-interfaces';
 import { ReceiptContainer } from './ReceiptContainer';
 import { ReceiptItem } from './ReceiptItem';
+import { IReceiptItem } from '@/models';
 
 type OriginalReceiptProps = {
   total: number;

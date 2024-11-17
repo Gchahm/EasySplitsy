@@ -1,4 +1,4 @@
-import { IItem } from 'ez-split-interfaces';
+import { IItem } from '@/models';
 import * as React from 'react';
 import { SplitReceiptItem } from './SplitReceiptItem';
 import { ReceiptContainer } from './ReceiptContainer';

@@ -1,5 +1,5 @@
 import { initialState } from "./splitState";
-import { IParticipant } from "ez-split-interfaces";
+import { IParticipant } from "@/models";
 import { uuidv4 } from "../utils/generateGuid";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {

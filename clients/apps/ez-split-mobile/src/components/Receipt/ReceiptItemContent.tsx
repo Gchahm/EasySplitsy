@@ -1,5 +1,5 @@
 import { ListItem, Text } from '@rneui/themed';
-import { IReceiptItem } from 'ez-split-interfaces';
+import { IReceiptItem } from '@/models';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 

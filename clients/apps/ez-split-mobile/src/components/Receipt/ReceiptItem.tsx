@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReceiptItemContent } from './ReceiptItemContent';
-import { IReceiptItem } from 'ez-split-interfaces';
+import { IReceiptItem } from '@/models';
 import { ListItem } from '@rneui/themed';
 
 type ReceiptItemProps = IReceiptItem & {};

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Icon, ListItem, Text, useTheme } from '@rneui/themed';
-import { IReceiptItem } from 'ez-split-interfaces';
+import { IReceiptItem } from '@/models';
 import { StyleSheet } from 'react-native';
 import { ReceiptItemContent } from './ReceiptItemContent';
 

@@ -1,23 +1,17 @@
-import { SplitReceipt } from '@/components';
+import { AppHeader, SplitReceipt } from '@/components';
 import { StyleSheet } from 'react-native';
 import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
 import { ParticipantSelector } from '@/components/ParticipantSelector';
-import { AppHeader } from '@/components';
 import * as React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import {
-  splitSelectors,
-  useAppSelector,
-  useAppDispatch,
-  splitActions,
-} from 'ez-split-logic';
+import { splitActions, splitSelectors, useAppDispatch, useAppSelector } from '@/store';
 
 export default function SplitReceiptScreen() {
   const dispatch = useAppDispatch();
   const items = useAppSelector(splitSelectors.selectItems);
   const remainingCount = useAppSelector(splitSelectors.selectRemainingCount);
   const selectedParticipant = useAppSelector(
-    splitSelectors.selectSelectedParticipant,
+    splitSelectors.selectSelectedParticipant
   );
 
   const { id } = useLocalSearchParams();
@@ -25,7 +19,7 @@ export default function SplitReceiptScreen() {
   React.useEffect(() => {
     if (!Array.isArray(id)) {
       dispatch(
-        splitActions.setSelectedParticipantId({ selectedParticipantId: id }),
+        splitActions.setSelectedParticipantId({ selectedParticipantId: id })
       );
     }
   }, [id, dispatch]);
@@ -39,8 +33,8 @@ export default function SplitReceiptScreen() {
       splitActions.moveItemToBill({
         itemId: id,
         participantId: selectedParticipant!.id,
-        quantity: 1,
-      }),
+        quantity: 1
+      })
     );
   };
 
@@ -49,8 +43,8 @@ export default function SplitReceiptScreen() {
       splitActions.moveItemToParticipant({
         itemId: id,
         participantId: selectedParticipant!.id,
-        quantity: 1,
-      }),
+        quantity: 1
+      })
     );
   };
 
@@ -81,5 +75,5 @@ export default function SplitReceiptScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1 }
 });

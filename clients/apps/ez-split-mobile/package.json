@@ -35,8 +35,6 @@
     "expo-updates": "~0.25.24",
     "expo-web-browser": "~13.0.3",
     "ez-split-clients": "*",
-    "ez-split-interfaces": "*",
-    "ez-split-logic": "*",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",

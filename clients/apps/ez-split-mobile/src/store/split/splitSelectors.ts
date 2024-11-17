@@ -1,5 +1,5 @@
-import { IParticipant, IReceiptItem } from "ez-split-interfaces";
-import { RootState } from "../store";
+import { IParticipant, IReceiptItem } from "@/models";
+import { RootState } from '@/store';
 import { createSelector } from "@reduxjs/toolkit";
 
 export const selectParticipants = createSelector(

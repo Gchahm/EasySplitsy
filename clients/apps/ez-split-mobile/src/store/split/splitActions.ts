@@ -1,4 +1,4 @@
-import { IPerson, IReceiptItem } from "ez-split-interfaces";
+import { IPerson, IReceiptItem } from "@/models";
 
 export interface IMoveItemPayload {
   itemId: string;
