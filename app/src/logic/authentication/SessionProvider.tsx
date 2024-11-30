@@ -43,6 +43,7 @@ export function SessionProvider({ children }: PropsWithChildren) {
     const user = await authAPi.currentUser();
     setIsLoading(false);
     setCurrentUser(user);
+    console.log('user', user);
   };
 
   React.useEffect(() => {
@@ -55,11 +56,11 @@ export function SessionProvider({ children }: PropsWithChildren) {
         signIn: async () => {},
         signOut: async () => {
           await authAPi.signOut();
+          setCurrentUser(null);
         },
         signInWithGoogle: async (rememberMe: boolean) => {
           const result = await authAPi.signInWithGoogle(rememberMe);
-          if (result.token) {
-          }
+          setCurrentUser(result.user);
         },
         user: currentUser,
         isLoading,
