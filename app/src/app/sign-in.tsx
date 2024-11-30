@@ -1,11 +1,10 @@
 import { router } from 'expo-router';
 import { Text, View } from 'react-native';
-import { useSession } from '@/logic/authentication/SessionProvider';
+import { useAuth } from '@/logic/authentication';
 import React from 'react';
 
 export default function SignIn() {
-  const { signInWithGoogle } = useSession();
-  console.log('signIn pAge');
+  const { signInWithGoogle } = useAuth();
 
   const handleSignClick = async () => {
     // TODO: ask for remember me

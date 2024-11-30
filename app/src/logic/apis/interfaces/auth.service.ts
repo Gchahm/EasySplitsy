@@ -1,18 +1,12 @@
-import { User } from '@firebase/auth';
-
-export interface IUser extends User {}
+import { IUser } from '@/logic/apis/interfaces/auth.models';
 
 export interface ISignInWithGoogleResult {
   token: string | undefined;
   user: IUser;
 }
 
-export interface IAuthApi {
+export interface IAuthService {
   currentUser: () => Promise<IUser | null>;
   signInWithGoogle: (rememberMe: boolean) => Promise<ISignInWithGoogleResult>;
   signOut: () => Promise<void>;
-}
-
-export interface IApi {
-  auth: IAuthApi;
 }

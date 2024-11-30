@@ -1,10 +1,10 @@
 import { router } from 'expo-router';
 import { Text, View } from 'react-native';
-import { useSession } from '@/logic/authentication/SessionProvider';
+import { useAuth } from '@/logic/authentication';
 import React from 'react';
 
 export default function SignOut() {
-  const { user, signOut, isLoading } = useSession();
+  const { user, signOut, isLoading } = useAuth();
 
   const singOut = async () => {
     await signOut();

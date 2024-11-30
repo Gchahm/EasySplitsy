@@ -3,7 +3,7 @@ import React, {
   type PropsWithChildren,
   useContext,
 } from 'react';
-import { AuthApi, IAuthApi, IUser } from '@/logic/apis';
+import { FirebaseAuthService, IAuthService, IUser } from '@/logic/apis';
 
 interface IAuthContext {
   signIn: () => Promise<void>;
@@ -22,7 +22,7 @@ const AuthContext = createContext<IAuthContext>({
 });
 
 // This hook can be used to access the user info.
-export function useSession() {
+export function useAuth() {
   const value = useContext(AuthContext);
   if (process.env.NODE_ENV !== 'production') {
     if (!value) {
@@ -33,17 +33,19 @@ export function useSession() {
   return value;
 }
 
-export function SessionProvider({ children }: PropsWithChildren) {
+export function AuthProvider({ children }: PropsWithChildren) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState<IUser | null>(null);
 
-  const authAPi: IAuthApi = React.useMemo(() => new AuthApi(), []);
+  const authAPi: IAuthService = React.useMemo(
+    () => new FirebaseAuthService(),
+    [],
+  );
 
   const loadUser = async () => {
     const user = await authAPi.currentUser();
     setIsLoading(false);
     setCurrentUser(user);
-    console.log('user', user);
   };
 
   React.useEffect(() => {

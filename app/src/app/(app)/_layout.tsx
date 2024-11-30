@@ -1,11 +1,11 @@
 import { Text } from 'react-native';
 import { router, Stack } from 'expo-router';
-import { useSession } from '@/logic';
+import { useAuth } from '@/logic';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import React from 'react';
 
 export default function App() {
-  const { user, isLoading } = useSession();
+  const { user, isLoading } = useAuth();
 
   React.useEffect(() => {
     if (!user && !isLoading) {

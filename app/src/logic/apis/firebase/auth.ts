@@ -7,10 +7,7 @@ import {
   User,
 } from '@firebase/auth';
 import { firebaseApp } from '@/logic/apis/firebase/core';
-import {
-  IAuthApi,
-  ISignInWithGoogleResult,
-} from '@/logic/apis/firebase/auth.types';
+import { IAuthService, ISignInWithGoogleResult } from '@/logic/apis/interfaces';
 
 const auth = getAuth(firebaseApp);
 
@@ -19,7 +16,7 @@ googleAuthProvider.addScope(
   'https://www.googleapis.com/auth/contacts.readonly',
 );
 
-export class AuthApi implements IAuthApi {
+export class FirebaseAuthService implements IAuthService {
   private isReady = false;
 
   public async currentUser(): Promise<User | null> {

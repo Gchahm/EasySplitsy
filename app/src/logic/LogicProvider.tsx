@@ -1,14 +1,14 @@
 import React, { PropsWithChildren } from 'react';
-import { SessionProvider } from '@/logic/authentication';
+import { AuthProvider } from '@/logic/authentication';
 import { EzSplitLogicProvider } from '@/logic/store';
 import { ServicesProvider } from './services';
 
 export function LogicProvider({ children }: PropsWithChildren) {
   return (
     <ServicesProvider>
-      <SessionProvider>
+      <AuthProvider>
         <EzSplitLogicProvider>{children}</EzSplitLogicProvider>
-      </SessionProvider>
+      </AuthProvider>
     </ServicesProvider>
   );
 }

@@ -1,11 +1,5 @@
 import { ScrollViewStyleReset } from 'expo-router/html';
 import React, { type PropsWithChildren } from 'react';
-import {
-  EzSplitLogicProvider,
-  ServicesProvider,
-  SessionProvider,
-} from '@/logic';
-import { EzThemeProvider } from '@/theme/EzThemeProvider';
 
 /**
  * This file is web-only and used to configure the root HTML for every web page during static rendering.
