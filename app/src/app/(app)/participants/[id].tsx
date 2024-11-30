@@ -4,7 +4,7 @@ import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
 import { ParticipantSelector } from '@/components/ParticipantSelector';
 import * as React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
-import { splitActions, splitSelectors, useAppDispatch, useAppSelector } from '@/store';
+import { splitActions, splitSelectors, useAppDispatch, useAppSelector } from '@/logic/store';
 
 export default function SplitReceiptScreen() {
   const dispatch = useAppDispatch();

@@ -1,5 +1,5 @@
 import { IParticipant, IReceiptItem } from "@/models";
-import { RootState } from '@/store';
+import { RootState } from '@/logic/store';
 import { createSelector } from "@reduxjs/toolkit";
 
 export const selectParticipants = createSelector(

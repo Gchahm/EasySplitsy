@@ -1,6 +1,6 @@
 import { initialState } from "./splitState";
 import { IParticipant } from "@/models";
-import { uuidv4 } from "../utils/generateGuid";
+import { uuidv4 } from "@/logic/utils";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
     IAddParticipantsPayload,

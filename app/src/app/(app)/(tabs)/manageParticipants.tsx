@@ -7,7 +7,7 @@ import { Card, Text } from '@rneui/themed';
 import { router } from 'expo-router';
 import * as React from 'react';
 import { StyleSheet } from 'react-native';
-import { splitActions, splitSelectors, useAppDispatch, useAppSelector } from '@/store';
+import { splitActions, splitSelectors, useAppDispatch, useAppSelector } from '@/logic/store';
 
 export default function ManageParticipantsScreen() {
   const dispatch = useAppDispatch();

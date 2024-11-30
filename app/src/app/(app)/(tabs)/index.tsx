@@ -7,8 +7,9 @@ import {
   splitSelectors,
   splitThunk,
   useAppDispatch,
-  useAppSelector
-} from '@/store';
+  useAppSelector,
+} from '@/logic';
+import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
 
 export default function UploadScreen() {
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ export default function UploadScreen() {
   };
 
   const handleServerCall = async (uri: string) => {
-    const baseUrl: string = process.env.EXPO_PUBLIC_API_URL!;
+    const baseUrl: string = EnvironmentVariables.baseUrl;
     const blob = await fetchImageFromUri(uri);
     const fileName = uri.split('/').pop() || '';
     const fileType: string = blob.type;
@@ -38,10 +39,10 @@ export default function UploadScreen() {
       Platform.OS === 'web'
         ? new File([blob], fileName, { type: fileType })
         : ({
-          uri,
-          type: fileType,
-          name: fileName
-        } as unknown as File);
+            uri,
+            type: fileType,
+            name: fileName,
+          } as unknown as File);
     dispatch(
       splitThunk.uploadReceipt({
         baseUrl,
@@ -50,8 +51,8 @@ export default function UploadScreen() {
           const formData = new FormData();
           formData.append('file', file);
           return formData;
-        }
-      })
+        },
+      }),
     );
   };
 
@@ -67,6 +68,6 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     alignItems: 'center',
-    verticalAlign: 'middle'
-  }
+    verticalAlign: 'middle',
+  },
 });
