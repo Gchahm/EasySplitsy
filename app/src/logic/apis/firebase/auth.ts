@@ -31,7 +31,6 @@ export class FirebaseAuthService implements IAuthService {
   ): Promise<ISignInWithGoogleResult> {
     try {
       if (rememberMe) {
-        console.log('rememberMe', rememberMe);
         await auth.setPersistence(browserLocalPersistence);
       } else {
         await auth.setPersistence(browserSessionPersistence);
@@ -40,10 +39,8 @@ export class FirebaseAuthService implements IAuthService {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;
-      console.log('token', token);
       // The signed-in user info.
       const user = result.user;
-      console.log('user', user);
 
       return { token, user };
       // IdP data available using getAdditionalUserInfo(result)
