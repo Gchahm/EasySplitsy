@@ -1,6 +1,5 @@
 export const EnvironmentVariables = {
-    baseUrl: process.env.EXPO_PUBLIC_API_URL,
-    //TODO: MOVE TO SECRETS
-    fireBaseApiKey: process.env.FIREBASE_API_KEY,
-    isDevMode: process.env.NODE_ENV === "development"
-}
+  baseUrl: process.env.EXPO_PUBLIC_API_URL,
+  fireBaseApiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  isDevMode: process.env.NODE_ENV === 'development',
+};
