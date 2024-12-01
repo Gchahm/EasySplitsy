@@ -1,11 +1,11 @@
-import { IDatabaseService } from '@/logic/apis/interfaces';
+import { IDatabaseService } from '@/logic/apis/database';
 import React, {
   createContext,
   type PropsWithChildren,
   useContext,
 } from 'react';
 import { useAuth } from '@/logic/authentication';
-import { FirebaseDataBaseProvider } from '@/logic/apis/firebase/firestore';
+import { FirebaseDataBaseProvider } from '@/logic/apis/database';
 
 const DatabaseContext = createContext<IDatabaseService | null>(null);
 

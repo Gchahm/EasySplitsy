@@ -10,56 +10,37 @@ import {
   useAppSelector,
 } from '@/logic';
 import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
+import { useDatabase } from '@/logic/apis/DatabaseContextProvider';
+import { IContact, IReceipt } from '@/logic/apis';
 
-export default function UploadScreen() {
-  const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(splitSelectors.selectIsUploadingReceipt);
-  const [errorMessage, setErrorMessage] = React.useState<string | undefined>();
+export default function Home() {
+  const database = useDatabase();
 
-  const handleSendClick = async (uri: string) => {
-    try {
-      await handleServerCall(uri);
-    } catch (errror) {
-      setErrorMessage('Failed to upload receipt');
+  const [receipts, setReceipts] = React.useState<IReceipt[]>([]);
+  const [contacts, setContacts] = React.useState<IContact[]>([]);
+
+  React.useEffect(() => {
+    if (database) {
+      database.receipts.getAll().then((receipts) => {
+        setContacts(receipts);
+      });
+
+      database.contacts.getAll().then((contacts) => {
+        console.log(contacts);
+        setContacts(contacts);
+      });
     }
-  };
-
-  const fetchImageFromUri = async (uri: string) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    return blob;
-  };
-
-  const handleServerCall = async (uri: string) => {
-    const baseUrl: string = EnvironmentVariables.baseUrl;
-    const blob = await fetchImageFromUri(uri);
-    const fileName = uri.split('/').pop() || '';
-    const fileType: string = blob.type;
-    const file =
-      Platform.OS === 'web'
-        ? new File([blob], fileName, { type: fileType })
-        : ({
-            uri,
-            type: fileType,
-            name: fileName,
-          } as unknown as File);
-    dispatch(
-      splitThunk.uploadReceipt({
-        baseUrl,
-        file,
-        bodySerializer: () => {
-          const formData = new FormData();
-          formData.append('file', file);
-          return formData;
-        },
-      }),
-    );
-  };
+  }, [database]);
 
   return (
     <ThemedSafeAreaView style={styles.page}>
-      {errorMessage && <Text>{errorMessage}</Text>}
-      <ImagePicker isLoading={!!isLoading} onSendClick={handleSendClick} />
+      {receipts.map((receipt) => (
+        <Text key={receipt.id}>{receipt.toString()}</Text>
+      ))}
+
+      {contacts.map((contact) => (
+        <Text key={contact.id}>{contact.toString()}</Text>
+      ))}
     </ThemedSafeAreaView>
   );
 }
