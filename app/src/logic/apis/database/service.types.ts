@@ -1,14 +1,6 @@
-import {
-  IBaseModel,
-  IContact,
-  IReceipt,
-} from '@/logic/apis/database/models.types';
-import { BaseModel, Contact, Receipt } from '@/logic/apis/database/models';
+import { Contact, Receipt } from '@/logic/apis/database/models';
 
-export interface IRepository<
-  TDataModel extends IBaseModel,
-  TAppModel extends BaseModel<TDataModel>,
-> {
+export interface IRepository<TAppModel> {
   get: (id: string) => Promise<TAppModel | undefined>;
   getAll: () => Promise<TAppModel[]>;
   create: (model: TAppModel) => Promise<void>;
@@ -17,6 +9,6 @@ export interface IRepository<
 }
 
 export interface IDatabaseService {
-  contacts: IRepository<IContact, Contact>;
-  receipts: IRepository<IReceipt, Receipt>;
+  contacts: IRepository<Contact>;
+  receipts: IRepository<Receipt>;
 }

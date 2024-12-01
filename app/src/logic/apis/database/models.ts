@@ -5,31 +5,46 @@ import {
 } from '@/logic/apis/database/models.types';
 
 export abstract class BaseModel<T extends IBaseModel> {
-  protected constructor(private _dbModel: T) {}
+  private _id: string | undefined;
+
+  protected constructor(
+    private _dbModel: T,
+    id?: string,
+  ) {
+    this._id = id;
+  }
 
   public get model(): T {
     return this._dbModel;
+  }
+
+  get id(): string | undefined {
+    return this._id;
+  }
+
+  set id(value: string) {
+    this._id = value;
   }
 
   abstract toString(): string;
 }
 
 export class Contact extends BaseModel<IContact> {
-  constructor(model: IContact) {
-    super(model);
+  constructor(model: IContact, id?: string) {
+    super(model, id);
   }
 
   public toString(): string {
-    return `Contact: ${this.model.name}`;
+    return `${this.model.name}`;
   }
 }
 
 export class Receipt extends BaseModel<IReceipt> {
-  constructor(model: IReceipt) {
-    super(model);
+  constructor(model: IReceipt, id?: string) {
+    super(model, id);
   }
 
   public toString(): string {
-    return `Receipt: ${this.model.name}`;
+    return `${this.model.name}`;
   }
 }

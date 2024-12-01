@@ -20,18 +20,15 @@ import {
   IDatabaseService,
   IRepository,
 } from '@/logic/apis/database/service.types';
-import {
-  IBaseModel,
-  IContact,
-  IReceipt,
-} from '@/logic/apis/database/models.types';
+import { IBaseModel } from '@/logic/apis/database/models.types';
 
 export class FireBaseRepository<
   TDataModel extends IBaseModel,
   TAppModel extends BaseModel<TDataModel>,
-> implements IRepository<TDataModel, TAppModel>
+> implements IRepository<TAppModel>
 {
   private readonly _models: Record<string, TAppModel>;
+  private readonly _ids: string[] = [];
   private readonly isLoaded: boolean = false;
 
   constructor(
@@ -55,11 +52,12 @@ export class FireBaseRepository<
       const querySnapshot = await getDocs(q);
 
       querySnapshot.docs.forEach((doc) => {
+        this._ids.push(doc.id);
         this._models[doc.id] = doc.data();
       });
     }
 
-    return Object.values(this._models);
+    return this._ids.map((id) => this._models[id]);
   }
 
   public async create(model: TAppModel): Promise<void> {
@@ -83,8 +81,8 @@ export class FireBaseRepository<
 
 export class FirebaseDataBaseProvider implements IDatabaseService {
   private readonly _db: Firestore;
-  private readonly _contacts: IRepository<IContact, Contact>;
-  private readonly _receipts: IRepository<IReceipt, Receipt>;
+  private readonly _contacts: IRepository<Contact>;
+  private readonly _receipts: IRepository<Receipt>;
 
   constructor(userId: string) {
     this._db = getFirestore(firebaseApp);
@@ -123,7 +121,7 @@ function createFirestoreDataConverter<
       options: SnapshotOptions,
     ): TAppModel {
       const data = snapshot.data(options)!;
-      return new cls(data);
+      return new cls(data, snapshot.id);
     },
   };
 }
