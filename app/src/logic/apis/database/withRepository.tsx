@@ -22,11 +22,11 @@ export const withRepository = <TAppModel extends BaseModel<any>>(
     const [loading, setLoading] = React.useState<boolean>(true);
 
     React.useEffect(() => {
-      if (!database) {
+      if (!database.database) {
         return;
       }
 
-      const unsub = props.repository(database).subscribe((data) => {
+      const unsub = props.repository(database.database).subscribe((data) => {
         setData(data);
         setLoading(false);
       });

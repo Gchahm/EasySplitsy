@@ -1,22 +1,15 @@
-import { ModelCardType } from '@/components/ModelCard/ModelCard.type';
-import { BaseModel, Contact } from '@/logic/apis';
-import {
-  IRepositoryProps,
-  withRepository,
-} from '@/logic/apis/database/withRepository';
 import React from 'react';
 import { ModelCard } from '@/components/ModelCard/ModelCard';
+import { useDatabase } from '@/logic/apis/DatabaseContextProvider';
 
-const Card = (props: IRepositoryProps<BaseModel<any>>) => {
+export const ContactCard = () => {
+  const database = useDatabase();
   return (
     <ModelCard
-      {...props}
+      data={database.contacts}
+      loading={false}
       modelName={ContactCard.name}
       createPath={'/contacts/create'}
     />
   );
 };
-
-export const ContactCard = withRepository(Card, {
-  repository: (database) => database.contacts,
-});

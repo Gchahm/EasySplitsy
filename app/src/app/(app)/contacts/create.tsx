@@ -7,7 +7,7 @@ import { router } from 'expo-router';
 
 export default function CreateNewContact() {
   const [name, setName] = React.useState('');
-  const database = useDatabase();
+  const { database } = useDatabase();
 
   const onSubmit = async () => {
     if (database) {

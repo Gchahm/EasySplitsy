@@ -1,18 +1,16 @@
-import { ModelCardType } from '@/components/ModelCard/ModelCard.type';
-import { BaseModel, Receipt } from '@/logic/apis';
+import { Receipt } from '@/logic/apis';
 import { ModelCard } from '@/components/ModelCard/ModelCard';
-import {
-  IRepositoryProps,
-  withRepository,
-} from '@/logic/apis/database/withRepository';
 import React from 'react';
+import { useDatabase } from '@/logic/apis/DatabaseContextProvider';
 
-const Card = (props: IRepositoryProps<BaseModel<any>>) => {
+export const ReceiptCard = () => {
+  const database = useDatabase();
   return (
-    <ModelCard {...props} modelName={Receipt.name} createPath={'/(app)/old'} />
+    <ModelCard
+      data={database.receipts}
+      loading={false}
+      modelName={Receipt.name}
+      createPath={'/(app)/old'}
+    />
   );
 };
-
-export const ReceiptCard = withRepository(Card, {
-  repository: (database) => database.receipts,
-});
