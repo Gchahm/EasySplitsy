@@ -8,10 +8,12 @@ import {
   getDoc,
   getDocs,
   getFirestore,
+  onSnapshot,
   query,
   QueryDocumentSnapshot,
   setDoc,
   SnapshotOptions,
+  Unsubscribe,
 } from '@firebase/firestore';
 
 import { firebaseApp } from '@/logic/apis/firebase/core';
@@ -27,17 +29,17 @@ export class FireBaseRepository<
   TAppModel extends BaseModel<TDataModel>,
 > implements IRepository<TAppModel>
 {
-  private readonly _models: Record<string, TAppModel>;
-  private readonly _ids: string[] = [];
-  private readonly isLoaded: boolean = false;
-
   constructor(
     private readonly _collectionReference: CollectionReference<
       TAppModel,
       TDataModel
     >,
-  ) {
-    this._models = {};
+  ) {}
+
+  public subscribe(callback: (models: TAppModel[]) => void): Unsubscribe {
+    return onSnapshot(this._collectionReference, (doc) => {
+      callback(doc.docs.map((doc) => doc.data()));
+    });
   }
 
   public async get(id: string): Promise<TAppModel | undefined> {
@@ -47,35 +49,25 @@ export class FireBaseRepository<
   }
 
   public async getAll(): Promise<TAppModel[]> {
-    if (!this.isLoaded) {
-      const q = query(this._collectionReference);
-      const querySnapshot = await getDocs(q);
+    const q = query(this._collectionReference);
+    const querySnapshot = await getDocs(q);
 
-      querySnapshot.docs.forEach((doc) => {
-        this._ids.push(doc.id);
-        this._models[doc.id] = doc.data();
-      });
-    }
-
-    return this._ids.map((id) => this._models[id]);
+    return querySnapshot.docs.map((doc) => doc.data());
   }
 
   public async create(model: TAppModel): Promise<void> {
     const docRef = doc(this._collectionReference);
     await setDoc(docRef, model);
-    this._models[docRef.id] = model;
   }
 
   public async update(id: string, model: TAppModel): Promise<void> {
     const docRef = doc(this._collectionReference, id);
     await setDoc(docRef, model);
-    this._models[id] = model;
   }
 
   public async delete(id: string): Promise<void> {
     const docRef = doc(this._collectionReference, id);
     await deleteDoc(docRef);
-    delete this._models[id];
   }
 }
 

@@ -1,33 +1,40 @@
-import { IRepository } from '@/logic/apis';
+import { BaseModel, IDatabaseService, IRepository } from '@/logic/apis';
 import * as React from 'react';
+import { useDatabase } from '@/logic/apis/DatabaseContextProvider';
 
-export interface IRepositoryProps<TAppModel> {
+export interface IRepositoryProps<TAppModel extends BaseModel<any>> {
   data: TAppModel[];
   loading: boolean;
 }
 
 export interface IRepositorySelectorProps<TAppModel> {
-  repository: IRepository<TAppModel>;
+  repository: (database: IDatabaseService) => IRepository<TAppModel>;
 }
 
-export const withRepository = <TAppModel,>(
+export const withRepository = <TAppModel extends BaseModel<any>>(
   Component: React.ComponentType<IRepositoryProps<TAppModel>>,
+  props: IRepositorySelectorProps<TAppModel>,
 ) => {
-  return (props: IRepositorySelectorProps<TAppModel>) => {
-    const { repository } = props;
+  return () => {
+    const database = useDatabase();
 
     const [data, setData] = React.useState<TAppModel[]>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
 
-    const populateData = async () => {
-      const data = await repository.getAll();
-      setData(data);
-      setLoading(false);
-    };
-
     React.useEffect(() => {
-      void populateData();
-    }, []);
+      if (!database) {
+        return;
+      }
+
+      const unsub = props.repository(database).subscribe((data) => {
+        setData(data);
+        setLoading(false);
+      });
+
+      return () => {
+        unsub();
+      };
+    }, [database]);
 
     return <Component {...props} data={data} loading={loading} />;
   };
