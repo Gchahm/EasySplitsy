@@ -8,26 +8,21 @@ import { useAuth } from '@/logic/authentication';
 import { FirebaseDataBaseProvider } from '@/logic/apis/database';
 
 interface IDatabaseContext {
-  database: IDatabaseService | null;
+  database: IDatabaseService;
   contacts: Contact[];
   receipts: Receipt[];
 }
 
-const DatabaseContext = createContext<IDatabaseContext>({
-  database: null,
-  contacts: [],
-  receipts: [],
-});
+const DatabaseContext = createContext<IDatabaseContext | null>(null);
 
 // This hook can be used to access the user info.
-export function useDatabase() {
+export function useDatabase(): IDatabaseContext {
   const value = useContext(DatabaseContext);
-  if (process.env.NODE_ENV !== 'production') {
-    if (!value) {
-      throw new Error('useSession must be wrapped in a <SessionProvider />');
-    }
+  if (!value) {
+    throw new Error(
+      'useSession must be wrapped in a <DatabaseContextProvider />',
+    );
   }
-
   return value;
 }
 
@@ -59,11 +54,15 @@ export function DatabaseContextProvider({ children }: PropsWithChildren) {
 
   return (
     <DatabaseContext.Provider
-      value={{
-        database,
-        contacts,
-        receipts,
-      }}
+      value={
+        database
+          ? {
+              database,
+              contacts,
+              receipts,
+            }
+          : null
+      }
     >
       {children}
     </DatabaseContext.Provider>

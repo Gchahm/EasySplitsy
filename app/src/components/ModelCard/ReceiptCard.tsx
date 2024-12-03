@@ -10,7 +10,7 @@ export const ReceiptCard = () => {
       data={database.receipts}
       loading={false}
       modelName={Receipt.name}
-      createPath={'/(app)/old'}
+      createPath={'/receipts/create'}
     />
   );
 };

@@ -24,7 +24,7 @@ export const ModelCard = (props: ModelCardType<BaseModel<any>>) => {
         ) : data.length === 0 ? (
           <EmptyCardContent {...props} />
         ) : (
-          <CardContent data={data} />
+          <CardContent {...props} />
         )}
       </ListView>
     </>
