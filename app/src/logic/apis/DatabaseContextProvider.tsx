@@ -20,7 +20,7 @@ export function useDatabase(): IDatabaseContext {
   const value = useContext(DatabaseContext);
   if (!value) {
     throw new Error(
-      'useSession must be wrapped in a <DatabaseContextProvider />',
+      'useDatabase must be wrapped in a <DatabaseContextProvider />',
     );
   }
   return value;
