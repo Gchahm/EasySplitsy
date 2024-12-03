@@ -42,7 +42,6 @@ export function DatabaseContextProvider({ children }: PropsWithChildren) {
     if (!database) {
       return;
     }
-    console.log('DatabaseContextProvider', database);
     const unsubContacts = database.contacts.subscribe(setContacts);
     const unsubReceipts = database.receipts.subscribe(setReceipts);
 

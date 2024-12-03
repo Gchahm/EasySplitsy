@@ -1,9 +1,10 @@
 import React, {
   createContext,
   type PropsWithChildren,
-  useContext,
+  useContext
 } from 'react';
-import { FirebaseAuthService, IAuthService, IUser } from '@/logic/apis';
+import { IAuthService, IUser } from '@/logic/apis';
+import { FirebaseAuthService } from './auth.firebase';
 
 interface IAuthContext {
   signIn: () => Promise<void>;
@@ -16,9 +17,12 @@ interface IAuthContext {
 const AuthContext = createContext<IAuthContext>({
   user: null,
   isLoading: false,
-  signIn: async () => {},
-  signOut: async () => {},
-  signInWithGoogle: async () => {},
+  signIn: async () => {
+  },
+  signOut: async () => {
+  },
+  signInWithGoogle: async () => {
+  }
 });
 
 // This hook can be used to access the user info.
@@ -39,7 +43,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   const authAPi: IAuthService = React.useMemo(
     () => new FirebaseAuthService(),
-    [],
+    []
   );
 
   const loadUser = async () => {
@@ -55,7 +59,8 @@ export function AuthProvider({ children }: PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
-        signIn: async () => {},
+        signIn: async () => {
+        },
         signOut: async () => {
           await authAPi.signOut();
           setCurrentUser(null);
@@ -65,7 +70,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
           setCurrentUser(result.user);
         },
         user: currentUser,
-        isLoading,
+        isLoading
       }}
     >
       {children}

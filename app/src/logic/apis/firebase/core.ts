@@ -7,6 +7,8 @@ import firebase from 'firebase/compat';
 import { FirebaseOptions, initializeApp } from 'firebase/app';
 import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
 import { getAnalytics } from 'firebase/analytics';
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import authSetup from './authSetup';
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: EnvironmentVariables.fireBaseApiKey,
@@ -15,9 +17,10 @@ const firebaseConfig: FirebaseOptions = {
   storageBucket: 'ez-split-434212.firebasestorage.app',
   messagingSenderId: '398815670678',
   appId: '1:398815670678:web:009e2b5c1cd12f84156db7',
-  measurementId: 'G-TTMM6WGBNM',
+  measurementId: 'G-TTMM6WGBNM'
 };
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(firebaseApp);
+// export const analytics = getAnalytics(firebaseApp);
+authSetup(firebaseApp);

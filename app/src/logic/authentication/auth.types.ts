@@ -1,4 +1,4 @@
-import { IUser } from '@/logic/apis/interfaces/auth.models';
+import { IUser } from '@/logic/authentication/auth.models';
 
 export interface ISignInWithGoogleResult {
   token: string | undefined;

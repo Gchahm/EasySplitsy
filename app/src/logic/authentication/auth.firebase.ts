@@ -1,41 +1,47 @@
 import {
+  Auth,
   browserLocalPersistence,
   browserSessionPersistence,
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  User,
+  User
 } from '@firebase/auth';
 import { firebaseApp } from '@/logic/apis/firebase/core';
-import { IAuthService, ISignInWithGoogleResult } from '@/logic/apis/interfaces';
+import { IAuthService, ISignInWithGoogleResult } from 'auth.types';
 
-const auth = getAuth(firebaseApp);
 
 const googleAuthProvider = new GoogleAuthProvider();
 googleAuthProvider.addScope(
-  'https://www.googleapis.com/auth/contacts.readonly',
+  'https://www.googleapis.com/auth/contacts.readonly'
 );
 
 export class FirebaseAuthService implements IAuthService {
   private isReady = false;
+  private readonly _auth: Auth;
+
+  constructor() {
+
+    this._auth = getAuth(firebaseApp);
+  }
 
   public async currentUser(): Promise<User | null> {
     if (!this.isReady) {
-      await auth.authStateReady();
+      await this._auth.authStateReady();
     }
-    return auth.currentUser;
+    return this._auth.currentUser;
   }
 
   public async signInWithGoogle(
-    rememberMe: boolean,
+    rememberMe: boolean
   ): Promise<ISignInWithGoogleResult> {
     try {
       if (rememberMe) {
-        await auth.setPersistence(browserLocalPersistence);
+        await this._auth.setPersistence(browserLocalPersistence);
       } else {
-        await auth.setPersistence(browserSessionPersistence);
+        await this._auth.setPersistence(browserSessionPersistence);
       }
-      const result = await signInWithPopup(auth, googleAuthProvider);
+      const result = await signInWithPopup(this._auth, googleAuthProvider);
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential?.accessToken;
@@ -54,13 +60,13 @@ export class FirebaseAuthService implements IAuthService {
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
       throw new Error(
-        `Error: ${errorCode} ${errorMessage} ${email} ${credential}`,
+        `Error: ${errorCode} ${errorMessage} ${email} ${credential}`
       );
       // ...
     }
   }
 
   public signOut(): Promise<void> {
-    return auth.signOut();
+    return this._auth.signOut();
   }
 }
