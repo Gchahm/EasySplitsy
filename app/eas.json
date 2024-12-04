@@ -6,8 +6,7 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "node": "v20.17.0"
+      "distribution": "internal"
     },
     "preview": {
       "channel": "preview",
@@ -23,7 +22,7 @@
       },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://ez-split-webapp.azurewebsites.net",
-        "EXPO_PUBLIC_FIREBASE_API_KEY": ""
+        "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyDl5fkISAxwL6S-G3XRPO97PQ61Bv3zc1Q"
       }
     }
   },
