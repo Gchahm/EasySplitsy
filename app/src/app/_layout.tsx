@@ -6,6 +6,7 @@ import 'react-native-reanimated';
 import { EzThemeProvider } from '@/theme/EzThemeProvider';
 import { polyfillWebCrypto } from 'expo-standard-web-crypto';
 import { LogicProvider } from '@/logic';
+import initializeFirebase from '@/logic/apis/firebase';
 
 polyfillWebCrypto();
 
@@ -14,8 +15,12 @@ void SplashScreen.preventAutoHideAsync();
 
 export default function Root() {
   const [loaded] = useFonts({
-    SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require('../../assets/fonts/SpaceMono-Regular.ttf')
   });
+
+  useEffect(() => {
+    initializeFirebase();
+  }, []);
 
   useEffect(() => {
     if (loaded) {

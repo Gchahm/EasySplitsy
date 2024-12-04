@@ -13,15 +13,10 @@ import {
   QueryDocumentSnapshot,
   setDoc,
   SnapshotOptions,
-  Unsubscribe,
+  Unsubscribe
 } from '@firebase/firestore';
-
-import { firebaseApp } from '@/logic/apis/firebase/core';
 import { BaseModel, Contact, Receipt } from '@/logic/apis/database/models';
-import {
-  IDatabaseService,
-  IRepository,
-} from '@/logic/apis/database/service.types';
+import { IDatabaseService, IRepository } from '@/logic/apis/database/service.types';
 import { IBaseModel } from '@/logic/apis/database/models.types';
 
 export class FireBaseRepository<
@@ -77,7 +72,7 @@ export class FirebaseDataBaseProvider implements IDatabaseService {
   private readonly _receipts: IRepository<Receipt>;
 
   constructor(userId: string) {
-    this._db = getFirestore(firebaseApp);
+    this._db = getFirestore();
     const useDoc = doc(this._db, 'users', userId);
     this._contacts = new FireBaseRepository(
       collection(useDoc, 'contacts').withConverter(

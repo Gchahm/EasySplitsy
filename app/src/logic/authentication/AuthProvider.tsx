@@ -3,8 +3,8 @@ import React, {
   type PropsWithChildren,
   useContext
 } from 'react';
-import { IAuthService, IUser } from '@/logic/apis';
 import { FirebaseAuthService } from './auth.firebase';
+import { IAuthService, IUser } from '@/logic/authentication/auth.types';
 
 interface IAuthContext {
   signIn: () => Promise<void>;

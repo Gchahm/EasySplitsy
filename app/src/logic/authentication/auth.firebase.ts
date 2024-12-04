@@ -1,14 +1,5 @@
-import {
-  Auth,
-  browserLocalPersistence,
-  browserSessionPersistence,
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  User
-} from '@firebase/auth';
-import { firebaseApp } from '@/logic/apis/firebase/core';
-import { IAuthService, ISignInWithGoogleResult } from 'auth.types';
+import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, User } from '@firebase/auth';
+import { IAuthService, ISignInWithGoogleResult } from './auth.types';
 
 
 const googleAuthProvider = new GoogleAuthProvider();
@@ -21,8 +12,7 @@ export class FirebaseAuthService implements IAuthService {
   private readonly _auth: Auth;
 
   constructor() {
-
-    this._auth = getAuth(firebaseApp);
+    this._auth = getAuth();
   }
 
   public async currentUser(): Promise<User | null> {
@@ -36,11 +26,11 @@ export class FirebaseAuthService implements IAuthService {
     rememberMe: boolean
   ): Promise<ISignInWithGoogleResult> {
     try {
-      if (rememberMe) {
-        await this._auth.setPersistence(browserLocalPersistence);
-      } else {
-        await this._auth.setPersistence(browserSessionPersistence);
-      }
+      // if (rememberMe) {
+      //   await this._auth.setPersistence(browserLocalPersistence);
+      // } else {
+      //   await this._auth.setPersistence(browserSessionPersistence);
+      // }
       const result = await signInWithPopup(this._auth, googleAuthProvider);
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);

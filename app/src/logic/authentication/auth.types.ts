@@ -1,4 +1,4 @@
-import { IUser } from '@/logic/authentication/auth.models';
+import { User } from '@firebase/auth';
 
 export interface ISignInWithGoogleResult {
   token: string | undefined;
@@ -10,3 +10,5 @@ export interface IAuthService {
   signInWithGoogle: (rememberMe: boolean) => Promise<ISignInWithGoogleResult>;
   signOut: () => Promise<void>;
 }
+
+export interface IUser extends User {}
