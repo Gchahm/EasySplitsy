@@ -42,7 +42,9 @@
         {
           "photosPermission": "The app accesses your photos to let upload to the AI"
         }
-      ]
+      ],
+      "expo-font",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
