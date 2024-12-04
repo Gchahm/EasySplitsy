@@ -1,29 +1,19 @@
-import { Auth, getAuth, GoogleAuthProvider, User } from '@firebase/auth';
-import { IAuthService, ISignInWithGoogleResult } from './auth.types';
+import { IAuthService, ISignInWithGoogleResult, IUser } from './auth.types';
 import signInWithGoogle from './signInWithGoogle';
+import currentUser from './currentUser';
 
 
 export class FirebaseAuthService implements IAuthService {
-  private isReady = false;
-  private readonly _auth: Auth;
-  private _googleAuthProvider = new GoogleAuthProvider();
-
-  constructor() {
-    this._auth = getAuth();
-  }
-
-  public async currentUser(): Promise<User | null> {
-    if (!this.isReady) {
-      await this._auth.authStateReady();
-    }
-    return this._auth.currentUser;
+  public async currentUser(): Promise<IUser | null> {
+    return currentUser();
   }
 
   public async signInWithGoogle(): Promise<ISignInWithGoogleResult> {
-    return signInWithGoogle(this._googleAuthProvider);
+    return signInWithGoogle();
   }
 
   public signOut(): Promise<void> {
-    return this._auth.signOut();
+    throw new Error('Method not implemented.');
+    // return this._auth.signOut();
   }
 }

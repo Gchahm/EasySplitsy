@@ -1,6 +1,7 @@
 import { initializeFirestore } from '@firebase/firestore';
-import { FirebaseApp } from '@firebase/app';
+import { FirebaseApp, getApp } from '@firebase/app';
 
-export default function(firebaseApp: FirebaseApp) {
-  return initializeFirestore(firebaseApp, {});
+export default function() {
+  console.log('Hello from firestoreNativeSetup');
+  return initializeFirestore(getApp(), {});
 }

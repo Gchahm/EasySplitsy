@@ -14,9 +14,7 @@ export const ModelCard = (props: ModelCardType<BaseModel<any>>) => {
   return (
     <>
       {data.length && (
-        <Button onPress={() => router.navigate(props.createPath)}>
-          add new {props.modelName}
-        </Button>
+        <Button title={`add new ${props.modelName}`} onPress={() => router.navigate(props.createPath)} />
       )}
       <ListView>
         {loading ? (

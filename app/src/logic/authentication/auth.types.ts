@@ -1,7 +1,4 @@
-import { User } from '@firebase/auth';
-
 export interface ISignInWithGoogleResult {
-  token: string | undefined;
   user: IUser;
 }
 
@@ -11,4 +8,7 @@ export interface IAuthService {
   signOut: () => Promise<void>;
 }
 
-export interface IUser extends User {}
+export interface IUser {
+  uid: string;
+  email: string | null;
+}

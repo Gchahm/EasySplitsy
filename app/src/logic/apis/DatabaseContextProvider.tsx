@@ -1,11 +1,6 @@
-import { Contact, IDatabaseService, Receipt } from '@/logic/apis/database';
-import React, {
-  createContext,
-  type PropsWithChildren,
-  useContext,
-} from 'react';
+import { Contact, FirebaseDataBaseProvider, IDatabaseService, Receipt } from '@/logic/apis/database';
+import React, { createContext, type PropsWithChildren, useContext } from 'react';
 import { useAuth } from '@/logic/authentication';
-import { FirebaseDataBaseProvider } from '@/logic/apis/database';
 
 interface IDatabaseContext {
   database: IDatabaseService;
@@ -20,7 +15,7 @@ export function useDatabase(): IDatabaseContext {
   const value = useContext(DatabaseContext);
   if (!value) {
     throw new Error(
-      'useDatabase must be wrapped in a <DatabaseContextProvider />',
+      'useDatabase must be wrapped in a <DatabaseContextProvider />'
     );
   }
   return value;

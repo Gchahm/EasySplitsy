@@ -9,9 +9,9 @@ import { ISignInWithGoogleResult } from '@/logic/authentication/auth.types';
 
 
 export default async function signInWithGoogle(
-  googleAuthProvider: GoogleAuthProvider,
   rememberMe?: boolean
 ): Promise<ISignInWithGoogleResult> {
+  const googleAuthProvider = new GoogleAuthProvider();
   try {
     const auth = getAuth();
     if (rememberMe) {
@@ -20,14 +20,12 @@ export default async function signInWithGoogle(
       await auth.setPersistence(browserSessionPersistence);
     }
     console.log('signInWithGoogle base');
-    const result = await signInWithPopup(auth, googleAuthProvider);
-    // This gives you a Google Access Token. You can use it to access the Google API.
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential?.accessToken;
+    const { user } = await signInWithPopup(auth, googleAuthProvider);
+    // // This gives you a Google Access Token. You can use it to access the Google API.
+    // const credential = GoogleAuthProvider.credentialFromResult(result);
     // The signed-in user info.
-    const user = result.user;
+    return { user };
 
-    return { token, user };
     // IdP data available using getAdditionalUserInfo(result)
     // ...
   } catch (error: any) {

@@ -6,9 +6,7 @@ interface IServices {
   storage: IStorage;
 }
 
-const ServiceContext = createContext<IServices>({
-  storage: new StorageDev(),
-});
+const ServiceContext = createContext<IServices | null>(null);
 
 // This hook can be used to access the user info.
 export function useServices() {
@@ -26,7 +24,7 @@ export function ServicesProvider({ children }: PropsWithChildren) {
   return (
     <ServiceContext.Provider
       value={{
-        storage: new StorageDev(),
+        storage: new StorageDev()
       }}
     >
       {children}

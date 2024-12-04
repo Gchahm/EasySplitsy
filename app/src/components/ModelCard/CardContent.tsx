@@ -11,7 +11,7 @@ export type CardContentType<TAppModel extends BaseModel<any>> = {
 };
 
 export const CardContent = <TAppModel extends BaseModel<any>>(
-  props: CardContentType<TAppModel>,
+  props: CardContentType<TAppModel>
 ) => {
   const { data, selected, setSelected } = props;
 
@@ -33,7 +33,7 @@ export const CardContent = <TAppModel extends BaseModel<any>>(
         <ListItem key={key} onPress={() => onItemPress(model)}>
           <SelectionIcon {...props} item={model} />
           <ListItem.Content>
-            <ListItem.Title>{model.toString()}</ListItem.Title>
+            <ListItem.Title></ListItem.Title>
           </ListItem.Content>
         </ListItem>
       ))}
@@ -56,5 +56,5 @@ const SelectionIcon = (props: CardContentType<any> & { item: any }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1 }
 });

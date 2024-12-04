@@ -1,6 +1,7 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { ISignInWithGoogleResult } from '@/logic/authentication/auth.types';
-import { getAuth, GoogleAuthProvider, signInWithCredential } from '@firebase/auth';
+import auth from '@react-native-firebase/auth';
+
 import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
 
 GoogleSignin.configure({
@@ -8,45 +9,34 @@ GoogleSignin.configure({
 });
 
 export default async function signInWithGoogle(
-  googleAuthProvider: GoogleAuthProvider,
   rememberMe?: boolean
 ): Promise<ISignInWithGoogleResult> {
   try {
-    console.log(EnvironmentVariables.googleWebClientId);
-
-    const auth = getAuth();
-    console.log('signInWithGoogle mobile');
     // Check if your device supports Google Play
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     // Get the users ID token
-    const result = await GoogleSignin.signIn();
+    const signInResult = await GoogleSignin.signIn();
+    console.log('signInWithGoogle mobile signInResult', signInResult);
 
-    console.log('signInWithGoogle mobile signed in', result.data, result.type);
-    if (!result.data?.idToken) {
-      throw new Error('Google sign-in failed');
+    // Try the new style of google-sign in result, from v13+ of that module
+    const idToken = signInResult.data?.idToken;
+    // if (!idToken) {
+    //   // if you are using older versions of google-signin, try old style result
+    //   idToken = signInResult.idToken;
+    // }
+    if (!idToken) {
+      throw new Error('No ID token found');
     }
-    const { idToken } = result.data;
 
-    const credential = GoogleAuthProvider.credential(idToken);
-    const token = credential.accessToken;
-    console.log('signInWithGoogle mobile signing in');
-    const { user } = await signInWithCredential(auth, credential);
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    console.log('signInWithGoogle mobile success');
-    return { token, user };
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
   } catch (error: any) {
     console.log('signInWithGoogle mobile error', error, error.code, error.message);
-    // Handle Errors here.
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // The email of the user's account used.
-    const email = error.customData.email;
-    // The AuthCredential type that was used.
-    const credential = GoogleAuthProvider.credentialFromError(error);
     throw new Error(
-      `Error: ${errorCode} ${errorMessage} ${email} ${credential}`
+      `Error: ${error.code} ${error.message}`
     );
-
-    // ...
   }
 }
