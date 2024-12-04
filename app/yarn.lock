@@ -2030,6 +2030,11 @@
   dependencies:
     plist "^3.1.0"
 
+"@react-native-google-signin/google-signin@^13.1.0":
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-13.1.0.tgz#6482b89acf2ac88a6c68bc1304a265d5b7c3bb3a"
+  integrity sha512-C2/sqb0/s0c+Dwc/mykASZsRuHxGqn7SFrCxCY9D8p8IOQO05haInhCc7lzraJshRixGva5c/4usQZ71HMYSEQ==
+
 "@react-native/assets-registry@0.76.3":
   version "0.76.3"
   resolved "https://registry.yarnpkg.com/@react-native/assets-registry/-/assets-registry-0.76.3.tgz#c31e91b6f60fed7b0bfc1af617e3a61218d1ec08"

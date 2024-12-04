@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { Text, View } from 'react-native';
 import { useAuth } from '@/logic/authentication';
 import React from 'react';
+import { Button } from '@rneui/themed';
 
 export default function SignIn() {
   const { signInWithGoogle } = useAuth();
@@ -16,7 +17,7 @@ export default function SignIn() {
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text onPress={handleSignClick}>Sign In</Text>
+      <Button onPress={handleSignClick}>Sign In</Button>
     </View>
   );
 }
