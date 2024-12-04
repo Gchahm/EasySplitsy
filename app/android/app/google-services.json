@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "398815670678",
+    "project_id": "ez-split-434212",
+    "storage_bucket": "ez-split-434212.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398815670678:android:c9075b3481cc5b1b156db7",
+        "android_client_info": {
+          "package_name": "com.gustavoch.ezsplit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398815670678-oe467ve9isjotck7rqmdfd55265961pc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gustavoch.ezsplit",
+            "certificate_hash": "e837d1546f667e9e9b0015a9792d7ff8eb86cef2"
+          }
+        },
+        {
+          "client_id": "398815670678-5qkgjahiahouq9ch0bo8nd4v3olvqhk9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCia92KGCIlkqo4ITfqcVhUrQp1TFvRt0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398815670678-5qkgjahiahouq9ch0bo8nd4v3olvqhk9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
