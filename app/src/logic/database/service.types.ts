@@ -1,4 +1,4 @@
-import { Contact, Receipt } from '@/logic/apis/database/models';
+import { Contact, Receipt } from '@/logic/database/models';
 
 declare interface Unsubscribe {
   /** Removes the listener when invoked. */

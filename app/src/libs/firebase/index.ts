@@ -1,6 +1,6 @@
 import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
-import authSetup from './auth';
-import firestoreSetup from './firestore';
+import authSetup from '../../logic/authentication/firebase';
+import firestoreSetup from '../../logic/database/firebase';
 import firebase, { ReactNativeFirebase } from '@react-native-firebase/app';
 
 const firebaseConfig: ReactNativeFirebase.FirebaseAppOptions = {

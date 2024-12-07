@@ -1,7 +1,7 @@
-import { Receipt } from '@/logic/apis';
 import { ModelCard } from '@/components/ModelCard/ModelCard';
 import React from 'react';
-import { useDatabase } from '@/logic/apis/DatabaseContextProvider';
+import { useDatabase } from '@/logic/database/DatabaseContextProvider';
+import { Receipt } from '@/logic/database';
 
 export const ReceiptCard = () => {
   const database = useDatabase();

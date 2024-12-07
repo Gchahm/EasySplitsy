@@ -2,7 +2,7 @@ import {
   IBaseModel,
   IContact,
   IReceipt,
-} from '@/logic/apis/database/models.types';
+} from '@/logic/database/models.types';
 
 export abstract class BaseModel<T extends IBaseModel> {
   private _id: string | undefined;

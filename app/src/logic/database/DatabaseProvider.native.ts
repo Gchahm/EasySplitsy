@@ -1,6 +1,6 @@
-import { BaseModel, Contact, Receipt } from '@/logic/apis/database/models';
-import { IDatabaseService, IRepository } from '@/logic/apis/database/service.types';
-import { IBaseModel, IContact, IReceipt } from '@/logic/apis/database/models.types';
+import { BaseModel, Contact, Receipt } from '@/logic/database/models';
+import { IDatabaseService, IRepository } from '@/logic/database/service.types';
+import { IBaseModel, IContact, IReceipt } from '@/logic/database/models.types';
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 
 export class FireBaseRepository<

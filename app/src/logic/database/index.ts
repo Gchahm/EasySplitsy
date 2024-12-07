@@ -1,4 +1,4 @@
 export * from './service.types';
-export * from './services.firestore';
+export * from './DatabaseProvider';
 export * from './models';
 export * from './models.types';

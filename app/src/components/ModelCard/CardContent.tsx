@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, ListItem } from '@rneui/themed';
 import { ScrollView } from '@/components/ScrollView';
 import { StyleSheet } from 'react-native';
-import { BaseModel } from '@/logic/apis';
+import { BaseModel } from '@/logic/database';
 
 export type CardContentType<TAppModel extends BaseModel<any>> = {
   data: TAppModel[];
@@ -27,13 +27,15 @@ export const CardContent = <TAppModel extends BaseModel<any>>(
     }
   };
 
+  console.log('cardconnten', data.map(c => c.toString()));
+
   return (
     <ScrollView style={styles.container}>
       {data.map((model, key) => (
         <ListItem key={key} onPress={() => onItemPress(model)}>
-          <SelectionIcon {...props} item={model} />
+          {/*<SelectionIcon {...props} item={model} />*/}
           <ListItem.Content>
-            <ListItem.Title></ListItem.Title>
+            <ListItem.Title>{model.toString()}</ListItem.Title>
           </ListItem.Content>
         </ListItem>
       ))}

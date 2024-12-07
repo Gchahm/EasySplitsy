@@ -6,7 +6,7 @@ import 'react-native-reanimated';
 import { EzThemeProvider } from '@/theme/EzThemeProvider';
 import { polyfillWebCrypto } from 'expo-standard-web-crypto';
 import { LogicProvider } from '@/logic';
-import initializeFirebase from '@/logic/apis/firebase';
+import initializeFirebase from '../libs/firebase';
 
 polyfillWebCrypto();
 

@@ -1,4 +1,4 @@
-import { Contact, FirebaseDataBaseProvider, IDatabaseService, Receipt } from '@/logic/apis/database';
+import { Contact, FirebaseDataBaseProvider, IDatabaseService, Receipt } from './index';
 import React, { createContext, type PropsWithChildren, useContext } from 'react';
 import { useAuth } from '@/logic/authentication';
 

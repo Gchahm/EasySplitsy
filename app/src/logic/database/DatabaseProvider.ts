@@ -15,9 +15,9 @@ import {
   SnapshotOptions,
   Unsubscribe
 } from '@firebase/firestore';
-import { BaseModel, Contact, Receipt } from '@/logic/apis/database/models';
-import { IDatabaseService, IRepository } from '@/logic/apis/database/service.types';
-import { IBaseModel } from '@/logic/apis/database/models.types';
+import { BaseModel, Contact, Receipt } from '@/logic/database/models';
+import { IDatabaseService, IRepository } from '@/logic/database/service.types';
+import { IBaseModel } from '@/logic/database/models.types';
 
 export class FireBaseRepository<
   TDataModel extends IBaseModel,
