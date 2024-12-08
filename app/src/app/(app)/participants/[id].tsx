@@ -1,6 +1,5 @@
 import { AppHeader, SplitReceipt } from '@/components';
 import { StyleSheet } from 'react-native';
-import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
 import { ParticipantSelector } from '@/components/ParticipantSelector';
 import * as React from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -58,7 +57,7 @@ export default function SplitReceiptScreen() {
   );
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <>
       {participantCardHeader}
       {!!selectedParticipant && (
         <SplitReceipt
@@ -70,7 +69,7 @@ export default function SplitReceiptScreen() {
           onAddItem={handleOnAddItem}
         />
       )}
-    </ThemedSafeAreaView>
+    </>
   );
 }
 

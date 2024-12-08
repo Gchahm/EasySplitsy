@@ -5,7 +5,7 @@ import { ContactCard, ReceiptCard } from '@/components/ModelCard';
 
 export default function Home() {
   return (
-    <ThemedSafeAreaView style={styles.page}>
+    <ThemedSafeAreaView id="home" style={styles.page}>
       <ContactCard />
       <ReceiptCard />
     </ThemedSafeAreaView>
@@ -15,7 +15,5 @@ export default function Home() {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    alignItems: 'center',
-    verticalAlign: 'middle',
   },
 });

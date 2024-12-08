@@ -5,7 +5,7 @@ import { Href, Link } from 'expo-router';
 
 export type EmptyCardContentProps = {
   modelName: string;
-  createPath: Href<string>;
+  createPath: Href;
 };
 
 export const EmptyCardContent = (props: EmptyCardContentProps) => {

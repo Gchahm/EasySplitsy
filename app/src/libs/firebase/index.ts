@@ -1,7 +1,7 @@
 import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
-import authSetup from '../../logic/authentication/firebase';
-import firestoreSetup from '../../logic/database/firebase';
 import firebase, { ReactNativeFirebase } from '@react-native-firebase/app';
+import { initializeFirestore } from '@firebase/firestore';
+import { getApp } from '@firebase/app';
 
 const firebaseConfig: ReactNativeFirebase.FirebaseAppOptions = {
   apiKey: EnvironmentVariables.fireBaseApiKey,
@@ -16,11 +16,10 @@ const firebaseConfig: ReactNativeFirebase.FirebaseAppOptions = {
 
 let initialized = false;
 
-export default function initializeFirebase() {
+export default async function initializeFirebase() {
   if (initialized) {
     return;
   }
-  void firebase.initializeApp(firebaseConfig);
-  authSetup();
-  firestoreSetup();
+  await firebase.initializeApp(firebaseConfig);
+  initializeFirestore(getApp(), {});
 }

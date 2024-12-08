@@ -1,5 +1,4 @@
 import ImagePicker from '@/components/ImagePicker';
-import { ThemedSafeAreaView } from '@/components/ThemedSafeView';
 import { Platform, StyleSheet } from 'react-native';
 import * as React from 'react';
 import { Text } from '@rneui/base';
@@ -7,7 +6,7 @@ import {
   splitSelectors,
   splitThunk,
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from '@/logic';
 import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
 
@@ -39,10 +38,10 @@ export default function UploadScreen() {
       Platform.OS === 'web'
         ? new File([blob], fileName, { type: fileType })
         : ({
-            uri,
-            type: fileType,
-            name: fileName,
-          } as unknown as File);
+          uri,
+          type: fileType,
+          name: fileName
+        } as unknown as File);
     dispatch(
       splitThunk.uploadReceipt({
         baseUrl,
@@ -51,16 +50,16 @@ export default function UploadScreen() {
           const formData = new FormData();
           formData.append('file', file);
           return formData;
-        },
-      }),
+        }
+      })
     );
   };
 
   return (
-    <ThemedSafeAreaView style={styles.page}>
+    <>
       {errorMessage && <Text>{errorMessage}</Text>}
       <ImagePicker isLoading={!!isLoading} onSendClick={handleSendClick} />
-    </ThemedSafeAreaView>
+    </>
   );
 }
 
@@ -68,6 +67,6 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     alignItems: 'center',
-    verticalAlign: 'middle',
-  },
+    verticalAlign: 'middle'
+  }
 });
