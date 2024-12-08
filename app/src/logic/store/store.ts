@@ -1,9 +1,6 @@
-import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { splitSlice } from './split/splitSlice';
-import { persistCombineReducers } from 'redux-persist';
-import persistStore from 'redux-persist/es/persistStore';
-import storage from 'redux-persist/lib/storage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createReceiptSliceReducer } from '@/logic/store/createReceipt';
 
 // const persistConfig = {
 //   key: "root",
@@ -16,7 +13,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const store = configureStore({
   reducer: {
-    split: splitSlice.reducer
+    split: splitSlice.reducer,
+    createReceipt: createReceiptSliceReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

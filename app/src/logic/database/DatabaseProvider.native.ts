@@ -9,20 +9,20 @@ export class FireBaseRepository<
 > implements IRepository<TAppModel> {
   constructor(
     private readonly _collectionReference: FirebaseFirestoreTypes.CollectionReference<TDataModel>,
-    private readonly _toAppModel: (dataModel: TDataModel) => TAppModel
+    private readonly _toAppModel: (dataModel: TDataModel, id: string) => TAppModel
   ) {
   }
 
   public subscribe(callback: (models: TAppModel[]) => void): () => void {
     return this._collectionReference.onSnapshot((doc) => {
-      callback(doc.docs.map((doc) => this._toAppModel(doc.data())));
+      callback(doc.docs.map((doc) => this._toAppModel(doc.data(), doc.id)));
     });
   }
 
   public async get(id: string): Promise<TAppModel | undefined> {
     return this._collectionReference.doc(id).get().then((doc) => {
       if (doc.exists) {
-        return this._toAppModel(doc.data()!);
+        return this._toAppModel(doc.data()!, doc.id);
       } else {
         return undefined;
       }
@@ -31,7 +31,7 @@ export class FireBaseRepository<
 
   public async getAll(): Promise<TAppModel[]> {
     return this._collectionReference.get().then((querySnapshot) => {
-      return querySnapshot.docs.map((doc) => this._toAppModel(doc.data()));
+      return querySnapshot.docs.map((doc) => this._toAppModel(doc.data(), doc.id));
     });
   }
 
@@ -55,11 +55,11 @@ export class FirebaseDataBaseProvider implements IDatabaseService {
   constructor(userId: string) {
     this._contacts = new FireBaseRepository(
       firestore().collection<IContact>(`users/${userId}/contacts`),
-      (dataModel) => new Contact(dataModel)
+      (dataModel, id) => new Contact(dataModel, id)
     );
     this._receipts = new FireBaseRepository(
       firestore().collection<IReceipt>(`users/${userId}/receipts`),
-      (dataModel) => new Receipt(dataModel)
+      (dataModel, id) => new Receipt(dataModel, id)
     );
   }
 

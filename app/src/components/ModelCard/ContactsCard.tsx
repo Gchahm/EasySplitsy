@@ -5,7 +5,7 @@ import { Contact } from '@/logic/database';
 import { SelectionProps } from '@/components/ModelCard/CardContent';
 
 export type ContactCardProps = {
-  selectionProps?: SelectionProps<Contact>
+  selectionProps?: SelectionProps
 };
 
 export const ContactCard = (props: ContactCardProps) => {
