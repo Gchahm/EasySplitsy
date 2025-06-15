@@ -7,7 +7,7 @@ import {
   splitSelectors,
   splitThunk,
   useAppDispatch,
-  useAppSelector,
+  useAppSelector
 } from '@/logic';
 import { EnvironmentVariables } from '@/logic/utils/EnvironmentVariables';
 
@@ -24,35 +24,9 @@ export default function UploadScreen() {
     }
   };
 
-  const fetchImageFromUri = async (uri: string) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    return blob;
-  };
-
   const handleServerCall = async (uri: string) => {
-    const baseUrl: string = EnvironmentVariables.baseUrl;
-    const blob = await fetchImageFromUri(uri);
-    const fileName = uri.split('/').pop() || '';
-    const fileType: string = blob.type;
-    const file =
-      Platform.OS === 'web'
-        ? new File([blob], fileName, { type: fileType })
-        : ({
-            uri,
-            type: fileType,
-            name: fileName,
-          } as unknown as File);
     dispatch(
-      splitThunk.uploadReceipt({
-        baseUrl,
-        file,
-        bodySerializer: () => {
-          const formData = new FormData();
-          formData.append('file', file);
-          return formData;
-        },
-      }),
+      splitThunk.uploadReceipt(uri)
     );
   };
 
@@ -68,6 +42,6 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     alignItems: 'center',
-    verticalAlign: 'middle',
-  },
+    verticalAlign: 'middle'
+  }
 });

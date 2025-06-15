@@ -1,14 +1,16 @@
-import { splitSlice } from "./splitSlice";
-import { AppThunk } from "../store";
+import { splitSlice } from './splitSlice';
+import { AppThunk } from '../store';
+import { translateImage } from '@/logic/apis/firebase/functions';
 
 const actions = splitSlice.actions;
 
+
 export const uploadReceipt =
-    (request: unknown): AppThunk =>
+    (uri: string): AppThunk =>
         async (dispatch) => {
             try {
-                // dispatch(actions.setIsUploadingReceipt(true));
-                // const receipt = await new EzSplitApi().upload(request);
+                dispatch(actions.setIsUploadingReceipt(true));
+                const receipt = await translateImage(uri);
                 // dispatch(actions.setReceipt({ receipt }));
             } catch (error) {
                 // console.error(error);
