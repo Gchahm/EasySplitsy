@@ -1,4 +1,4 @@
-import * as functions from 'firebase-functions';
+import {onRequest} from 'firebase-functions/v2/https';
 import { askOpenAI } from './openAI';
 import OpenAI from 'openai';
 import cors from 'cors';
@@ -28,9 +28,17 @@ interface Receipt {
   merchant: string;
 }
 
-export const processReceiptImage = functions
-  .runWith({ secrets: ["OpenAI"] })
-  .https.onRequest(async (req, res) => {
+export const processReceiptImage = onRequest(
+    {
+      cors: [
+        'https://ez-split-434212.web.app'
+      ],
+      minInstances: 0,
+      maxInstances: 1,
+      timeoutSeconds: 15,
+      secrets: ["OpenAI"]
+    },
+    async (req, res) => {
     // Handle CORS
     return corsHandler(req, res, async () => {
       // We expect a POST request with a JSON body

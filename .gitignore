@@ -200,3 +200,15 @@ jspm_packages/
 !.vscode/launch.json
 
 lib/
+
+# Firebase
+.firebase/
+.firebaserc
+firebase-debug.log
+firebase-debug.*.log
+ui-debug.log
+
+# Build outputs
+app/dist/
+app/dist-ssr/
+app/public/
