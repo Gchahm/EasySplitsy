@@ -3,7 +3,9 @@ import { askOpenAI } from './openAI';
 import OpenAI from 'openai';
 import cors from 'cors';
 
-const corsHandler = cors({ origin: true });
+const corsHandler = cors({ 
+  origin: process.env.NODE_ENV === 'development' ? true : false 
+});
 
 // Define the shape of the expected request body
 interface ImageDataRequest {
@@ -26,7 +28,7 @@ interface Receipt {
   merchant: string;
 }
 
-export const processBase64Image = functions
+export const processReceiptImage = functions
   .runWith({ secrets: ["OpenAI"] })
   .https.onRequest(async (req, res) => {
     // Handle CORS

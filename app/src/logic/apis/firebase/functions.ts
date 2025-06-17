@@ -1,4 +1,5 @@
 import { ReceiptResponse } from '../../models/receipt';
+import { EnvironmentVariables } from '../../utils/EnvironmentVariables';
 
 interface ImageDataRequest {
   imageData: string;
@@ -7,7 +8,10 @@ interface ImageDataRequest {
 }
 
 export async function translateImage(uri: string): Promise<ReceiptResponse> {
-  const url = 'http://127.0.0.1:5001/ez-split-434212/us-central1/processBase64Image';
+  const baseUrl = EnvironmentVariables.isDevMode 
+    ? 'http://127.0.0.1:5001/ez-split-434212/us-central1'
+    : 'https://us-central1-ez-split-434212.cloudfunctions.net';
+  const url = `${baseUrl}/processReceiptImage`;
   
   // Remove the data URL prefix if it exists
   const base64Data = uri.includes('base64,') ? uri.split('base64,')[1] : uri;
