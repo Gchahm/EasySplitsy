@@ -8,10 +8,7 @@ interface ImageDataRequest {
 }
 
 export async function translateImage(uri: string): Promise<ReceiptResponse> {
-  const baseUrl = EnvironmentVariables.isDevMode 
-    ? 'http://127.0.0.1:5001/ez-split-434212/us-central1'
-    : 'https://processreceiptimage-augmqte6aa-uc.a.run.app';
-  const url = `${baseUrl}`;
+  const url: string = EnvironmentVariables.firebaseFunctionUrl!;
   
   // Remove the data URL prefix if it exists
   const base64Data = uri.includes('base64,') ? uri.split('base64,')[1] : uri;

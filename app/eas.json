@@ -7,12 +7,20 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "node": "v20.17.0"
+      "node": "v20.17.0",
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_FUNCTION_URL": "http://127.0.0.1:5001/ez-split-434212/us-central1/processReceiptImage",
+        "EXPO_PUBLIC_DEV_MODE": "true"
+      }
     },
     "preview": {
       "channel": "preview",
       "distribution": "internal",
-      "node": "v20.17.0"
+      "node": "v20.17.0",
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_FUNCTION_URL": "https://processreceiptimage-augmqte6aa-uc.a.run.app",
+        "EXPO_PUBLIC_DEV_MODE": "false"
+      }
     },
     "production": {
       "node": "v20.17.0",
@@ -23,7 +31,9 @@
       },
       "env": {
         "EXPO_PUBLIC_API_URL": "https://ez-split-webapp.azurewebsites.net",
-        "EXPO_PUBLIC_FIREBASE_API_KEY": ""
+        "EXPO_PUBLIC_FIREBASE_API_KEY": "",
+        "EXPO_PUBLIC_FIREBASE_FUNCTION_URL": "https://processreceiptimage-augmqte6aa-uc.a.run.app/",
+        "EXPO_PUBLIC_DEV_MODE": "false"
       }
     }
   },
