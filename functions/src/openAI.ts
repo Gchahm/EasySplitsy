@@ -8,7 +8,7 @@ export async function askOpenAI(openai: OpenAI, base64Image: string): Promise<st
     input: [{
         role: "user",
         content: [
-            { type: "input_text", text: "Parse this receipt image and return a JSON object with the following structure: { items: [{ name: string, price: number }], subtotal: number, tax: number, total: number, date: string, merchant: string }. Extract all items with their prices, calculate subtotal, tax, and total. Include the date and merchant name if visible. Return ONLY the JSON object, no other text." },
+            { type: "input_text", text: "Parse this receipt image and return a JSON object with the following structure: { items: [{ name: string, quantity: number, price: number }], subtotal: number, tax: number, total: number, date: string, merchant: string }. Extract all items with their prices, calculate subtotal, tax, and total. Include the date and merchant name if visible. Return ONLY the JSON object, no other text." },
             {
               type: "input_image",
               detail: "high",

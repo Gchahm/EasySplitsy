@@ -1,6 +1,7 @@
 export interface ReceiptItem {
   name: string;
   price: number;
+  quantity: number;
 }
 
 export interface Receipt {

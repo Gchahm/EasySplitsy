@@ -73,7 +73,6 @@ export const processBase64Image = functions
           const parsedReceipt = JSON.parse(jsonStr) as Receipt;
           
           res.status(200).json({ 
-            ok: true, 
             result: parsedReceipt 
           });
         } catch (parseError) {
